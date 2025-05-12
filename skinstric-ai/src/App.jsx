@@ -12,16 +12,18 @@ import "../src/Styles/Global.css";
 
 function App() {
   return (
-    <Router>
-      <>
-        <Header />
+    <div>
+      <Router>
         <>
-          <Routes>
-            <Route path="/intro" element={<Intro />} />
-          </Routes>
+          <Header />
+          <>
+            <Routes>
+              <Route path="/intro" element={<Intro />} />
+            </Routes>
+          </>
         </>
-      </>
-    </Router>
+      </Router>
+    </div>
   );
 }
 export default App;
