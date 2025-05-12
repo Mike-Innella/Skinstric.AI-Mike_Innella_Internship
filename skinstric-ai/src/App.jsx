@@ -13,22 +13,15 @@ import "../src/Styles/Global.css";
 function App() {
   return (
     <Router>
-      <div>
+      <>
         <Header />
-        <main style={styles.main}>
+        <>
           <Routes>
             <Route path="/intro" element={<Intro />} />
           </Routes>
-        </main>
-      </div>
+        </>
+      </>
     </Router>
   );
 }
-
-const styles = {
-  main: {
-    padding: "20px",
-  },
-};
-
 export default App;
