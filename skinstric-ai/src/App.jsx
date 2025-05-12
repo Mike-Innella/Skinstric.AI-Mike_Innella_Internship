@@ -1,18 +1,34 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
-// Example pages
-import FormPage from "./pages/FormPage";
-import DemographicsPage from "./pages/DemographicsPage";
+// Import components
+import Header from "./Components/Header";
+
+// Import pages
+import Intro from "./Pages/Intro";
+
+// Import styles
+import "../src/Styles/Global.css";
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route />
-      </Routes>
+      <div>
+        <Header />
+        <main style={styles.main}>
+          <Routes>
+            <Route path="/intro" element={<Intro />} />
+          </Routes>
+        </main>
+      </div>
     </Router>
   );
 }
+
+const styles = {
+  main: {
+    padding: "20px",
+  },
+};
 
 export default App;

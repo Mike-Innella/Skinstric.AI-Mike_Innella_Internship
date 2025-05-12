@@ -1,0 +1,35 @@
+.header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 23px 32px;
+  background-color: var(--color-bg-white);
+  width: 100%;
+}
+
+.header__title {
+  display: flex;
+  align-items: center;
+}
+
+.header__title--name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-black);
+  margin: 0;
+}
+
+.header__btn--code {
+  display: flex;
+  align-items: center;
+}
+
+.enter--code {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: none;
+  cursor: no-drop;
+  transition: all 400ms ease;
+}
