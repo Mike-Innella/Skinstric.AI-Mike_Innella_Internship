@@ -1,0 +1,42 @@
+/* ========== PAGE LAYOUT ========== */
+
+.page {
+  padding-top: 80px; /* Space for fixed header */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main container inside each page */
+.page-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+  flex-grow: 1;
+}
+
+/* ========== TYPOGRAPHY FOR PAGES ========== */
+
+.page-title {
+  font-size: 32px;
+  font-weight: var(--global-font-weight, 600);
+  letter-spacing: var(--global-letter-spacing, -0.02em);
+  line-height: var(--global-line-height, 16px);
+  color: var(--color-text-black);
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: var(--global-font-weight, 600);
+  letter-spacing: var(--global-letter-spacing, -0.02em);
+  line-height: var(--global-line-height, 16px);
+  color: var(--color-text-black);
+  margin-bottom: 16px;
+}
+
+/* ========== SPACING ========== */
+
+.page-section {
+  margin-bottom: 32px;
+}

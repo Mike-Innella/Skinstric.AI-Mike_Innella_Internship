@@ -5,25 +5,22 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Components/Header";
 
 // Import pages
-import Intro from "./Pages/Intro";
+import Intro from "../src/Pages/Intro";
 
 // Import styles
-import "../src/Styles/Global.css";
+import "../src/UI/Styles/Global.css";
 
 function App() {
   return (
-    <div>
-      <Router>
-        <>
-          <Header />
-          <>
-            <Routes>
-              <Route path="/intro" element={<Intro />} />
-            </Routes>
-          </>
-        </>
-      </Router>
-    </div>
+    <Router>
+      <Header />
+      <Intro />
+      <Routes>
+        <Route path="/" />
+        {/* TODO: Add more routes here for project phases */}
+      </Routes>
+    </Router>
   );
 }
+
 export default App;

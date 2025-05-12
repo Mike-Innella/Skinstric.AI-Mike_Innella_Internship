@@ -6,6 +6,7 @@
   padding: 23px 32px;
   background-color: var(--color-bg-white);
   width: 100%;
+  z-index: 10;
 }
 
 .header__title {

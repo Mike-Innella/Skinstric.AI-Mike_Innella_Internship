@@ -1,0 +1,86 @@
+.intro {
+  position: relative;
+  padding-top: 80px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-bg-white);
+  overflow: hidden;
+}
+
+.intro__container {
+  max-width: 960px;
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+  z-index: 1;
+  position: relative;
+}
+
+.intro__title {
+  font-size: 32px;
+  font-weight: var(--global-font-weight, 600);
+  line-height: var(--global-line-height, 16px);
+  letter-spacing: var(--global-letter-spacing, -0.02em);
+  color: var(--color-text-black);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.intro__section {
+  margin-bottom: 32px;
+}
+
+.intro__section--title {
+  font-size: 24px;
+  font-weight: var(--global-font-weight, 600);
+  line-height: var(--global-line-height, 16px);
+  letter-spacing: var(--global-letter-spacing, -0.02em);
+  color: var(--color-text-black);
+  margin-bottom: 16px;
+}
+
+.intro__section--text {
+  font-size: 16px;
+  font-weight: var(--global-font-weight, 600);
+  line-height: var(--global-line-height, 16px);
+  letter-spacing: var(--global-letter-spacing, -0.02em);
+  color: var(--color-text-black);
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+/* Button with arrow */
+.intro__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: var(--color-text-black);
+  color: var(--color-text-white);
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: var(--global-font-weight, 600);
+  line-height: var(--global-line-height, 16px);
+  letter-spacing: var(--global-letter-spacing, -0.02em);
+  transition: background-color 0.3s ease;
+  z-index: 2;
+  position: relative;
+}
+
+.intro__button:hover {
+  background-color: var(--color-bg-black);
+}
+
+.intro__button--icon {
+  width: 14px;
+  height: 14px;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+  filter: brightness(0) invert(1);
+}
+
+.intro__button:hover .intro__button--icon {
+  transform: translateX(3px);
+}
