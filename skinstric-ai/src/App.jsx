@@ -12,6 +12,7 @@ import {
 import Header from "./Components/Header";
 import Intro from "./Pages/Intro";
 import MainPage from "./Pages/Main";
+import PretestPage from "./Pages/Pretest";
 import FadeWrapper, { FadeProvider } from "./UI/Animations/FadeWrapper";
 import "./UI/Styles/Global.css";
 
@@ -34,6 +35,14 @@ const AnimatedRoutes = () => {
         element={
           <FadeWrapper>
             <MainPage />
+          </FadeWrapper>
+        }
+      />
+      <Route
+        path="/pretest"
+        element={
+          <FadeWrapper>
+            <PretestPage />
           </FadeWrapper>
         }
       />

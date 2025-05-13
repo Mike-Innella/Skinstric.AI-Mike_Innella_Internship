@@ -1,16 +1,17 @@
+import React from "react";
+import "../UI/Styles/Pages/Pages.css";
+import "../UI/Styles/Components/CornerText.css";
+
 function CornerText() {
   return (
-    <>
-      <div className="corner-text">
-        Skinstric developed an A.I. that creates
-        <br />
-        a highly-personalised routine tailored to
-        <br />
-        what your skin needs.
-      </div>
-    </>
+    <div className="corner-text">
+      SKINSTRIC DEVELOPED AN A. I. THAT CREATES
+      <br />
+      A HIGHLY-PERSONALIZED ROUTINE TAILORED TO
+      <br />
+      WHAT YOUR SKIN NEEDS.
+    </div>
   );
 }
 
-
-// TODO:create CSS for component, and set up resuable component
+export default CornerText;

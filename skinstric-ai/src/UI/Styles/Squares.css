@@ -22,7 +22,7 @@
 .square__page-next,
 .square__page-back {
   position: absolute;
-  top: 50%;
+  top: calc(50% - 20 vh);
   pointer-events: auto; /* Enable clicking */
   z-index: 10;
   cursor: pointer;
@@ -37,7 +37,7 @@
 
 /* Position the back button (left square) slightly to the right */
 .square__page-back {
-  left: 70%;
+  right: -35%;
 }
 
 /* Diamond-shaped borders */

@@ -3,15 +3,14 @@ import { Helmet } from "react-helmet-async";
 import "../UI/Styles/Pages/Pages.css";
 import PageBoxes from "../UI/Animations/PageBoxes";
 import CornerText from "../Components/CornerText";
-import "../UI/Styles/Pages/Pages.css";
 import "../UI/Styles/Pages/Main.css";
 
-function MainPage() {
+function PretestPage() {
   return (
     <>
       <Helmet>
-        <title>Main Page | Skinstric.AI</title>
-        {/* TODO: Add meta tags for main page */}
+        <title>Pretest | Skinstric.AI</title>
+        {/* TODO: Add meta tags for pretest page */}
       </Helmet>
 
       <PageBoxes
@@ -21,18 +20,9 @@ function MainPage() {
         showNextButton={true}
         showBackButton={true}
       />
-
-      <div className="main__page--container">
-        <h1 className="main__page--header">
-          Sophisticated
-          <br />
-          skincare
-        </h1>
-      </div>
-
       <CornerText />
     </>
   );
 }
 
-export default MainPage;
+export default PretestPage;

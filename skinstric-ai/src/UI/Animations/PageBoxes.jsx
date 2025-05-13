@@ -162,7 +162,7 @@ export default function PageBoxes({
   const { navigateWithFade } = useFade();
 
   // === Ordered list of your app routes
-  const pages = ["/", "/main", "/profile", "/results"];
+  const pages = ["/", "/main", "/pretest"];
   const currentIndex = pages.indexOf(location.pathname);
 
   const handleNext = () => {
