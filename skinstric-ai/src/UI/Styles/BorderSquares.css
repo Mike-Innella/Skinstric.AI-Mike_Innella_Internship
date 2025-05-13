@@ -1,9 +1,0 @@
-.dotted-square {
-  width: 200px;
-  height: 200px;
-  border: 1px dotted var(--color-text-secondary);
-  pointer-events: none;
-  z-index: 5;
-  background-color: transparent;
-  transform: rotate(45deg);
-}

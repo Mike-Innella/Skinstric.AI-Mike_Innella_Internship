@@ -1,21 +1,26 @@
 .intro {
   position: relative;
-  padding-top: 80px;
   min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center; /* Center content vertically */
   align-items: center;
   background-color: var(--color-bg-white);
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .intro__container {
   max-width: 960px;
   width: 100%;
-  padding: 20px;
+  padding: 40px;
   margin: 0 auto;
   z-index: 1;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
 }
 
 .intro__title {
@@ -30,6 +35,7 @@
 
 .intro__section {
   margin-bottom: 32px;
+  width: 100%; /* Ensure full width */
 }
 
 .intro__section--title {
@@ -39,6 +45,7 @@
   letter-spacing: var(--global-letter-spacing, -0.02em);
   color: var(--color-text-black);
   margin-bottom: 16px;
+  text-align: center; /* Center section titles */
 }
 
 .intro__section--text {
@@ -48,7 +55,10 @@
   letter-spacing: var(--global-letter-spacing, -0.02em);
   color: var(--color-text-black);
   margin-bottom: 16px;
-  text-align: left;
+  text-align: center; /* Center text content */
+  max-width: 600px; /* Limit width for better readability */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Button with arrow */

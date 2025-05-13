@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import "../UI/Styles/Pages/Pages.css";
 import "../UI/Styles/Pages/Intro.css";
 
-import BorderSquares from "../UI/Animations/BorderSquares.jsx";
+import PageBoxes from "../UI/Animations/PageBoxes.jsx";
 
 function Intro() {
   return (
@@ -17,9 +17,14 @@ function Intro() {
       </Helmet>
 
       <div className="intro">
-        {/* Animated 3D Dotted Borders */}
-        <BorderSquares />
-
+        {/* Animated 3D Dotted Borders - Only right square with next button */}
+        <PageBoxes
+          showLeft={false}
+          showRight={true}
+          showCenter={false}
+          showNextButton={true}
+          showBackButton={false}
+        />
         <div className="intro__container">
           <h1 className="intro__title">Welcome to Skinstric.AI</h1>
 

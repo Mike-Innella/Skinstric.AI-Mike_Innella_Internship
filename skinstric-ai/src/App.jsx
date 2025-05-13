@@ -1,24 +1,62 @@
+// App.jsx
+
 import React from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
-
-// Import components
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  // TODO: double check unused useNavigate
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Header from "./Components/Header";
+import Intro from "./Pages/Intro";
+import MainPage from "./Pages/Main";
+import FadeWrapper, { FadeProvider } from "./UI/Animations/FadeWrapper";
+import "./UI/Styles/Global.css";
 
-// Import pages
-import Intro from "../src/Pages/Intro";
+// This component wraps the routes and provides location for transitions
+const AnimatedRoutes = () => {
+  const location = useLocation();
 
-// Import styles
-import "../src/UI/Styles/Global.css";
+  return (
+    <Routes location={location} key={location.pathname}>
+      <Route
+        path="/"
+        element={
+          <FadeWrapper>
+            <Intro />
+          </FadeWrapper>
+        }
+      />
+      <Route
+        path="/main"
+        element={
+          <FadeWrapper>
+            <MainPage />
+          </FadeWrapper>
+        }
+      />
+    </Routes>
+  );
+};
+
+// Wrapper component that provides the FadeProvider
+const AppWithFadeProvider = () => {
+  return (
+    <>
+      <Header />
+      <FadeProvider>
+        <AnimatedRoutes />
+      </FadeProvider>
+    </>
+  );
+};
 
 function App() {
   return (
     <Router>
-      <Header />
-      <Intro />
-      <Routes>
-        <Route path="/" />
-        {/* TODO: Add more routes here for project phases */}
-      </Routes>
+      <AppWithFadeProvider />
     </Router>
   );
 }
