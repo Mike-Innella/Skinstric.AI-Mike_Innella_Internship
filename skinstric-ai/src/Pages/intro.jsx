@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import "../UI/Styles/Pages/Pages.css";
 import "../UI/Styles/Pages/Intro.css";
 
-import Borders from "../UI/Animations/Borders.jsx";
+import BorderSquares from "../UI/Animations/BorderSquares.jsx";
 
 function Intro() {
   return (
@@ -18,7 +18,7 @@ function Intro() {
 
       <div className="intro">
         {/* Animated 3D Dotted Borders */}
-        <Borders />
+        <BorderSquares />
 
         <div className="intro__container">
           <h1 className="intro__title">Welcome to Skinstric.AI</h1>
