@@ -10,10 +10,10 @@ import {
   useNavigate,
 } from "react-router-dom";
 import Header from "./Components/Header";
-import Discover from "./Pages/Discover";
-import MainPage from "./Pages/Main";
+import Discover from "./Pages/DiscoverPage";
+import MainPage from "./Pages/MainPage";
 import PretestPage from "./Pages/Pretest";
-import TestIntro from "./Pages/Intro";
+import TestIntro from "./Pages/IntroPage";
 import FadeWrapper, { FadeProvider } from "./UI/Animations/FadeWrapper";
 import "./UI/Styles/Global.css";
 

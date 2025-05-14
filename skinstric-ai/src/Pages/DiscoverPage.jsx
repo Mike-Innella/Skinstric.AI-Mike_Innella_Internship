@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import "../UI/Styles/Pages/Pages.css";
-import "../UI/Styles/Pages/Discover.css";
+import "../UI/Styles/Pages/DiscoverPage.css";
 
 import PageBoxes from "../UI/Animations/PageBoxes.jsx";
 

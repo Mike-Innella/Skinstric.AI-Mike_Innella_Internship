@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import "../UI/Styles/Pages/Pages.css";
 import PageBoxes from "../UI/Animations/PageBoxes";
 import "../UI/Styles/Pages/Pages.css";
-import "../UI/Styles/Pages/Intro.css";
+import "../UI/Styles/Pages/IntroPage.css";
 
 function TestIntro() {
   return (

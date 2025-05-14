@@ -56,15 +56,19 @@ const RotatingSquare = ({
 };
 
 // === Navigation Button (Back / Next) ===
-const NavigationButton = ({ position, buttonType = "next", onButtonClick }) => {
+const NavigationButton = ({
+  position,
+  buttonType = "next",
+  onButtonClick,
+  onHoverDirectionChange,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   const buttonRef = useRef();
   const location = useLocation();
 
   const labels = {
     "/discover": { next: "START", back: "", center: "" },
-    "/": { next: "CONTINUE", back: "DISCOVER A. I.", center: "" },
-    "/pretest": { next: "TAKE TEST", back: "BACK", center: "" },
+    "/": { next: "TAKE TEST", back: "DISCOVER A. I.", center: "" },
     "/intro": { next: "", back: "BACK", center: "TESTING" },
   };
 
@@ -102,8 +106,14 @@ const NavigationButton = ({ position, buttonType = "next", onButtonClick }) => {
           ref={buttonRef}
           className={`${buttonClass} ${pageClass}`}
           onClick={onButtonClick}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={() => {
+            setIsHovered(true);
+            onHoverDirectionChange?.(buttonType === "next" ? "left" : "center");
+          }}
+          onMouseLeave={() => {
+            setIsHovered(false);
+            onHoverDirectionChange?.("center");
+          }}
         >
           <div
             className={`square__hover-label ${
@@ -136,6 +146,7 @@ const PositionedSquares = ({
   showBackButton,
   onNext,
   onBack,
+  onHoverDirectionChange, // ✅ Added here
 }) => {
   const { viewport } = useThree();
   const location = useLocation();
@@ -185,6 +196,7 @@ const PositionedSquares = ({
           ]}
           buttonType="back"
           onButtonClick={onBack}
+          onHoverDirectionChange={onHoverDirectionChange}
         />
       )}
 
@@ -197,6 +209,7 @@ const PositionedSquares = ({
           ]}
           buttonType="next"
           onButtonClick={onNext}
+          onHoverDirectionChange={onHoverDirectionChange}
         />
       )}
     </>
@@ -210,6 +223,7 @@ export default function PageBoxes({
   showCenter = false,
   showNextButton = true,
   showBackButton = true,
+  onHoverDirectionChange,
 }) {
   const location = useLocation();
   const { navigateWithFade } = useFade();
@@ -251,6 +265,7 @@ export default function PageBoxes({
         showNextButton={showNextButton}
         onNext={handleNext}
         onBack={handleBack}
+        onHoverDirectionChange={onHoverDirectionChange} // ✅ Prop passed correctly
       />
     </Canvas>
   );
