@@ -42,9 +42,13 @@ const RotatingSquare = ({
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {isHovered && hoverLabel && (
-            <div className="square__hover-label">{hoverLabel}</div>
-          )}
+          <div
+            className={`square__hover-label ${
+              isHovered && hoverLabel ? "visible" : ""
+            }`}
+          >
+            {hoverLabel}
+          </div>
         </div>
       </Html>
     </group>
@@ -58,14 +62,14 @@ const NavigationButton = ({ position, buttonType = "next", onButtonClick }) => {
   const location = useLocation();
 
   const labels = {
-    "/": { next: "START", back: "", center: "WELCOME" },
-    "/main": { next: "CONTINUE", back: "BACK", center: "MAIN" },
-    "/pretest": { next: "TAKE TEST", back: "BACK", center: "PRETEST" },
-    "/testintro": { next: "", back: "BACK", center: "TESTING" },
+    "/discover": { next: "START", back: "", center: "" },
+    "/": { next: "CONTINUE", back: "DISCOVER A. I.", center: "" },
+    "/pretest": { next: "TAKE TEST", back: "BACK", center: "" },
+    "/intro": { next: "", back: "BACK", center: "TESTING" },
   };
 
   const page = labels[location.pathname] || {};
-  const pageClass = location.pathname.replace("/", ""); // e.g., "testintro"
+  const pageClass = location.pathname.replace("/", "");
   const hoverText = buttonType === "next" ? page.next : page.back;
 
   const buttonClass =
@@ -96,14 +100,19 @@ const NavigationButton = ({ position, buttonType = "next", onButtonClick }) => {
       >
         <div
           ref={buttonRef}
-          className={`${buttonClass} ${pageClass}`} // ✅ page-specific class
+          className={`${buttonClass} ${pageClass}`}
           onClick={onButtonClick}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {isHovered && hoverText && (
-            <div className="square__hover-label">{hoverText}</div>
-          )}
+          <div
+            className={`square__hover-label ${
+              isHovered && hoverText ? "visible" : ""
+            }`}
+          >
+            {hoverText}
+          </div>
+
           <div className={borderClass}></div>
           <div className={buttonElementClass}>
             {buttonType === "back" ? (
@@ -150,10 +159,10 @@ const PositionedSquares = ({
   }, [viewport.width]);
 
   const labels = {
+    "/discover": { center: "DISCOVER" },
     "/": { center: "WELCOME" },
-    "/main": { center: "MAIN" },
     "/pretest": { center: "PRETEST" },
-    "/testintro": { center: "TESTING" },
+    "/intro": { center: "TESTING" },
   };
 
   const page = labels[location.pathname] || {};
@@ -205,7 +214,7 @@ export default function PageBoxes({
   const location = useLocation();
   const { navigateWithFade } = useFade();
 
-  const pages = ["/", "/main", "/pretest", "/testintro"];
+  const pages = ["/discover", "/", "/pretest", "/intro"];
   const currentIndex = pages.indexOf(location.pathname);
 
   const handleNext = () => {

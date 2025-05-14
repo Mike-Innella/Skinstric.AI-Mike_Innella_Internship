@@ -22,7 +22,7 @@
 .square__page-next,
 .square__page-back {
   position: absolute;
-  top: calc(50% - 20 vh);
+  top: 50%;
   pointer-events: auto; /* Enable clicking */
   z-index: 10;
   cursor: pointer;
@@ -88,20 +88,37 @@
   color: var(--color-text-secondary, #666);
 }
 
-/* Labels */
+/* Common label styles */
 .square__hover-label {
   font-size: 14px !important;
   color: var(--color-text-primary);
   background: transparent;
   padding: 4px 8px;
   border-radius: 8px;
-  margin-bottom: 8px;
   position: absolute;
-  top: -28px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translateY(-50%);
   white-space: nowrap;
   pointer-events: none;
   z-index: 1;
-  transition: all 300ms ease;
+  transition: opacity 300ms ease;
+  opacity: 0;
+}
+
+.square__hover-label.visible {
+  opacity: 1;
+}
+
+/* For the left/back button: label appears to the right, inside the button */
+.square__page-back .square__hover-label {
+  left: 100%;
+  margin-left: 8px;
+}
+
+/* For the right/next button: label appears to the left, inside the button */
+.square__page-next .square__hover-label {
+  right: 100%;
+  margin-right: 8px;
+  left: auto;
+  text-align: right;
 }

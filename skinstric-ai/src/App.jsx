@@ -10,10 +10,10 @@ import {
   useNavigate,
 } from "react-router-dom";
 import Header from "./Components/Header";
-import Intro from "./Pages/Intro";
+import Discover from "./Pages/Discover";
 import MainPage from "./Pages/Main";
 import PretestPage from "./Pages/Pretest";
-import TestIntro from "./Pages/TestIntro";
+import TestIntro from "./Pages/Intro";
 import FadeWrapper, { FadeProvider } from "./UI/Animations/FadeWrapper";
 import "./UI/Styles/Global.css";
 
@@ -24,15 +24,15 @@ const AnimatedRoutes = () => {
   return (
     <Routes location={location} key={location.pathname}>
       <Route
-        path="/"
+        path="/discover"
         element={
           <FadeWrapper>
-            <Intro />
+            <Discover />
           </FadeWrapper>
         }
       />
       <Route
-        path="/main"
+        path="/"
         element={
           <FadeWrapper>
             <MainPage />
@@ -48,7 +48,7 @@ const AnimatedRoutes = () => {
         }
       />
       <Route
-        path="/testintro"
+        path="/intro"
         element={
           <FadeWrapper>
             <TestIntro />
