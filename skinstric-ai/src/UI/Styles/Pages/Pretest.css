@@ -1,0 +1,22 @@
+.pretest__page--container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: fixed;
+  top: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.pretest__page--header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 32px;
+  font-size: 128px;
+  font-weight: 300;
+  text-align: left;
+  letter-spacing: 7%;
+  line-height: 120px;
+}

@@ -4,11 +4,16 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import { RiArrowDropLeftFill, RiArrowDropRightFill } from "react-icons/ri";
 import { useFade } from "./FadeWrapper";
-import "../Styles/Squares.css";
+import "../Styles/PageBoxes.css";
 
 // === Rotating Dotted Square ===
-const RotatingSquare = ({ position = [0, 0, 0], reverse = false }) => {
+const RotatingSquare = ({
+  position = [0, 0, 0],
+  reverse = false,
+  hoverLabel = "",
+}) => {
   const ref = useRef();
+  const [isHovered, setIsHovered] = useState(false);
 
   useFrame(() => {
     if (ref.current) {
@@ -27,21 +32,41 @@ const RotatingSquare = ({ position = [0, 0, 0], reverse = false }) => {
           top: "calc(50% + var(--top-offset))",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          pointerEvents: "auto",
         }}
         prepend
         center
       >
-        <div className="square"></div>
+        <div
+          className="square"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {isHovered && hoverLabel && (
+            <div className="square__hover-label">{hoverLabel}</div>
+          )}
+        </div>
       </Html>
     </group>
   );
 };
 
-// === Navigation Button ===
-// TODO: Double check unused isHovered state
+// === Navigation Button (Back / Next) ===
 const NavigationButton = ({ position, buttonType = "next", onButtonClick }) => {
   const [isHovered, setIsHovered] = useState(false);
   const buttonRef = useRef();
+  const location = useLocation();
+
+  const labels = {
+    "/": { next: "START", back: "", center: "WELCOME" },
+    "/main": { next: "CONTINUE", back: "BACK", center: "MAIN" },
+    "/pretest": { next: "TAKE TEST", back: "BACK", center: "PRETEST" },
+    "/testintro": { next: "", back: "BACK", center: "TESTING" },
+  };
+
+  const page = labels[location.pathname] || {};
+  const pageClass = location.pathname.replace("/", ""); // e.g., "testintro"
+  const hoverText = buttonType === "next" ? page.next : page.back;
 
   const buttonClass =
     buttonType === "back" ? "square__page-back" : "square__page-next";
@@ -65,16 +90,20 @@ const NavigationButton = ({ position, buttonType = "next", onButtonClick }) => {
         style={{
           position: "absolute",
           pointerEvents: "auto",
+          textAlign: "center",
         }}
         prepend
       >
         <div
           ref={buttonRef}
-          className={buttonClass}
+          className={`${buttonClass} ${pageClass}`} // ✅ page-specific class
           onClick={onButtonClick}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
+          {isHovered && hoverText && (
+            <div className="square__hover-label">{hoverText}</div>
+          )}
           <div className={borderClass}></div>
           <div className={buttonElementClass}>
             {buttonType === "back" ? (
@@ -100,6 +129,8 @@ const PositionedSquares = ({
   onBack,
 }) => {
   const { viewport } = useThree();
+  const location = useLocation();
+
   const [positions, setPositions] = useState({
     left: [-7.29, 0, 0],
     right: [7.29, 0, 0],
@@ -118,13 +149,25 @@ const PositionedSquares = ({
     });
   }, [viewport.width]);
 
+  const labels = {
+    "/": { center: "WELCOME" },
+    "/main": { center: "MAIN" },
+    "/pretest": { center: "PRETEST" },
+    "/testintro": { center: "TESTING" },
+  };
+
+  const page = labels[location.pathname] || {};
+  const centerLabel = page.center || "";
+
   return (
     <>
       {showLeft && <RotatingSquare position={positions.left} />}
       {showRight && <RotatingSquare position={positions.right} reverse />}
-      {showCenter && <RotatingSquare position={positions.center} />}
+      {showCenter && (
+        <RotatingSquare position={positions.center} hoverLabel={centerLabel} />
+      )}
 
-      {showLeft && showBackButton && (
+      {showBackButton && (
         <NavigationButton
           position={[
             positions.left[0] + 1.5,
@@ -135,7 +178,8 @@ const PositionedSquares = ({
           onButtonClick={onBack}
         />
       )}
-      {showRight && showNextButton && (
+
+      {showNextButton && (
         <NavigationButton
           position={[
             positions.right[0] - 1.5,
@@ -161,8 +205,7 @@ export default function PageBoxes({
   const location = useLocation();
   const { navigateWithFade } = useFade();
 
-  // === Ordered list of your app routes
-  const pages = ["/", "/main", "/pretest"];
+  const pages = ["/", "/main", "/pretest", "/testintro"];
   const currentIndex = pages.indexOf(location.pathname);
 
   const handleNext = () => {
@@ -195,8 +238,8 @@ export default function PageBoxes({
         showLeft={showLeft}
         showRight={showRight}
         showCenter={showCenter}
-        showBackButton={currentIndex > 0}
-        showNextButton={currentIndex < pages.length - 1}
+        showBackButton={showBackButton}
+        showNextButton={showNextButton}
         onNext={handleNext}
         onBack={handleBack}
       />

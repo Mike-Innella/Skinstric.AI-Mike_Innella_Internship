@@ -87,3 +87,21 @@
   border-color: var(--color-bg-hover, #ccc);
   color: var(--color-text-secondary, #666);
 }
+
+/* Labels */
+.square__hover-label {
+  font-size: 14px !important;
+  color: var(--color-text-primary);
+  background: transparent;
+  padding: 4px 8px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+  transition: all 300ms ease;
+}

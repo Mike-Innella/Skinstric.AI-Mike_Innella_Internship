@@ -4,9 +4,9 @@ import "../UI/Styles/Pages/Pages.css";
 import PageBoxes from "../UI/Animations/PageBoxes";
 import CornerText from "../Components/CornerText";
 import "../UI/Styles/Pages/Pages.css";
-import "../UI/Styles/Pages/Pretest.css";
+import "../UI/Styles/Pages/TestIntro.css";
 
-function PretestPage() {
+function TestIntro() {
   return (
     <>
       <Helmet>
@@ -16,23 +16,19 @@ function PretestPage() {
 
       <PageBoxes
         showLeft={false}
-        showRight={true}
-        showCenter={false}
-        showNextButton={true}
-        showBackButton={false}
+        showRight={false}
+        showCenter={true}
+        showNextButton={false}
+        showBackButton={true}
       />
 
-      <div className="pretest__page--container">
-        <h1 className="pretest__page--header">
-          Sophisticated
-          <br />
-          skincare
-        </h1>
+      <div className="test__intro--container">
+        <h2 className="analysis-text">TO START ANALYSIS</h2>
+        <h1 className="test__intro--header">Introduce Yourself</h1>
       </div>
 
-      <CornerText />
     </>
   );
 }
 
-export default PretestPage;
+export default TestIntro;
