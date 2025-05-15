@@ -54,7 +54,22 @@ const PositionedSquares = ({
       )}
       {showRight && <RotatingSquare position={positions.right} reverse />}
       {showCenter && (
-        <RotatingSquare position={positions.center} hoverLabel={centerLabel} />
+        <>
+          {/* Larger square with half opacity behind */}
+          <RotatingSquare 
+            position={positions.center} 
+            scale={1.2} 
+            opacity={0.5} 
+            zIndex={4}
+            reverse={true}
+          />
+          {/* Original square on top */}
+          <RotatingSquare 
+            position={positions.center} 
+            hoverLabel={centerLabel} 
+            zIndex={5}
+          />
+        </>
       )}
       {showBackButton && (
         <NavigationButton

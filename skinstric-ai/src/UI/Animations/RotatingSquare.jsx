@@ -8,6 +8,9 @@ const RotatingSquare = ({
   reverse = false,
   hoverLabel = "",
   fadeOut = false,
+  scale = 1,
+  opacity = 1,
+  zIndex = 5,
 }) => {
   const ref = useRef();
   const [isHovered, setIsHovered] = useState(false);
@@ -28,10 +31,11 @@ const RotatingSquare = ({
           position: "absolute",
           top: "calc(50% + var(--top-offset))",
           left: "50%",
-          transform: "translate(-50%, -50%)",
-          opacity: fadeOut ? 0 : 1,
+          transform: `translate(-50%, -50%) scale(${scale})`,
+          opacity: fadeOut ? 0 : opacity,
           pointerEvents: fadeOut ? "none" : "auto",
           transition: "opacity 600ms ease",
+          zIndex: zIndex,
         }}
         prepend
         center

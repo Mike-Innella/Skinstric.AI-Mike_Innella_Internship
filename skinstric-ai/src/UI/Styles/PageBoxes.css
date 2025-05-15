@@ -16,6 +16,7 @@
   box-sizing: border-box;
   position: relative;
   transition: all 300ms ease;
+  box-shadow: inset 0 0 128px 36px rgba(229, 229, 229, 0.822);
 }
 
 /* Page navigation elements - common styles */

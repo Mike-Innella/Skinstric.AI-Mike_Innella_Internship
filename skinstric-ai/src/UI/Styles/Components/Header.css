@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 23px 32px;
-  background-color: var(--color-bg-white);
+  background-color: transparent;
   width: 100%;
   z-index: 10;
 }
