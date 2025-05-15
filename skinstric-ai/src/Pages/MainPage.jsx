@@ -4,7 +4,6 @@ import PageBoxes from "../UI/Animations/PageBoxes";
 import CornerText from "../Components/CornerText";
 import FloatingHeader from "../UI/Animations/FloatingHeader";
 import { Canvas } from "@react-three/fiber";
-import { Html } from "@react-three/drei";
 
 function MainPage() {
   const [hoverState, setHoverState] = useState("center");

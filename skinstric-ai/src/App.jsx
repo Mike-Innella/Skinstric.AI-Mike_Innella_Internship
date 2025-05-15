@@ -5,15 +5,12 @@ import {
   HashRouter as Router,
   Routes,
   Route,
-  // TODO: double check unused useNavigate
   useLocation,
-  useNavigate,
 } from "react-router-dom";
 import Header from "./Components/Header";
 import Discover from "./Pages/DiscoverPage";
 import MainPage from "./Pages/MainPage";
-import PretestPage from "./Pages/Pretest";
-import TestIntro from "./Pages/IntroPage";
+import TestPage from "./Pages/TestPage";
 import FadeWrapper, { FadeProvider } from "./UI/Animations/FadeWrapper";
 import "./UI/Styles/Global.css";
 
@@ -40,18 +37,10 @@ const AnimatedRoutes = () => {
         }
       />
       <Route
-        path="/pretest"
+        path="/test"
         element={
           <FadeWrapper>
-            <PretestPage />
-          </FadeWrapper>
-        }
-      />
-      <Route
-        path="/intro"
-        element={
-          <FadeWrapper>
-            <TestIntro />
+            <TestPage />
           </FadeWrapper>
         }
       />

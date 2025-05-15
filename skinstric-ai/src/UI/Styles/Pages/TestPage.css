@@ -32,6 +32,10 @@
   letter-spacing: -2%;
 }
 
-.square__page-back.intro {
+.square__page-back.test {
+  top: 128px;
+}
+
+.square__page-next.test {
   top: 128px;
 }

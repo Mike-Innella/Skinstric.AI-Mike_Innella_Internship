@@ -1,0 +1,137 @@
+/* === Outer Container === */
+.test-form__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* === Form Box === */
+.test-form {
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 24px;
+  position: relative;
+  z-index: 100;
+  background-color: transparent;
+}
+
+.test-form-label {
+  color: var(--color-text-secondary);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+
+/* === Step Wrapper (holds absolute steps) === */
+.test-form__steps-wrapper {
+  position: relative; /* ✅ Needed to keep steps from drifting */
+  min-height: 180px; /* Prevent collapse and layout jump */
+  width: 100%;
+}
+
+/* === Step Panels === */
+.test-form__step {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease-in-out;
+  will-change: opacity;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background-color: transparent;
+}
+
+.test-form__step--visible {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.test-form__step--fading {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* === Input Field === */
+.test-form__input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: 1px solid var(--color-text-black);
+  outline: none;
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 64px;
+  letter-spacing: -7%;
+  text-align: center;
+  color: var(--color-text-black);
+  background-color: transparent;
+  border-radius: 0;
+}
+
+/* === Button Styles === */
+.test-form__button {
+  padding: 10px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 8px auto;
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-bg-hover);
+  transition: background-color 200ms ease;
+}
+
+.test-form__button--secondary {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-bg-hover);
+}
+
+.test-form__button:hover:enabled {
+  background-color: var(--color-bg-hover);
+  color: var(--color-text-white);
+}
+
+
+/* === Button Row for Submit/Back === */
+.test-form__button-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  min-height: 56px;
+  width: 72px;
+}
+
+/* === Upload === */
+.test-form__upload-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.test-form__upload-input {
+  padding: 6px;
+}
+
+/* === Feedback Message === */
+.test-form__message {
+  margin-top: 20px;
+  color: #2ecc71;
+  font-weight: 500;
+}

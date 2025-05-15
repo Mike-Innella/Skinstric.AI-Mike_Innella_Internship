@@ -65,6 +65,7 @@ const NavigationButton = ({
   onButtonClick,
   onHoverDirectionChange,
   fadeOut = false,
+  customLabel,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const buttonRef = useRef();
@@ -73,12 +74,13 @@ const NavigationButton = ({
   const labels = {
     "/discover": { next: "START", back: "", center: "" },
     "/": { next: "TAKE TEST", back: "DISCOVER A. I.", center: "" },
-    "/intro": { next: "", back: "BACK", center: "TESTING" },
+    "/test": { next: "", back: "BACK", center: "TESTING" },
   };
 
   const page = labels[location.pathname] || {};
   const pageClass = location.pathname.replace("/", "");
-  const hoverText = buttonType === "next" ? page.next : page.back;
+  // Use custom label if provided, otherwise use default from labels
+  const hoverText = customLabel || (buttonType === "next" ? page.next : page.back);
 
   const buttonClass =
     buttonType === "back" ? "square__page-back" : "square__page-next";
@@ -154,6 +156,9 @@ const PositionedSquares = ({
   onBack,
   onHoverDirectionChange,
   hoverState,
+  nextButtonFadeOut,
+  nextButtonLabel,
+  backButtonLabel,
 }) => {
   const { viewport } = useThree();
   const location = useLocation();
@@ -179,7 +184,7 @@ const PositionedSquares = ({
   const labels = {
     "/discover": { center: "DISCOVER" },
     "/": { center: "WELCOME" },
-    "/intro": { center: "TESTING" },
+    "/test": { center: "TESTING" },
   };
 
   const page = labels[location.pathname] || {};
@@ -215,6 +220,7 @@ const PositionedSquares = ({
           onButtonClick={onBack}
           onHoverDirectionChange={onHoverDirectionChange}
           fadeOut={hoverState === "left" && location.pathname === "/"}
+          customLabel={backButtonLabel}
         />
       )}
 
@@ -228,6 +234,8 @@ const PositionedSquares = ({
           buttonType="next"
           onButtonClick={onNext}
           onHoverDirectionChange={onHoverDirectionChange}
+          fadeOut={nextButtonFadeOut}
+          customLabel={nextButtonLabel}
         />
       )}
     </>
@@ -243,20 +251,37 @@ export default function PageBoxes({
   showBackButton = true,
   onHoverDirectionChange,
   hoverState,
+  onNext,
+  onBack,
+  nextButtonFadeOut = false,
+  nextButtonLabel,
+  backButtonLabel,
 }) {
   const location = useLocation();
   const { navigateWithFade } = useFade();
 
-  const pages = ["/discover", "/", "/pretest", "/intro"];
+  const pages = ["/discover", "/", "/test"];
   const currentIndex = pages.indexOf(location.pathname);
 
   const handleNext = () => {
-    if (currentIndex < pages.length - 1) {
+    if (onNext) {
+      onNext();
+    } else if (currentIndex < pages.length - 1) {
       navigateWithFade(pages[currentIndex + 1]);
     }
   };
 
   const handleBack = () => {
+    // If onBack is provided, call it and check if it handled the event
+    if (onBack) {
+      const result = onBack();
+      // If onBack returns explicitly false, don't do default navigation
+      if (result === false) {
+        return;
+      }
+    }
+    
+    // Default navigation behavior if onBack is not provided or didn't handle the event
     if (currentIndex > 0) {
       navigateWithFade(pages[currentIndex - 1]);
     }
@@ -286,6 +311,9 @@ export default function PageBoxes({
         onBack={handleBack}
         onHoverDirectionChange={onHoverDirectionChange}
         hoverState={hoverState}
+        nextButtonFadeOut={nextButtonFadeOut}
+        nextButtonLabel={nextButtonLabel}
+        backButtonLabel={backButtonLabel}
       />
     </Canvas>
   );
