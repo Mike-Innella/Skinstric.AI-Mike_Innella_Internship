@@ -7,7 +7,7 @@ const TestForm = ({
   onStepChange,
   onCanProceedChange,
   onFinalSubmit,
-  onSubmitPhaseOne
+  onSubmitPhaseOne,
 }) => {
   const [internalStep, setInternalStep] = useState(1);
   // Use external step if provided, otherwise use internal step
@@ -26,7 +26,7 @@ const TestForm = ({
     } else if (step === 2) {
       onCanProceedChange?.(!!location);
     }
-    
+
     // Clear any messages when step changes
     setMessage("");
   }, [name, location, step, onCanProceedChange]);
@@ -34,42 +34,45 @@ const TestForm = ({
   // Ensure visibleSteps includes current step
   useEffect(() => {
     if (!visibleSteps.includes(step)) {
-      setVisibleSteps(prev => [...prev, step]);
+      setVisibleSteps((prev) => [...prev, step]);
     }
   }, [step, visibleSteps]);
 
   // Transition with fade-out delay - memoized to avoid recreation on each render
-  const transitionToStep = useCallback((newStep) => {
-    // Clear any messages when transitioning
-    setMessage("");
-    
-    // First make sure both steps are visible during transition
-    setVisibleSteps(prev => {
-      if (!prev.includes(newStep)) {
-        return [...prev, newStep];
+  const transitionToStep = useCallback(
+    (newStep) => {
+      // Clear any messages when transitioning
+      setMessage("");
+
+      // First make sure both steps are visible during transition
+      setVisibleSteps((prev) => {
+        if (!prev.includes(newStep)) {
+          return [...prev, newStep];
+        }
+        return prev;
+      });
+
+      // Update internal step if needed
+      if (externalStep === undefined) {
+        setInternalStep(newStep);
       }
-      return prev;
-    });
-    
-    // Update internal step if needed
-    if (externalStep === undefined) {
-      setInternalStep(newStep);
-    }
-    
-    // Notify parent component about step change
-    onStepChange?.(newStep);
-    
-    // Remove old steps after fade duration (600ms to ensure smooth transition)
-    setTimeout(() => {
-      setVisibleSteps([newStep]);
-    }, 600);
-  }, [externalStep, onStepChange]);
+
+      // Notify parent component about step change
+      onStepChange?.(newStep);
+
+      // Remove old steps after fade duration (600ms to ensure smooth transition)
+      setTimeout(() => {
+        setVisibleSteps([newStep]);
+      }, 600);
+    },
+    [externalStep, onStepChange]
+  );
 
   // Helper functions for step navigation
   const handleNextStep = useCallback(() => {
     transitionToStep(step + 1);
   }, [step, transitionToStep]);
-  
+
   const handlePrevStep = useCallback(() => {
     transitionToStep(step - 1);
   }, [step, transitionToStep]);
@@ -79,7 +82,7 @@ const TestForm = ({
     if (!name || !location) {
       return; // Don't submit if data is missing
     }
-    
+
     setIsSubmitting(true);
     setMessage("");
     try {
@@ -101,10 +104,14 @@ const TestForm = ({
 
   // Expose the submit function to parent component
   useEffect(() => {
-    if (onSubmitPhaseOne) {
-      onSubmitPhaseOne(() => handlePhaseOneSubmit());
+    if (typeof onSubmitPhaseOne === "function") {
+      // Only set it once to avoid unnecessary re-renders
+      const submitFn = () => handlePhaseOneSubmit();
+      onSubmitPhaseOne(submitFn);
     }
-  }, [onSubmitPhaseOne, handlePhaseOneSubmit]);
+    // Only run this effect once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleImageSuccess = () => {
     // Call onFinalSubmit when the image is successfully uploaded
@@ -151,7 +158,7 @@ const TestForm = ({
             {/* Step 1 */}
             {visibleSteps.includes(1) && (
               <div
-                className={`test-form__step ${
+                className={`test-form__step test-form__step--${step} ${
                   step === 1
                     ? "test-form__step--visible"
                     : "test-form__step--fading"
@@ -174,7 +181,7 @@ const TestForm = ({
             {/* Step 2 */}
             {visibleSteps.includes(2) && (
               <div
-                className={`test-form__step ${
+                className={`test-form__step test-form__step--${step} ${
                   step === 2
                     ? "test-form__step--visible"
                     : "test-form__step--fading"
@@ -197,7 +204,7 @@ const TestForm = ({
             {/* Step 3 */}
             {visibleSteps.includes(3) && (
               <div
-                className={`test-form__step ${
+                className={`test-form__step test-form__step--${step} ${
                   step === 3
                     ? "test-form__step--visible"
                     : "test-form__step--fading"

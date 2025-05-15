@@ -11,7 +11,9 @@ function TestPage() {
   const [formStep, setFormStep] = useState(1);
   const [canProceed, setCanProceed] = useState(false);
   const navigate = useNavigate();
-  const [submitPhaseOneRef, setSubmitPhaseOneRef] = useState(null);
+  const [submitPhaseOneRef, setSubmitPhaseOneRef] = useState(() => () => {
+    console.log("submitPhaseOneRef called before initialization");
+  });
   
   // Initialize with valid state for first step if name is entered
   const [initialLoad, setInitialLoad] = useState(true);
@@ -49,9 +51,14 @@ function TestPage() {
     
     // If we're on step 2 and can proceed, submit phase one data before advancing
     if (formStep === 2 && submitPhaseOneRef) {
-      submitPhaseOneRef();
-      // The form's handlePhaseOneSubmit will call onStepChange when done
-      return;
+      try {
+        submitPhaseOneRef();
+        // The form's handlePhaseOneSubmit will call onStepChange when done
+        return;
+      } catch (error) {
+        console.error("Error calling submitPhaseOneRef:", error);
+        // Fall through to default behavior if function call fails
+      }
     }
     
     // For other steps, just advance if possible
