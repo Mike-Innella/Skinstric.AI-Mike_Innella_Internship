@@ -69,3 +69,5 @@ function App() {
 }
 
 export default App;
+
+// TODO: Notes for later: Create "Enter Code" modal, address submit issue with form inputs, address - when previous step input info is held (good) however the next arrow isn't present unless reenter input, finish phase 1.
