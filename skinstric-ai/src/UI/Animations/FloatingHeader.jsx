@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from "react";
-import { Text } from "@react-three/drei";
+import React, { useRef } from "react";
+import { Html, Text } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
+import "../Styles/Pages/MainPage.css";
 
 export default function FloatingHeader({ align = "center" }) {
   const textRef = useRef();
@@ -15,17 +16,23 @@ export default function FloatingHeader({ align = "center" }) {
   return (
     <Text
       ref={textRef}
-      fontSize={0.6}
-      maxWidth={5}
-      lineHeight={1.2}
       textAlign={align}
       position={[0, 1, 0]} // starting position
       anchorX="center"
       anchorY="middle"
     >
-      Sophisticated
-      {"\n"}
-      skincare
+      <Html>
+        <div
+          className={`main__page--header-wrapper ${
+            align === "left" ? "header-left" : "header-center"
+          }`}
+        >
+          <h1 className="main__page--header">
+            Sophisticated <br />
+            <span className="page--header-sub">skincare</span>
+          </h1>
+        </div>
+      </Html>
     </Text>
   );
 }

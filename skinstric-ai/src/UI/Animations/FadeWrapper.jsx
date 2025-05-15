@@ -10,7 +10,6 @@ const FadeContext = createContext();
 // Provider component to manage fade transitions globally
 export const FadeProvider = ({ children }) => {
   const [isFading, setIsFading] = useState(false);
-  // TODO: Double check unused pendingNavigation
   const [pendingNavigation, setPendingNavigation] = useState(null);
   const navigate = useNavigate();
 

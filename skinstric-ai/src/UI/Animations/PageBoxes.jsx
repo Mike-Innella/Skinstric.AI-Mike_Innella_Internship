@@ -11,6 +11,7 @@ const RotatingSquare = ({
   position = [0, 0, 0],
   reverse = false,
   hoverLabel = "",
+  fadeOut = false,
 }) => {
   const ref = useRef();
   const [isHovered, setIsHovered] = useState(false);
@@ -32,7 +33,9 @@ const RotatingSquare = ({
           top: "calc(50% + var(--top-offset))",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          pointerEvents: "auto",
+          opacity: fadeOut ? 0 : 1,
+          pointerEvents: fadeOut ? "none" : "auto",
+          transition: "opacity 600ms ease",
         }}
         prepend
         center
@@ -61,6 +64,7 @@ const NavigationButton = ({
   buttonType = "next",
   onButtonClick,
   onHoverDirectionChange,
+  fadeOut = false,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const buttonRef = useRef();
@@ -97,8 +101,10 @@ const NavigationButton = ({
         transform
         style={{
           position: "absolute",
-          pointerEvents: "auto",
+          pointerEvents: fadeOut ? "none" : "auto",
           textAlign: "center",
+          opacity: fadeOut ? 0 : 1,
+          transition: "opacity 600ms ease",
         }}
         prepend
       >
@@ -146,7 +152,8 @@ const PositionedSquares = ({
   showBackButton,
   onNext,
   onBack,
-  onHoverDirectionChange, // ✅ Added here
+  onHoverDirectionChange,
+  hoverState,
 }) => {
   const { viewport } = useThree();
   const location = useLocation();
@@ -172,7 +179,6 @@ const PositionedSquares = ({
   const labels = {
     "/discover": { center: "DISCOVER" },
     "/": { center: "WELCOME" },
-    "/pretest": { center: "PRETEST" },
     "/intro": { center: "TESTING" },
   };
 
@@ -181,10 +187,21 @@ const PositionedSquares = ({
 
   return (
     <>
-      {showLeft && <RotatingSquare position={positions.left} />}
+      {showLeft && (
+        <RotatingSquare
+          position={positions.left}
+          fadeOut={hoverState === "left" && location.pathname === "/"}
+        />
+      )}
+
       {showRight && <RotatingSquare position={positions.right} reverse />}
+
       {showCenter && (
-        <RotatingSquare position={positions.center} hoverLabel={centerLabel} />
+        <RotatingSquare
+          position={positions.center}
+          hoverLabel={centerLabel}
+          // ✅ Restored: no fadeOut on center square
+        />
       )}
 
       {showBackButton && (
@@ -197,6 +214,7 @@ const PositionedSquares = ({
           buttonType="back"
           onButtonClick={onBack}
           onHoverDirectionChange={onHoverDirectionChange}
+          fadeOut={hoverState === "left" && location.pathname === "/"}
         />
       )}
 
@@ -224,6 +242,7 @@ export default function PageBoxes({
   showNextButton = true,
   showBackButton = true,
   onHoverDirectionChange,
+  hoverState,
 }) {
   const location = useLocation();
   const { navigateWithFade } = useFade();
@@ -265,7 +284,8 @@ export default function PageBoxes({
         showNextButton={showNextButton}
         onNext={handleNext}
         onBack={handleBack}
-        onHoverDirectionChange={onHoverDirectionChange} // ✅ Prop passed correctly
+        onHoverDirectionChange={onHoverDirectionChange}
+        hoverState={hoverState}
       />
     </Canvas>
   );

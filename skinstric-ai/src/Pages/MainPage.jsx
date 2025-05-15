@@ -4,6 +4,7 @@ import PageBoxes from "../UI/Animations/PageBoxes";
 import CornerText from "../Components/CornerText";
 import FloatingHeader from "../UI/Animations/FloatingHeader";
 import { Canvas } from "@react-three/fiber";
+import { Html } from "@react-three/drei";
 
 function MainPage() {
   const [hoverState, setHoverState] = useState("center");
@@ -21,6 +22,7 @@ function MainPage() {
         showNextButton={true}
         showBackButton={true}
         onHoverDirectionChange={setHoverState}
+        hoverState={hoverState}
       />
 
       <Canvas
@@ -31,6 +33,7 @@ function MainPage() {
           top: 0,
           left: 0,
           width: "100vw",
+          maxWidth: "100vw",
           height: "100vh",
           pointerEvents: "none",
           zIndex: 1,
