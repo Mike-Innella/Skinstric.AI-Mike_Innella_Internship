@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import "../UI/Styles/Pages/Pages.css";
-import PageBoxes from "../UI/Animations/PageBoxes";
+import PageBoxes from "../Components/PageBoxes";
 import TestForm from "../Components/TestForm";
 import "../UI/Styles/Pages/Pages.css";
 import "../UI/Styles/Pages/TestPage.css";

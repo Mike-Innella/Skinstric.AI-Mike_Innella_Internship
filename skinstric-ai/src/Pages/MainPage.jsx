@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import PageBoxes from "../UI/Animations/PageBoxes";
+import PageBoxes from "../Components/PageBoxes";
 import CornerText from "../Components/CornerText";
 import FloatingHeader from "../UI/Animations/FloatingHeader";
 import { Canvas } from "@react-three/fiber";
