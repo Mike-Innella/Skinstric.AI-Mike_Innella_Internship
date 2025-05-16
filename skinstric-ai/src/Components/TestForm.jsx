@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { submitPhaseOne, submitBase64Image } from "../Services/api";
+import ImageOptions from "./ImageOptions";
 import "../UI/Styles/Components/TestForm.css";
 
 const TestForm = ({
@@ -210,16 +211,10 @@ const TestForm = ({
                     : "test-form__step--fading"
                 }`}
               >
-                <label className="test-form__upload-label">
-                  Upload Image:
-                  <input
-                    className="test-form__upload-input"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                  />
-                </label>
-                {/* Button removed */}
+                <ImageOptions 
+                  onImageSelected={handleImageUpload}
+                  onCanProceed={(canProceed) => onCanProceedChange?.(canProceed)}
+                />
               </div>
             )}
           </div>

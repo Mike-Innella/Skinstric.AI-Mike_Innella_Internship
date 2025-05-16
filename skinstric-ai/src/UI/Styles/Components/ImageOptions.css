@@ -1,0 +1,128 @@
+/* === Image Options Component === */
+.image-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Container for each option */
+.image-options__option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Diamond shape using the same technique as .square */
+.image-options__diamond {
+  width: 180px;
+  height: 180px;
+  transform: rotate(45deg);
+  border: 1px dotted var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 300ms ease;
+  background-color: transparent;
+  box-shadow: inset 0 0 128px 36px rgba(229, 229, 229, 0.822);
+}
+
+.image-options__diamond:hover {
+  border-color: var(--color-bg-black);
+  box-shadow: inset 0 0 128px 36px rgba(229, 229, 229, 0.9);
+}
+
+/* Icon container to counter-rotate the diamond */
+.image-options__icon-container {
+  transform: rotate(-45deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Icon styling */
+.image-options__icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+/* Label styling */
+.image-options__label {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 16px;
+  letter-spacing: -2%;
+  max-width: 100px;
+}
+
+/* Back button styling */
+.image-options__back {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.image-options__back-icon {
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.image-options__back-text {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Video preview for camera */
+.image-options__video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-options__video-element {
+  max-width: 100%;
+  max-height: 80vh;
+}
+
+.image-options__capture-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--color-bg-black);
+  color: var(--color-text-white);
+  border: none;
+  cursor: pointer;
+}
+
+.image-options__close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--color-text-white);
+  font-size: 24px;
+  cursor: pointer;
+}
