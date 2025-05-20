@@ -57,6 +57,12 @@
   background-color: transparent;
 }
 
+/* Ensure step 2 is properly positioned */
+.test-form__step--2 {
+  top: 0;
+  left: 0;
+}
+
 .test-form__step--visible {
   opacity: 1;
   pointer-events: auto;
@@ -88,6 +94,14 @@
   color: var(--color-text-black);
   background-color: transparent;
   border-radius: 0;
+  position: relative;
+  z-index: 10;
+}
+
+/* Ensure placeholder text is visible */
+.test-form__input::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+  opacity: 1;
 }
 
 /* === Button Styles === */

@@ -1,0 +1,181 @@
+.analysis-step {
+  width: 100%;
+  min-height: 960px;
+  background-color: #fcfcfc;
+  position: relative;
+  padding: 0 32px;
+}
+
+.analysis-step__header {
+  width: 100%;
+  height: 64px;
+  background-color: #fcfcfc;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.analysis-step__header-content {
+  max-width: 1920px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  position: relative;
+}
+
+.analysis-step__logo {
+  font-family: 'Roobert TRIAL', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.28px;
+  color: #1a1b1c;
+  text-transform: uppercase;
+  line-height: 16px;
+}
+
+.analysis-step__location {
+  margin-left: 85px;
+  opacity: 0.6;
+}
+
+.analysis-step__location-frame {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.analysis-step__rectangle {
+  width: 4px;
+  height: 17px;
+  background-color: transparent;
+  border: 1px solid #1a1b1c;
+  border-radius: 2px;
+}
+
+.analysis-step__intro-text {
+  font-family: 'Roobert TRIAL', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.28px;
+  color: #1a1b1c;
+  text-transform: uppercase;
+}
+
+.analysis-step__take-test-button {
+  padding: 8px 16px;
+  background-color: #1a1b1c;
+  border: none;
+  cursor: pointer;
+}
+
+.analysis-step__button-text {
+  font-family: 'Roobert TRIAL', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  color: #fcfcfc;
+  text-transform: uppercase;
+  line-height: 16px;
+}
+
+.analysis-step__title {
+  font-family: 'Roobert TRIAL', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.32px;
+  color: #1a1b1c;
+  text-transform: uppercase;
+  line-height: 24px;
+  margin: 86px 0 0 32px;
+}
+
+.analysis-step__cards-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 0;
+}
+
+.analysis-step__card {
+  width: 481px;
+  height: 481px;
+  position: relative;
+  background-color: #d9d9d9;
+}
+
+.analysis-step__rhombus {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.analysis-step__rhombus-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.analysis-step__card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 173px;
+}
+
+.analysis-step__icon {
+  width: 136px;
+  height: 136px;
+}
+
+.analysis-step__card-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.analysis-step__title-icon {
+  width: 66px;
+  height: 59px;
+}
+
+.analysis-step__title-text {
+  font-family: 'Roobert TRIAL', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1a1b1c;
+  text-transform: uppercase;
+  line-height: 24px;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.analysis-step__back-button {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 32px;
+}
+
+.analysis-step__back-icon {
+  width: 44px;
+  height: 44px;
+}
+
+.analysis-step__back-text {
+  font-family: 'Roobert TRIAL', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.28px;
+  color: #1a1b1c;
+  text-transform: uppercase;
+  opacity: 0.7;
+}

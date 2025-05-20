@@ -19,7 +19,8 @@ const NavigationButton = ({
   const labels = {
     "/discover": { next: "START", back: "", center: "" },
     "/": { next: "TAKE TEST", back: "DISCOVER A. I.", center: "" },
-    "/test": { next: "", back: "BACK", center: "TESTING" },
+    "/test": { next: "PROCEED", back: "BACK", center: "TESTING" },
+    "/analysis": { next: "", back: "BACK", center: "ANALYSIS" },
   };
 
   const page = labels[location.pathname] || {};

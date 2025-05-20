@@ -7,6 +7,16 @@
   background-color: transparent;
   width: 100%;
   z-index: 10;
+  height: 64px;
+  left: 0;
+  top: 0;
+}
+.header__title-bracket--wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
 }
 
 .header__title {
@@ -17,6 +27,8 @@
 .header__title--name {
   font-size: 14px;
   font-weight: 600;
+  line-height: 16px;
+  letter-spacing: -2%;
   color: var(--color-text-black);
   margin: 0;
 }
@@ -32,4 +44,33 @@
   padding: 8px 16px;
   border: none;
   cursor: no-drop;
+}
+
+.location {
+  height: 17px;
+  left: 117px;
+  opacity: 0.6;
+  position: absolute;
+  top: 23px;
+  width: 82px;
+}
+
+.frame {
+  align-items: flex-start;
+  display: inline-flex;
+  gap: 6px;
+  position: relative;
+}
+
+.intro {
+  color: var(--color-text-black);
+  font-family: "Roobert Trial", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -2%;
+  line-height: 16px;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }

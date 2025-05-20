@@ -4,6 +4,7 @@ import PageBoxes from "../Components/PageBoxes";
 import CornerText from "../Components/CornerText";
 import FloatingHeader from "../UI/Animations/FloatingHeader";
 import { Canvas } from "@react-three/fiber";
+import Header from "../Components/Header";
 
 function MainPage() {
   const [hoverState, setHoverState] = useState("center");
@@ -13,6 +14,8 @@ function MainPage() {
       <Helmet>
         <title>Main Page | Skinstric.AI</title>
       </Helmet>
+
+      <Header title="intro" />
 
       <PageBoxes
         showLeft={true}

@@ -6,6 +6,7 @@ import PageBoxes from "../Components/PageBoxes";
 import TestForm from "../Components/TestForm";
 import "../UI/Styles/Pages/Pages.css";
 import "../UI/Styles/Pages/TestPage.css";
+import Header from "../Components/Header";
 
 function TestPage() {
   const [formStep, setFormStep] = useState(1);
@@ -64,6 +65,9 @@ function TestPage() {
     // For other steps, just advance if possible
     if (formStep < 3) {
       setFormStep(prev => prev + 1);
+    } else if (formStep === 3 && canProceed) {
+      // If on step 3 and can proceed, navigate to analysis page
+      handleFinalSubmit();
     }
   };
   
@@ -85,8 +89,8 @@ function TestPage() {
   };
   
   const handleFinalSubmit = () => {
-    // Navigate to intro page after final submission
-    navigate('/intro');
+    // Navigate to analysis page after final submission
+    navigate('/analysis');
   };
 
   return (
@@ -96,10 +100,12 @@ function TestPage() {
         {/* TODO: Add meta tags for pretest page */}
       </Helmet>
 
+      <Header title="intro" />
+
       <PageBoxes
         showLeft={false}
         showRight={false}
-        showCenter={true}
+        showCenter={formStep !== 3}
         showNextButton={true}
         showBackButton={true}
         onNext={handleNextStep}

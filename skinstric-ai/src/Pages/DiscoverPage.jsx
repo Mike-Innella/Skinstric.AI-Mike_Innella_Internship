@@ -4,6 +4,7 @@ import "../UI/Styles/Pages/Pages.css";
 import "../UI/Styles/Pages/DiscoverPage.css";
 
 import PageBoxes from "../Components/PageBoxes";
+import Header from "../Components/Header";
 
 function Discover() {
   return (
@@ -16,7 +17,7 @@ function Discover() {
         />
       </Helmet>
 
-      {/* Animated 3D Dotted Borders - Only right square with next button */}
+      {/* Animated 3D Dotted Borders - Only right square with next button */}  
       <PageBoxes
         showLeft={false}
         showRight={true}
@@ -24,6 +25,8 @@ function Discover() {
         showNextButton={true}
         showBackButton={false}
       />
+
+      <Header title="intro" />
       
       <div className="discover__container">
         <h1 className="discover__title">Welcome to Skinstric.AI</h1>

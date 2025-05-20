@@ -32,6 +32,23 @@ const TestForm = ({
     setMessage("");
   }, [name, location, step, onCanProceedChange]);
 
+  // Reset input fields when step changes
+  useEffect(() => {
+    // Clear the input field when transitioning to a new step
+    if (step === 2) {
+      // Only reset if we're coming from step 1
+      if (!visibleSteps.includes(2)) {
+        setLocation("");
+      }
+    }
+  }, [step, visibleSteps]);
+
+  // Update visible steps when step changes
+  useEffect(() => {
+    // Force re-render of the current step
+    setVisibleSteps([step]);
+  }, [step]);
+
   // Ensure visibleSteps includes current step
   useEffect(() => {
     if (!visibleSteps.includes(step)) {
@@ -130,16 +147,25 @@ const TestForm = ({
       setMessage("");
 
       try {
+        // Submit the image to the API
         const result = await submitBase64Image(base64String);
         setMessage(`Image uploaded: ${result.message || "Done!"}`);
-        // Call onCanProceedChange(true) when image is uploaded
+        
+        // Enable the proceed button
         onCanProceedChange?.(true);
+        
         // Call handleImageSuccess which calls onFinalSubmit
-        handleImageSuccess();
+        // Only auto-navigate if we're using internal step management
+        if (externalStep === undefined) {
+          handleImageSuccess();
+        }
+        
         // Clear success message after a delay
         setTimeout(() => setMessage(""), 1500);
       } catch (err) {
-        setMessage("Image upload failed.");
+        console.error("Image upload error:", err);
+        setMessage("Image upload failed. Please try again.");
+        onCanProceedChange?.(false);
         // Clear error message after a delay
         setTimeout(() => setMessage(""), 3000);
       } finally {

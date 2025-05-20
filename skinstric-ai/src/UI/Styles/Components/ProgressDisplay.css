@@ -1,0 +1,104 @@
+.progress-display {
+  width: 100%;
+  max-width: 1168px;
+  height: 544px;
+  position: relative;
+  background-color: #f3f3f4;
+  border-radius: 0;
+}
+
+.progress-display__rectangle {
+  background-color: #1a1b1c;
+  border-radius: 2px;
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.progress-display__age {
+  font-family: "Roobert Trial", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -2.00px;
+  line-height: 40px;
+  color: var(--color-text-black);
+  position: absolute;
+  top: 20px;
+  left: 15px;
+}
+
+.progress-display__circle-container {
+  position: absolute;
+  top: 136px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 384px;
+  height: 384px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-display__circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 384px;
+  height: 384px;
+}
+
+.progress-display__percentage-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: flex-start;
+}
+
+.progress-display__percentage {
+  font-family: "Roobert Trial", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -2.00px;
+  line-height: 40px;
+  color: var(--color-text-black);
+}
+
+.progress-display__percentage-symbol {
+  font-family: "Roobert Trial", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -1.20px;
+  line-height: 40px;
+  color: var(--color-text-black);
+  margin-left: 4px;
+  margin-top: -12px;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .progress-display__circle-container {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .progress-display__age {
+    width: 100%;
+    text-align: center;
+    left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .progress-display {
+    height: auto;
+    padding-bottom: 400px;
+  }
+  
+  .progress-display__circle-container {
+    top: 80px;
+  }
+}

@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
+import { FiCamera, FiImage } from 'react-icons/fi';
 import CaptureImage from '../Utils/CaptureImage';
+import SimpleBackButton from './SimpleBackButton';
 import '../UI/Styles/Components/ImageOptions.css';
 
 /**
@@ -11,6 +13,11 @@ import '../UI/Styles/Components/ImageOptions.css';
 const ImageOptions = ({ onImageSelected, onCanProceed }) => {
   const [showCamera, setShowCamera] = useState(false);
   const [error, setError] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [capturedImageEvent, setCapturedImageEvent] = useState(null);
+  const [cameraPermissionState, setCameraPermissionState] = useState('initial'); // 'initial', 'requesting', 'setting-up', 'ready'
+  
   // Create a ref for the file input
   const fileInputRef = useRef(null);
   
@@ -19,27 +26,35 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
     videoRef,
     requestCameraAccess,
     captureImage,
+    stopCameraStream,
     hasStream
   } = CaptureImage({
     onImageCaptured: (base64Image) => {
       handleImageSelected(base64Image);
       setShowCamera(false);
+      setCameraPermissionState('initial');
     },
     onError: (errorMsg) => {
       setError(errorMsg);
       setTimeout(() => setError(''), 3000);
+      setCameraPermissionState('initial');
     }
   });
   
   // Handle file selection
   const handleFileChange = (event) => {
+    setIsProcessing(true);
     const file = event.target.files[0];
-    if (!file) return;
+    if (!file) {
+      setIsProcessing(false);
+      return;
+    }
 
     // Validate file type
     if (!file.type.match('image.*')) {
       setError('Please select an image file');
       setTimeout(() => setError(''), 3000);
+      setIsProcessing(false);
       return;
     }
 
@@ -47,12 +62,18 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       try {
+        // Store the image preview
+        setSelectedImage(reader.result);
+        
+        // Pass the event to the parent component
         onImageSelected?.(event);
         onCanProceed?.(true);
+        setIsProcessing(false);
       } catch (error) {
         console.error('Error processing image:', error);
         setError('Error processing image');
         setTimeout(() => setError(''), 3000);
+        setIsProcessing(false);
       }
     };
 
@@ -60,6 +81,7 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
       console.error('Error reading file');
       setError('Error reading file');
       setTimeout(() => setError(''), 3000);
+      setIsProcessing(false);
     };
 
     reader.readAsDataURL(file);
@@ -67,30 +89,80 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
   
   // Handle image selection from camera
   const handleImageSelected = (base64Image) => {
-    // Convert base64 to a Blob
-    const byteCharacters = atob(base64Image);
-    const byteArrays = [];
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteArrays.push(byteCharacters.charCodeAt(i));
-    }
-    const blob = new Blob([new Uint8Array(byteArrays)], { type: 'image/jpeg' });
-    const file = new File([blob], 'camera-image.jpg', { type: 'image/jpeg' });
-    
-    // Create a synthetic event
-    const syntheticEvent = {
-      target: {
-        files: [file]
+    setIsProcessing(true);
+    try {
+      // Convert base64 to a Blob
+      const byteCharacters = atob(base64Image);
+      const byteArrays = [];
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteArrays.push(byteCharacters.charCodeAt(i));
       }
-    };
-    
-    onImageSelected?.(syntheticEvent);
-    onCanProceed?.(true);
+      const blob = new Blob([new Uint8Array(byteArrays)], { type: 'image/jpeg' });
+      const file = new File([blob], 'camera-image.jpg', { type: 'image/jpeg' });
+      
+      // Store the image preview
+      setSelectedImage(`data:image/jpeg;base64,${base64Image}`);
+      
+      // Create a synthetic event
+      const syntheticEvent = {
+        target: {
+          files: [file]
+        }
+      };
+      
+      // We'll submit the image when the user clicks the submit button
+      // Store the synthetic event for later use
+      setCapturedImageEvent(syntheticEvent);
+      
+      // Don't automatically set canProceed to true - wait for submit button click
+      onCanProceed?.(false);
+    } catch (error) {
+      console.error('Error processing camera image:', error);
+      setError('Error processing camera image');
+      setTimeout(() => setError(''), 3000);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+  
+  // Handle submit button click
+  const handleSubmitImage = () => {
+    if (capturedImageEvent) {
+      // Call the onImageSelected callback with the synthetic event
+      onImageSelected?.(capturedImageEvent);
+      
+      // Explicitly set canProceed to true
+      onCanProceed?.(true);
+    }
   };
   
   // Handle camera option click
   const handleCameraClick = async () => {
+    setCameraPermissionState('requesting');
     setShowCamera(true);
-    await requestCameraAccess();
+  };
+  
+  // Handle camera permission response
+  const handleCameraPermission = async (allow) => {
+    if (allow) {
+      setCameraPermissionState('setting-up');
+      try {
+        console.log('Requesting camera access after permission granted');
+        await requestCameraAccess();
+        console.log('Camera access successful, setting state to ready');
+        setCameraPermissionState('ready');
+      } catch (error) {
+        console.error('Error accessing camera:', error);
+        setError(error.message || 'Error accessing camera');
+        setTimeout(() => setError(''), 5000); // Show error for longer
+        setShowCamera(false);
+        setCameraPermissionState('initial');
+      }
+    } else {
+      console.log('Camera permission denied by user');
+      setShowCamera(false);
+      setCameraPermissionState('initial');
+    }
   };
   
   // Handle gallery option click
@@ -102,35 +174,58 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
   
   return (
     <div className="image-options">
-      {/* Camera Option */}
-      <div className="image-options__option" onClick={handleCameraClick}>
-        <div className="image-options__diamond">
-          <div className="image-options__icon-container">
-            <div className="image-options__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 15.2C13.7673 15.2 15.2 13.7673 15.2 12C15.2 10.2327 13.7673 8.8 12 8.8C10.2327 8.8 8.8 10.2327 8.8 12C8.8 13.7673 10.2327 15.2 12 15.2Z" fill="black"/>
-                <path d="M9 2L7.17 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4H16.83L15 2H9ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17Z" fill="black"/>
-              </svg>
+      {!selectedImage ? (
+        <>
+          {/* Camera Option */}
+          <div className="image-options__option image-options__option--left" onClick={handleCameraClick}>
+            <div className="image-options__diamond">
+              <div className="image-options__icon-container">
+                <FiCamera className="image-options__icon" />
+                <div className="image-options__label-container image-options__label-container--left">
+                  <div className="image-options__label">ALLOW A.I.</div>
+                  <div className="image-options__label">TO SCAN YOUR FACE</div>
+                  <div className="image-options__animated-line" />
+                </div>
+              </div>
             </div>
-            <div className="image-options__label">ALLOW A.I. TO SCAN YOUR FACE</div>
+          </div>
+          
+          {/* Gallery Option */}
+          <div className="image-options__option image-options__option--right" onClick={handleGalleryClick}>
+            <div className="image-options__diamond">
+              <div className="image-options__icon-container">
+                <FiImage className="image-options__icon" />
+                <div className="image-options__label-container image-options__label-container--right">
+                  <div className="image-options__label">ALLOW A.I.</div>
+                  <div className="image-options__label">ACCESS GALLERY</div>
+                  <div className="image-options__animated-line" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="image-options__preview">
+          <img 
+            src={selectedImage} 
+            alt="Selected" 
+            className="image-options__preview-image" 
+          />
+          <div className="image-options__preview-overlay">
+            <div className="image-options__preview-text">
+              {isProcessing ? 'Processing...' : 'Image Selected'}
+            </div>
+            {capturedImageEvent && !isProcessing && (
+              <button 
+                className="image-options__submit-button"
+                onClick={handleSubmitImage}
+              >
+                SUBMIT
+              </button>
+            )}
           </div>
         </div>
-      </div>
-      
-      {/* Gallery Option */}
-      <div className="image-options__option" onClick={handleGalleryClick}>
-        <div className="image-options__diamond">
-          <div className="image-options__icon-container">
-            <div className="image-options__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19Z" fill="black"/>
-                <path d="M14.14 11.86L11.14 15.73L9 13.14L6 17H18L14.14 11.86Z" fill="black"/>
-              </svg>
-            </div>
-            <div className="image-options__label">ALLOW A.I. ACCESS GALLERY</div>
-          </div>
-        </div>
-      </div>
+      )}
       
       {/* Hidden file input */}
       <input
@@ -143,29 +238,108 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
       
       {/* Camera view when active */}
       {showCamera && (
-        <div className="image-options__video">
-          <video 
-            ref={videoRef}
-            className="image-options__video-element"
-            autoPlay
-            playsInline
-          />
-          
-          {hasStream && (
-            <button 
-              className="image-options__capture-button"
-              onClick={captureImage}
-            >
-              CAPTURE
-            </button>
-          )}
-          
-          <button 
-            className="image-options__close-button"
-            onClick={() => setShowCamera(false)}
-          >
-            ✕
-          </button>
+        <div className="image-options__camera-screen">
+          <div className="image-options__camera-container">
+            {cameraPermissionState === 'requesting' && (
+              <div className="image-options__permission-dialog">
+                <div className="image-options__permission-content">
+                  <div className="image-options__permission-icon">
+                    <FiCamera className="image-options__icon" />
+                  </div>
+                  <div className="image-options__permission-text">
+                    ALLOW A.I. TO ACCESS YOUR CAMERA
+                  </div>
+                  <div className="image-options__permission-buttons">
+                    <button 
+                      className="image-options__permission-button image-options__permission-button--deny"
+                      onClick={() => handleCameraPermission(false)}
+                    >
+                      DENY
+                    </button>
+                    <button 
+                      className="image-options__permission-button image-options__permission-button--allow"
+                      onClick={() => handleCameraPermission(true)}
+                    >
+                      ALLOW
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {cameraPermissionState === 'setting-up' && (
+              <div className="image-options__setup-screen">
+                <div className="image-options__setup-content">
+                  <div className="image-options__setup-icon">
+                    <FiCamera className="image-options__icon" />
+                  </div>
+                  <div className="image-options__setup-text">
+                    SETTING UP CAMERA...
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {cameraPermissionState === 'ready' && (
+              <>
+                <div className="image-options__video-wrapper">
+                  <video 
+                    ref={videoRef}
+                    className="image-options__video-element"
+                    autoPlay
+                    playsInline
+                    muted
+                    onError={(e) => {
+                      console.error('Video element error:', e);
+                      setError('Video error: ' + (e.target.error?.message || 'Unknown error'));
+                      setTimeout(() => setError(''), 5000);
+                    }}
+                  />
+                </div>
+                
+                <div className="image-options__camera-controls">
+                  <div className="image-options__take-pic">
+                    <div className="image-options__camera-button-container" onClick={captureImage}>
+                      <div className="image-options__camera-button-inner"></div>
+                      <div className="image-options__camera-button-outer"></div>
+                    </div>
+                    <div className="image-options__take-picture-text">TAKE PICTURE</div>
+                  </div>
+                </div>
+                
+                <div className="image-options__camera-instructions">
+                  <p className="image-options__instructions-title">
+                    TO GET BETTER RESULTS MAKE SURE TO HAVE
+                  </p>
+                  <div className="image-options__instructions-items">
+                    <div className="image-options__instruction-item">
+                      <div className="image-options__instruction-checkbox"></div>
+                      <div className="image-options__instruction-text">NEUTRAL EXPRESSION</div>
+                    </div>
+                    <div className="image-options__instruction-item">
+                      <div className="image-options__instruction-checkbox"></div>
+                      <div className="image-options__instruction-text">FRONTAL POSE</div>
+                    </div>
+                    <div className="image-options__instruction-item">
+                      <div className="image-options__instruction-checkbox"></div>
+                      <div className="image-options__instruction-text">ADEQUATE LIGHTING</div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            
+            <div className="image-options__back-button-container">
+              <SimpleBackButton
+                customLabel="BACK"
+                onButtonClick={() => {
+                  stopCameraStream();
+                  setShowCamera(false);
+                  setCameraPermissionState('initial');
+                }}
+              />
+            </div>
+          </div>
         </div>
       )}
       
