@@ -39,6 +39,8 @@ const PositionedSquares = ({
     "/discover": { center: "DISCOVER" },
     "/": { center: "WELCOME" },
     "/test": { center: "TESTING" },
+    "/loading": { center: "" },
+    "/analysis": { center: "ANALYSIS" },
   };
 
   const page = labels[location.pathname] || {};
@@ -56,17 +58,17 @@ const PositionedSquares = ({
       {showCenter && (
         <>
           {/* Larger square with half opacity behind */}
-          <RotatingSquare 
-            position={positions.center} 
-            scale={1.2} 
-            opacity={0.5} 
+          <RotatingSquare
+            position={positions.center}
+            scale={1.2}
+            opacity={0.5}
             zIndex={4}
             reverse={true}
           />
           {/* Original square on top */}
-          <RotatingSquare 
-            position={positions.center} 
-            hoverLabel={centerLabel} 
+          <RotatingSquare
+            position={positions.center}
+            hoverLabel={centerLabel}
             zIndex={5}
           />
         </>

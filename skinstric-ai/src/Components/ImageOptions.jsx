@@ -4,6 +4,25 @@ import GalleryIcon from "./SVG/GalleryIcon";
 import CaptureImage from "../Utils/CaptureImage";
 import SimpleBackButton from "./SimpleBackButton";
 import "../UI/Styles/Components/ImageOptions.css";
+import ellipseSvg from "../Assets/Ellipse 93.svg";
+
+/**
+ * Small component for the ellipse dot
+ */
+const EllipseDot = () => {
+  return (
+    <svg
+      width="8"
+      height="8"
+      viewBox="0 0 118 118"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ flexShrink: 0 }}
+    >
+      <circle cx="59" cy="59" r="58" stroke="#000000" strokeWidth="2" />
+    </svg>
+  );
+};
 
 /**
  * Component for selecting between camera and gallery image options
@@ -189,8 +208,8 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
                 <ShutterIcon className="image-options__icon" />
                 <div className="image-options__label-container image-options__label-container--left">
                   <div className="image-options__callout">
-                    <div className="image-options__callout-dot" />
                     <div className="image-options__callout-line" />
+                    <EllipseDot />
                     <div className="image-options__callout-text">
                       <span>
                         ALLOW A.I. <br />
@@ -213,14 +232,14 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
                 <GalleryIcon className="image-options__icon" />
                 <div className="image-options__label-container image-options__label-container--right">
                   <div className="image-options__callout">
-                    <div className="image-options__callout-dot" />
-                    <div className="image-options__callout-line" />
                     <div className="image-options__callout-text">
                       <span>
                         ALLOW A.I. <br />
                         ACCESS TO GALLERY
                       </span>
                     </div>
+                    <EllipseDot />
+                    <div className="image-options__callout-line" />
                   </div>
                 </div>
               </div>
@@ -234,7 +253,7 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
             alt="Selected"
             className="image-options__preview-image"
           />
-          <div className="image-options__preview-overlay">
+          <div className={`image-options__preview-overlay ${capturedImageEvent ? 'image-options__preview-overlay--visible' : ''}`}>
             <div className="image-options__preview-text">
               {isProcessing ? "Processing..." : "Image Selected"}
             </div>
@@ -266,9 +285,6 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
             {cameraPermissionState === "requesting" && (
               <div className="image-options__permission-dialog">
                 <div className="image-options__permission-content">
-                  <div className="image-options__permission-icon">
-                    <ShutterIcon className="image-options__icon" />
-                  </div>
                   <div className="image-options__permission-text">
                     ALLOW A.I. TO ACCESS YOUR CAMERA
                   </div>

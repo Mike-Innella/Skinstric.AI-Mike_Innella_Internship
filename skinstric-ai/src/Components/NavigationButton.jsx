@@ -20,6 +20,7 @@ const NavigationButton = ({
     "/discover": { next: "START", back: "", center: "" },
     "/": { next: "TAKE TEST", back: "DISCOVER A. I.", center: "" },
     "/test": { next: "PROCEED", back: "BACK", center: "TESTING" },
+    "/loading": { next: "", back: "", center: "" },
     "/analysis": { next: "", back: "BACK", center: "ANALYSIS" },
   };
 
@@ -49,9 +50,9 @@ const NavigationButton = ({
         transform
         style={{
           position: "absolute",
-          pointerEvents: fadeOut ? "none" : "auto",
+          pointerEvents: fadeOut && hoverText !== "SUBMIT" ? "none" : "auto",
           textAlign: "center",
-          opacity: fadeOut ? 0 : 1,
+          opacity: fadeOut && hoverText !== "SUBMIT" ? 0 : 1,
           transition: "opacity 600ms ease",
         }}
         prepend
@@ -71,7 +72,9 @@ const NavigationButton = ({
         >
           <div
             className={`square__hover-label ${
-              isHovered && hoverText ? "visible" : ""
+              (isHovered && hoverText) || hoverText === "SUBMIT"
+                ? "visible"
+                : ""
             }`}
           >
             {hoverText}
@@ -81,7 +84,10 @@ const NavigationButton = ({
             {buttonType === "back" ? (
               <PolygonIcon className={iconClass} />
             ) : (
-              <PolygonIcon className={iconClass} style={{ transform: "rotate(180deg)" }} />
+              <PolygonIcon
+                className={iconClass}
+                style={{ transform: "rotate(180deg)" }}
+              />
             )}
           </div>
         </div>

@@ -1,0 +1,16 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: hsla(0, 0%, 95%, 1);
+}
+
+canvas {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid hsla(196, 95%, 25%, 1);
+  box-shadow: inset 2px 3px hsla(0, 0%, 0%, 0.1);
+}
