@@ -187,3 +187,11 @@
   white-space: nowrap;
   width: fit-content;
 }
+
+.square__page-back.dashboard {
+  top: 128px;
+}
+
+.square__page-next.dashboard {
+  top: 128px;
+}

@@ -5,7 +5,7 @@ import "../UI/Styles/Components/Dashboard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  
+
   const handleDemographicsClick = () => {
     navigate("/analysis");
   };
@@ -56,18 +56,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="button-group left">
-          {/* Temporarily removed image until assets are available */}
-          {/* <img className="buttin-icon-shrunk" alt="Back icon" src={buttinIconShrunk} /> */}
-          <button className="button" onClick={handleBackClick}>BACK</button>
-        </div>
-
-        <div className="button-group right">
-          <button className="text-wrapper">GET SUMMARY</button>
-          {/* Temporarily removed image until assets are available */}
-          {/* <img className="buttin-icon-shrunk" alt="Summary icon" src={image} /> */}
         </div>
       </section>
     </main>
