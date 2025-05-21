@@ -14,6 +14,7 @@ const DiamondButton = ({ className, direction = "left" }) => {
         d="M43.293 22L22 43.293L0.707031 22L22 0.707031L43.293 22Z"
         stroke="#1A1B1C"
       />
+      {/* Using Polygon.svg path, adjusted for positioning within diamond */}
       <path
         d={direction === "left" 
           ? "M15.7148 22L25.1434 27.4436V16.5564L15.7148 22Z" 

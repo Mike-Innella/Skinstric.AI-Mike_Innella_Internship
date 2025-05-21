@@ -1,12 +1,13 @@
 .image-options {
   display: flex;
   justify-content: center;
-  gap: 10vw;
+  gap: 400px;
   padding: 2rem 0;
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: 1400px;
   margin: 0 auto;
+  margin-top: -200px;
 }
 
 .image-options__option {
@@ -17,16 +18,57 @@
   position: relative;
 }
 
+@keyframes rotateSquare {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+@keyframes rotateSquareReverse {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(-315deg);
+  }
+}
+
 .image-options__diamond {
-  width: 150px;
-  height: 150px;
+  width: 405.18px;
+  height: 405.18px;
   background: none;
-  border: 1px dotted #ccc;
+  border: 2px dotted #ccc;
   transform: rotate(45deg);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  animation: rotateSquare 120s linear infinite;
+}
+
+.image-options__option--right .image-options__diamond {
+  animation: rotateSquareReverse 120s linear infinite;
+}
+
+@keyframes counterRotateSquare {
+  from {
+    transform: rotate(-45deg);
+  }
+  to {
+    transform: rotate(-405deg);
+  }
+}
+
+@keyframes counterRotateSquareReverse {
+  from {
+    transform: rotate(-45deg);
+  }
+  to {
+    transform: rotate(315deg);
+  }
 }
 
 .image-options__icon-container {
@@ -34,10 +76,15 @@
   display: flex;
   align-items: center;
   position: relative;
+  animation: counterRotateSquare 120s linear infinite;
+}
+
+.image-options__option--right .image-options__icon-container {
+  animation: counterRotateSquareReverse 120s linear infinite;
 }
 
 .image-options__icon {
-  font-size: 48px;
+  font-size: 64px;
   color: black;
   flex-shrink: 0;
   z-index: 2;
@@ -45,17 +92,59 @@
 
 .image-options__label-container {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 100%;
-  transform-origin: left center;
-  transform: translate(0, -50%) rotate(45deg);
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
   z-index: 1;
+}
+
+.image-options__callout {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(12px, -50%) rotate(-45deg);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.image-options__option:hover .image-options__callout {
+  opacity: 1;
+}
+
+.image-options__callout-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: black;
+  flex-shrink: 0;
+}
+
+.image-options__callout-line {
+  width: 60px;
+  height: 1px;
+  background: black;
+  transform: rotate(0deg);
+  transform-origin: left center;
+}
+
+.image-options__callout-text {
+  display: flex;
+  flex-direction: column;
+  transform: rotate(45deg);
+  font-size: 0.75rem;
+  color: black;
+  white-space: nowrap;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .image-options__option:hover .image-options__label-container {
@@ -64,33 +153,37 @@
 }
 
 .image-options__label {
-  font-family: 'RoobertTRIAL-Regular', sans-serif;
   font-size: 0.75rem;
   color: black;
   line-height: 1.2;
   -webkit-user-select: none;
   user-select: none;
   white-space: nowrap;
+  margin-left: 66px;
 }
 
-.image-options__animated-line {
-  width: 40px;
-  height: 2px;
+/* Connecting line */
+.image-options__callout-line {
+  width: 66px;
+  height: 1px;
   background: black;
-  margin-top: 0.2rem;
-  animation: line-grow 1.5s ease-in-out infinite alternate;
-  transform-origin: left center;
 }
 
-@keyframes line-grow {
-  0% {
-    width: 0;
-    opacity: 0;
-  }
-  100% {
-    width: 40px;
-    opacity: 1;
-  }
+/* Position left side */
+.image-options__option--left .image-options__callout {
+  left: 100%;
+  flex-direction: row;
+  top: 0;
+}
+
+/* Position right side (mirror layout) */
+.image-options__option--right .image-options__callout {
+  left: 100%;
+  flex-direction: row;
+}
+
+.image-options__option--right .image-options__callout-text {
+  transform: rotate(-45deg);
 }
 
 /* Camera screen styles */
@@ -148,7 +241,7 @@
 
 /* Add a loading indicator for the camera */
 .image-options__camera-container::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -163,7 +256,9 @@
 }
 
 @keyframes camera-loading {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Permission dialog styles */
@@ -201,7 +296,7 @@
 
 .image-options__permission-text {
   color: #fff;
-  font-family: 'RoobertTRIAL-Regular', sans-serif;
+  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 16px;
   font-weight: 600;
   text-align: center;
@@ -215,7 +310,7 @@
 
 .image-options__permission-button {
   padding: 10px 20px;
-  font-family: 'RoobertTRIAL-Regular', sans-serif;
+  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -269,7 +364,7 @@
 
 .image-options__setup-text {
   color: #fff;
-  font-family: 'RoobertTRIAL-Regular', sans-serif;
+  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 16px;
   font-weight: 600;
   text-align: center;
@@ -322,7 +417,7 @@
 
 .image-options__take-picture-text {
   color: #fcfcfc;
-  font-family: 'RoobertTRIAL-Regular', sans-serif;
+  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.32px;
@@ -343,7 +438,7 @@
 
 .image-options__instructions-title {
   color: #fcfcfc;
-  font-family: 'RoobertTRIAL-Regular', sans-serif;
+  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.24px;
@@ -371,7 +466,7 @@
 
 .image-options__instruction-text {
   color: #fcfcfc;
-  font-family: 'RoobertTRIAL-Regular', sans-serif;
+  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.24px;
@@ -458,7 +553,7 @@
 
 .image-options__preview-text {
   color: white;
-  font-family: 'RoobertTRIAL-Regular', sans-serif;
+  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 1.25rem;
   text-align: center;
   padding: 1rem;
@@ -471,7 +566,7 @@
   color: #fff;
   border: 2px solid #fff;
   padding: 10px 30px;
-  font-family: 'RoobertTRIAL-Regular', sans-serif;
+  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 1px;

@@ -12,6 +12,7 @@ import Discover from "./Pages/DiscoverPage";
 import MainPage from "./Pages/MainPage";
 import TestPage from "./Pages/TestPage";
 import AnalysisPage from "./Pages/AnalysisPage";
+import TestImageOptions from "./TestImageOptions";
 import FadeWrapper, { FadeProvider } from "./UI/Animations/FadeWrapper";
 import "./UI/Styles/Global.css";
 
@@ -50,6 +51,14 @@ const AnimatedRoutes = () => {
         element={
           <FadeWrapper>
             <AnalysisPage />
+          </FadeWrapper>
+        }
+      />
+      <Route
+        path="/test-image-options"
+        element={
+          <FadeWrapper>
+            <TestImageOptions />
           </FadeWrapper>
         }
       />

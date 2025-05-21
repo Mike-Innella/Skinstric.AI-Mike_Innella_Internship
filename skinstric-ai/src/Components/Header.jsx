@@ -16,9 +16,9 @@ function Header({ title }) {
         </Link>
         <div className="location">
           <div className="frame">
-            {displayTitle && <BracketLeft className="rectangle" />}
-            <div className="intro">{displayTitle}</div>
             {displayTitle && <BracketRight className="rectangle-2711" />}
+            <div className="intro">{displayTitle}</div>
+            {displayTitle && <BracketLeft className="rectangle" />}
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import { Html } from "@react-three/drei";
 import { useLocation } from "react-router-dom";
-import { RiArrowDropLeftFill, RiArrowDropRightFill } from "react-icons/ri";
 import "../UI/Styles/PageBoxes.css";
+import { ReactComponent as PolygonIcon } from "../Assets/Polygon.svg";
 
 const NavigationButton = ({
   position,
@@ -79,9 +79,9 @@ const NavigationButton = ({
           <div className={borderClass}></div>
           <div className={buttonElementClass}>
             {buttonType === "back" ? (
-              <RiArrowDropLeftFill className={iconClass} />
+              <PolygonIcon className={iconClass} />
             ) : (
-              <RiArrowDropRightFill className={iconClass} />
+              <PolygonIcon className={iconClass} style={{ transform: "rotate(180deg)" }} />
             )}
           </div>
         </div>
