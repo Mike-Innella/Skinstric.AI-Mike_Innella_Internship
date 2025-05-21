@@ -218,7 +218,7 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
                     <div className="image-options__callout-text">
                       <span>
                         ALLOW A.I. <br />
-                        ACCESS
+                        ACCESS TO GALLERY
                       </span>
                     </div>
                   </div>
