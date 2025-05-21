@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import "../UI/Styles/Pages/Pages.css";
 import "../UI/Styles/Pages/DiscoverPage.css";
+import "../UI/Styles/Pages/Pages.css";
 
 import PageBoxes from "../Components/PageBoxes";
 import Header from "../Components/Header";
@@ -17,17 +17,17 @@ function Discover() {
         />
       </Helmet>
 
-      {/* Animated 3D Dotted Borders - Only right square with next button */}  
+      {/* Animated 3D Dotted Borders - Only right square with next button */}
       <PageBoxes
         showLeft={false}
-        showRight={true}
+        showRight={false}
         showCenter={false}
         showNextButton={true}
-        showBackButton={false}
+        showBackButton={true}
       />
 
-      <Header title="intro" />
-      
+      <Header title="ANALYSIS" />
+
       <div className="discover__container">
         <h1 className="discover__title">Welcome to Skinstric.AI</h1>
 

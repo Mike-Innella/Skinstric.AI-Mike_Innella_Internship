@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
+import Header from "../Components/Header";
 import PageBoxes from "../Components/PageBoxes";
 import "../UI/Styles/Pages/Pages.css";
 import "../UI/Styles/Pages/AnalysisPage.css";
@@ -63,7 +64,7 @@ function AnalysisPage() {
 
   // Handle back button click
   const handleBack = () => {
-    navigate("/test");
+    navigate("/dashboard");
     return false; // Prevent default navigation in PageBoxes
   };
 
@@ -72,6 +73,8 @@ function AnalysisPage() {
       <Helmet>
         <title>AI Analysis | Skinstric.AI</title>
       </Helmet>
+
+      <Header title="ANALYSIS" />
 
       <PageBoxes
         showLeft={false}

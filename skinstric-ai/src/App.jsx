@@ -13,6 +13,7 @@ import MainPage from "./Pages/MainPage";
 import TestPage from "./Pages/TestPage";
 import LoadingPage from "./Pages/LoadingPage";
 import AnalysisPage from "./Pages/AnalysisPage";
+import DashboardPage from "./Pages/DashboardPage";
 import TestImageOptions from "./TestImageOptions";
 import FadeWrapper, { FadeProvider } from "./UI/Animations/FadeWrapper";
 import "./UI/Styles/Global.css";
@@ -47,19 +48,27 @@ const AnimatedRoutes = () => {
           </FadeWrapper>
         }
       />
-      {/* <Route
+      <Route
         path="/loading"
         element={
           <FadeWrapper>
             <LoadingPage />
           </FadeWrapper>
         }
-      /> */}
+      />
       <Route
         path="/analysis"
         element={
           <FadeWrapper>
             <AnalysisPage />
+          </FadeWrapper>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <FadeWrapper>
+            <DashboardPage />
           </FadeWrapper>
         }
       />

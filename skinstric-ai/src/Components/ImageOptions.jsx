@@ -85,9 +85,11 @@ const ImageOptions = ({ onImageSelected, onCanProceed }) => {
         // Store the image preview
         setSelectedImage(reader.result);
 
-        // Pass the event to the parent component
-        onImageSelected?.(event);
-        onCanProceed?.(true);
+        // Store the event for later submission
+        setCapturedImageEvent(event);
+        
+        // Don't automatically set canProceed to true - wait for submit button click
+        onCanProceed?.(false);
         setIsProcessing(false);
       } catch (error) {
         console.error("Error processing image:", error);

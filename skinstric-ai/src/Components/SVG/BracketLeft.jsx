@@ -9,6 +9,7 @@ const BracketLeft = ({ className }) => {
       viewBox="0 0 4 18"
       width="4"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ display: 'inline-block', verticalAlign: 'middle' }}
     >
       <path
         d="M3.5 0.5V17.5H0.5"

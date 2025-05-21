@@ -1,0 +1,29 @@
+/* LoadingPage.css */
+
+.loading-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Ensure the loading page doesn't interfere with other components */
+.loading-page .loading-container {
+  /* The z-index is already set in loadingCanvas.css */
+  /* This ensures the loading animation is contained within its boundaries */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for the loading text */
+.loading-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-black, #1a1b1c);
+  margin-top: 20px;
+  letter-spacing: -2%;
+  line-height: 24px;
+}

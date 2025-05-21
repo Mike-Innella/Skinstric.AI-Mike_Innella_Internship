@@ -89,8 +89,8 @@ function TestPage() {
   };
   
   const handleFinalSubmit = () => {
-    // Navigate to analysis page after final submission
-    navigate('/analysis');
+    // Navigate to loading page after final submission
+    navigate('/loading');
   };
 
   return (

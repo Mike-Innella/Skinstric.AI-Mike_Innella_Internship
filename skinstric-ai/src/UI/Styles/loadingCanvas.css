@@ -1,16 +1,19 @@
-body,
-html {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: hsla(0, 0%, 95%, 1);
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-bg-white, #fcfcfc);
+  z-index: 10; /* Increased but still below the FloatingHeader */
 }
 
-canvas {
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border: 5px solid hsla(196, 95%, 25%, 1);
-  box-shadow: inset 2px 3px hsla(0, 0%, 0%, 0.1);
+.loading-container canvas {
+  max-width: 90%;
+  max-height: 90%;
 }
+
+/* We'll use the global font definitions instead of defining our own */

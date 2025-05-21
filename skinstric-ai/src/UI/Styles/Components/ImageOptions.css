@@ -160,7 +160,7 @@
 /* Position right side */
 .image-options__option--right .image-options__label-container {
   top: 157px;
-  left: -223px;
+  left: -225px;
 }
 
 .image-options__option--right .image-options__callout {
@@ -530,15 +530,15 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  opacity: 0; /* Back to 0 by default */
+  opacity: 1; /* Always visible by default */
   transition: opacity 0.3s ease;
 }
 
-/* Show overlay on hover or when it has the visible class */
-.image-options__preview:hover .image-options__preview-overlay,
+/* No longer needed since overlay is always visible */
+/* .image-options__preview:hover .image-options__preview-overlay,
 .image-options__preview-overlay--visible {
   opacity: 1;
-}
+} */
 
 .image-options__preview-text {
   color: white;

@@ -154,11 +154,8 @@ const TestForm = ({
         // Enable the proceed button
         onCanProceedChange?.(true);
         
-        // Call handleImageSuccess which calls onFinalSubmit
-        // Only auto-navigate if we're using internal step management
-        if (externalStep === undefined) {
-          handleImageSuccess();
-        }
+        // Navigate to loading page
+        onFinalSubmit?.();
         
         // Clear success message after a delay
         setTimeout(() => setMessage(""), 1500);

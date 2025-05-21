@@ -1,60 +1,91 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../Styles/loadingCanvas.css";
 
 const LoadingCanvas = () => {
+  const canvasRef = useRef(null);
+  const [message] = useState("PREPARING YOUR ANALYSIS...");
+  
   useEffect(() => {
-    const c = document.getElementById("canv");
+    const c = canvasRef.current;
+    if (!c) return;
+    
     const $ = c.getContext("2d");
     let w = (c.width = window.innerWidth / 1.2);
     let h = (c.height = window.innerHeight / 1.2);
     let cnt = 10;
-
-    const draw = () => {
-      let i, b, arr, _arr, rz, x, y, px, py;
-      const pts = Math.cos(Math.PI * 2) / (8 / 2);
-      $.globalCompositeOperation = "source-over";
+    let animationFrameId;
+    
+    // Clear the canvas
+    const clear = () => {
+      $.clearRect(0, 0, w, h);
+      $.fillStyle = "rgba(252, 252, 252, 1)"; // Match the background color
       $.fillRect(0, 0, w, h);
-      $.globalCompositeOperation = "xor";
-      const dims = 0.85 + Math.sin(cnt / 43) / 25;
-      const rot = Math.sin(cnt / 73);
-      let _w = w;
-
-      for (b = 0; b < 80; b++) {
-        rz = cnt / 25 + (b / 5) * rot;
-        px = Math.cos(rz / 6) * (b / 40) + 100;
-        py = Math.sin(rz / 6) * (b / 40) + 100;
-        $.beginPath();
-        arr = [];
-        for (i = 0; i < 8; i++) {
-          x = Math.sin(rz) * _w + c.width / 2;
-          y = Math.cos(rz) * _w + c.height / 2;
-          rz += (Math.PI * 2) / 4;
-          if (i) $.lineTo(x, y);
-          else $.moveTo(x, y);
-          arr[i] = [x, y];
-        }
-        $.fillStyle = "hsla(196, 95%, 25%, 1)";
-        $.closePath();
-        $.fill();
-        if (b)
-          for (i = 0; i < 8; i++) {
-            $.beginPath();
-            $.moveTo(arr[i][0], arr[i][1]);
-            $.lineTo(_arr[i][0], _arr[i][1]);
-            $.fill();
-          }
-        _arr = [];
-        rz += (Math.PI * 2) / (2 / 4);
-        for (i = 0; i < 8; i++) {
-          x = Math.sin(rz) * _w * pts + 200;
-          y = Math.cos(rz) * _w * pts + 200;
-          _arr[i] = [x, y];
-          rz += (Math.PI * 2) / (2 / 4);
-        }
-        _w *= dims;
-      }
+    };
+    
+    // Draw a dotted square
+    const drawDottedSquare = (size, rotation, lineWidth = 1, opacity = 1) => {
+      $.save();
+      
+      // Set up the dotted line style
+      $.setLineDash([5, 5]);
+      $.lineWidth = lineWidth;
+      $.strokeStyle = `rgba(158, 158, 158, ${opacity})`; // Match the dotted border color from PageBoxes.css
+      
+      // Translate to center of canvas
+      $.translate(c.width / 2, c.height / 2);
+      
+      // Rotate
+      $.rotate(rotation);
+      
+      // Draw the square
+      const halfSize = size / 2;
+      $.beginPath();
+      $.moveTo(-halfSize, -halfSize);
+      $.lineTo(halfSize, -halfSize);
+      $.lineTo(halfSize, halfSize);
+      $.lineTo(-halfSize, halfSize);
+      $.closePath();
+      $.stroke();
+      
+      $.restore();
+    };
+    
+    // Draw text in the center
+    const drawText = () => {
+      $.save();
+      $.font = "16px 'Roobert Trial', sans-serif";
+      $.fontWeight = "600";
+      $.fillStyle = "#1a1b1c";
+      $.textAlign = "center";
+      $.textBaseline = "middle";
+      $.fillText(message, c.width / 2, c.height / 2);
+      $.restore();
+    };
+    
+    const draw = () => {
+      clear();
+      
+      // Calculate rotation based on time
+      const time = cnt / 25;
+      const baseRotation = time * 0.15;
+      
+      // Draw three layers of squares with different sizes and rotations
+      const baseSize = Math.min(w, h) * 0.3;
+      
+      // Outer square (largest)
+      drawDottedSquare(baseSize * 1.4, baseRotation, 2, 0.5);
+      
+      // Middle square
+      drawDottedSquare(baseSize * 1.2, -baseRotation * 0.8, 2, 0.7);
+      
+      // Inner square (smallest)
+      drawDottedSquare(baseSize, baseRotation * 0.6, 2, 1);
+      
+      // Draw the text
+      drawText();
+      
       cnt++;
-      window.requestAnimationFrame(draw);
+      animationFrameId = window.requestAnimationFrame(draw);
     };
 
     draw();
@@ -65,10 +96,19 @@ const LoadingCanvas = () => {
     };
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    
+    // Cleanup function to cancel animation frame and remove event listener
+    return () => {
+      window.cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [message]);
 
-  return <canvas id="canv"></canvas>;
+  return (
+    <div className="loading-container">
+      <canvas ref={canvasRef}></canvas>
+    </div>
+  );
 };
 
 export default LoadingCanvas;
