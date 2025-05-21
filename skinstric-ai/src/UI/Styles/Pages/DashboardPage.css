@@ -8,3 +8,11 @@
   justify-content: center;
   background-color: #fcfcfc;
 }
+
+.square__page-back.dashboard {
+  top: 128px;
+}
+
+.square__page-next.dashboard {
+  top: 128px;
+}
