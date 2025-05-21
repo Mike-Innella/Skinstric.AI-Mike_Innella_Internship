@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: center;
   background-color: #fcfcfc;
+  overflow-x: hidden;
 }
 
 .square__page-back.dashboard {
@@ -15,4 +16,26 @@
 
 .square__page-next.dashboard {
   top: 128px;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 767px) {
+  .dashboard-page {
+    height: auto;
+    min-height: 100vh;
+    padding: 20px 0;
+  }
+  
+  .square__page-back.dashboard,
+  .square__page-next.dashboard {
+    position: relative;
+    top: auto;
+    margin: 20px 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .dashboard-page {
+    padding: 10px 0;
+  }
 }

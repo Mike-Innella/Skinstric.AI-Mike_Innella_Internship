@@ -38,7 +38,7 @@ function MainPage() {
           maxWidth: "100vw",
           height: "100vh",
           pointerEvents: "none",
-          zIndex: 20, // Increased z-index to ensure it's above the loading page
+          zIndex: 20, 
         }}
       >
         <FloatingHeader align={hoverState} />

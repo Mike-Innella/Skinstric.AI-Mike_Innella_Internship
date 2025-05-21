@@ -10,6 +10,10 @@
   --color-bg-white: #fcfcfc;
   --color-bg-black: #1a1b1c;
   --color-bg-hover: #9e9e9e;
+  
+  --global-font-weight: 600;
+  --global-line-height: 16px;
+  --global-letter-spacing: -2%;
 }
 
 /* ========== BASE STYLES ========== */
@@ -20,70 +24,21 @@
   padding: 0;
 }
 
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   font-family: "Roobert Trial", sans-serif;
   background-color: var(--color-bg-white);
-  color: var(--color-text-black); /* === GLOBAL CSS === */
-
-  /* ========== REUSABLES ========== */
-
-  :root {
-    --color-text-black: #1a1b1c;
-    --color-text-white: #fcfcfc;
-    --color-text-secondary: #9e9e9e;
-    --color-bg-white: #fcfcfc;
-    --color-bg-black: #1a1b1c;
-    --color-bg-hover: #9e9e9e;
-
-    --global-font-weight: 600;
-    --global-line-height: 16px;
-    --global-letter-spacing: -2%;
-  }
-
-  /* ========== BASE STYLES ========== */
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    font-family: "Roobert Trial", sans-serif;
-    background-color: var(--color-bg-white);
-    color: var(--color-text-black);
-    font-size: 16px;
-
-    font-weight: var(--global-font-weight);
-    line-height: var(--global-line-height);
-    letter-spacing: var(--global-letter-spacing);
-  }
-
-  /* ========== TYPOGRAPHY ========== */
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: var(--global-font-weight);
-    color: var(--color-text-black);
-    margin-bottom: 12px;
-    line-height: var(--global-line-height);
-    letter-spacing: var(--global-letter-spacing);
-  }
-
-  p {
-    margin-bottom: 16px;
-    color: var(--color-text-secondary);
-    font-weight: var(--global-font-weight);
-    line-height: var(--global-line-height);
-    letter-spacing: var(--global-letter-spacing);
-  }
-
-  line-height: 1.6;
+  color: var(--color-text-black);
   font-size: 16px;
+  font-weight: var(--global-font-weight);
+  line-height: var(--global-line-height);
+  letter-spacing: var(--global-letter-spacing);
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* ========== TYPOGRAPHY ========== */
@@ -94,14 +49,19 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 600;
+  font-weight: var(--global-font-weight);
   color: var(--color-text-black);
   margin-bottom: 12px;
+  line-height: var(--global-line-height);
+  letter-spacing: var(--global-letter-spacing);
 }
 
 p {
   margin-bottom: 16px;
   color: var(--color-text-secondary);
+  font-weight: var(--global-font-weight);
+  line-height: var(--global-line-height);
+  letter-spacing: var(--global-letter-spacing);
 }
 
 a {
@@ -151,4 +111,35 @@ button:hover {
   max-width: 960px;
   margin: 0 auto;
   padding: 20px;
+}
+
+/* ========== RESPONSIVE UTILITIES ========== */
+
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 767px) {
+  body {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+  
+  h3 {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
 }

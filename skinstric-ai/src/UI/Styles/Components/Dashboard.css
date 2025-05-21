@@ -3,14 +3,18 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .container {
   background-color: #fcfcfc;
   height: 960px;
-
   max-width: 1920px;
   width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .background-layer {
@@ -43,8 +47,9 @@
   left: 414px;
   letter-spacing: -2%;
   line-height: 24px;
-  position: absolute;
-  top: 467px;
+  position: fixed;
+  top: 86px;
+  left: 32px;
   width: 227px;
 }
 
@@ -55,8 +60,9 @@
   left: 414px;
   letter-spacing: 0%;
   line-height: 24px;
-  position: absolute;
-  top: 499px;
+  position: fixed;
+  top: 118px;
+  left: 32px;
   width: 336px;
 }
 
@@ -70,13 +76,12 @@
 
 .diamond-grid {
   height: 314px;
-  left: 1185px;
-  position: absolute;
-  top: 705px;
-  transform: rotate(45deg);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
   width: 314px;
-  position: absolute;
-  z-index: 200;
+  z-index: 1000 !important;
 }
 
 .diamond-item {
@@ -84,6 +89,7 @@
   position: absolute;
   width: 156px;
   transition: all 0.3s ease-in-out;
+  z-index: inherit;
 }
 
 .diamond-item:nth-child(1):hover {
@@ -161,6 +167,101 @@
   left: 1733px;
   top: 880px;
   justify-content: flex-end;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 1919px) {
+  .container {
+    max-width: 100%;
+  }
+
+  .button-group.right {
+    left: auto;
+    right: 32px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .background-layer {
+    position: relative;
+    left: 0;
+    top: 0;
+    height: auto;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .header-section {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 40px;
+  }
+
+  .a-i-analysis {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin-top: 60px;
+  }
+
+  .a-i-has-estimated {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin-top: 10px;
+  }
+
+  .diamond-grid {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    margin: 100px 0;
+  }
+
+  .button-group.left,
+  .button-group.right {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin: 20px 0;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .diamond-grid {
+    transform: translate(-50%, -50%) rotate(45deg) scale(0.9);
+  }
+
+  .diamond-item .label {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .diamond-grid {
+    transform: translate(-50%, -50%) rotate(45deg) scale(0.7);
+  }
+
+  .diamond-item .label {
+    font-size: 12px;
+  }
+
+  .a-i-analysis {
+    font-size: 14px;
+  }
+
+  .a-i-has-estimated {
+    font-size: 12px;
+    width: 100%;
+  }
 }
 
 .button-icon-shrunk {
