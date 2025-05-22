@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import PageBoxes from "../Components/PageBoxes";
 import CornerText from "../Components/CornerText";
-import FloatingHeader from "../UI/Animations/FloatingHeader";
-import { Canvas } from "@react-three/fiber";
+import "../UI/Styles/Pages/MainPage.css";
 import Header from "../Components/Header";
 
 function MainPage() {
@@ -27,22 +26,19 @@ function MainPage() {
         hoverState={hoverState}
       />
 
-      <Canvas
-        orthographic
-        camera={{ zoom: 80, position: [0, 0, 10] }}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          maxWidth: "100vw",
-          height: "100vh",
-          pointerEvents: "none",
-          zIndex: 20, 
-        }}
-      >
-        <FloatingHeader align={hoverState} />
-      </Canvas>
+      <div className="main__page--container">
+        <div
+          className={`main__page--header-wrapper ${
+            hoverState === "left" ? "header-left" : "header-center"
+          }`}
+        >
+          <h1 className="main__page--header">
+            <span className="header-line-1">Sophisticated</span>
+            <br />
+            <span className="header-line-2">skincare</span>
+          </h1>
+        </div>
+      </div>
 
       <CornerText />
     </>

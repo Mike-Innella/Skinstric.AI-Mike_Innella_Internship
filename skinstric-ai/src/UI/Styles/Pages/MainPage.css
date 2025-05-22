@@ -1,53 +1,65 @@
 /* === Container stays the same === */
 .main__page--container {
-  display: flex;
-  align-items: center;
   position: fixed;
   top: 0;
-  width: 100%;
-  height: 100%;
-  max-width: 100vw;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  text-align: center;
   pointer-events: none;
-  margin: 0 auto;
+  z-index: 100;
 }
 
 /* === Wrapper — only this moves === */
 .main__page--header-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: transform 0.6s ease;
-  text-align: center;
-  pointer-events: auto;
-}
-
-.header-center {
-  transform: translateX(-50%);
-  text-align: center;
-}
-
-.header-left {
-  transform: translateX(calc(-50vw + 192px));
-  .page--header-sub {
-    transform: translateX(-148px);
-  }
+  position: relative;
+  width: 100%;
+  height: min(240px, 25vh); /* Responsive height */
+  max-width: min(900px, 90vw); /* Responsive max-width */
+  pointer-events: none;
 }
 
 /* === Header Text === */
 .main__page--header {
-  font-size: 128px;
-  font-weight: 300;
-  line-height: 120px;
-  letter-spacing: 2px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-size: 0; /* kill whitespace between spans */
   margin: 0;
-  transition: all 2.4s ease-in-out;
+  font-weight: 300;
+  line-height: min(120px, 12.5vh); /* Responsive line height */
+  letter-spacing: 2px;
+  color: #1a1b1c;
 }
 
-/* === Span should NOT be positioned === */
-.page--header-sub {
-  display: block;
-  transition: all 0.9s ease-in-out;
+/* === Individual lines positioned manually === */
+.header-line-1,
+.header-line-2 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: min(128px, 13.3vw); /* Responsive font size */
+  white-space: nowrap;
+  transition: transform 600ms ease;
+  will-change: transform;
+}
+
+/* === Second line lower by 132px (120px line + spacing) === */
+.header-line-1 {
+  top: 0;
+}
+
+.header-line-2 {
+  top: min(132px, 13.75vh); /* Responsive spacing */
+}
+
+/* === Slide Left on hoverState === */
+.header-left .header-line-1 {
+  transform: translateX(calc(-50% - 528px));
+}
+
+.header-left .header-line-2 {
+  transform: translateX(calc(-50% - 674px));
 }
