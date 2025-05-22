@@ -21,7 +21,7 @@ const PageBoxes = ({
   const location = useLocation();
   const { navigateWithFade } = useFade();
 
-  const pages = ["/discover", "/", "/test"];
+  const pages = ["/discover", "/", "/test", "/dashboard", "/analysis"];
   const currentIndex = pages.indexOf(location.pathname);
 
   const handleNext = () => {

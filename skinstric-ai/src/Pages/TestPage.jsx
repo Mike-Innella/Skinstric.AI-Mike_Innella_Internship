@@ -15,24 +15,25 @@ function TestPage() {
   const [submitPhaseOneRef, setSubmitPhaseOneRef] = useState(() => () => {
     console.log("submitPhaseOneRef called before initialization");
   });
-  
+
   // Initialize with valid state for first step if name is entered
   const [initialLoad, setInitialLoad] = useState(true);
-  
+
   // Button labels based on current step
   const [nextButtonLabel, setNextButtonLabel] = useState("PROCEED");
   const [backButtonLabel, setBackButtonLabel] = useState("BACK");
-  
+
   // Update button labels and reset canProceed when step changes
   useEffect(() => {
     if (initialLoad) {
       setInitialLoad(false);
       return;
     }
-    
+
     // Reset canProceed when step changes (except on initial load)
     setCanProceed(false);
-    
+    console.log(`Step changed to ${formStep}, resetting canProceed to false`);
+
     // Update button labels based on current step
     if (formStep === 1) {
       setNextButtonLabel("PROCEED");
@@ -45,11 +46,11 @@ function TestPage() {
       setBackButtonLabel("PREVIOUS");
     }
   }, [formStep, initialLoad]);
-  
+
   const handleNextStep = () => {
     // Don't proceed if validation fails
     if (!canProceed) return;
-    
+
     // If we're on step 2 and can proceed, submit phase one data before advancing
     if (formStep === 2 && submitPhaseOneRef) {
       try {
@@ -61,16 +62,16 @@ function TestPage() {
         // Fall through to default behavior if function call fails
       }
     }
-    
+
     // For other steps, just advance if possible
     if (formStep < 3) {
-      setFormStep(prev => prev + 1);
+      setFormStep((prev) => prev + 1);
     } else if (formStep === 3 && canProceed) {
       // If on step 3 and can proceed, navigate to analysis page
       handleFinalSubmit();
     }
   };
-  
+
   // Handle back button behavior
   const handleBackStep = () => {
     // If on step 1, use default navigation (to previous page)
@@ -78,19 +79,19 @@ function TestPage() {
     if (formStep === 1) {
       return; // undefined return allows default navigation
     }
-    
+
     // If on steps 2 or 3, go to previous form step
-    setFormStep(prev => prev - 1);
+    setFormStep((prev) => prev - 1);
     // Always allow going back (no validation needed)
     setCanProceed(true);
-    
+
     // Return false to prevent default navigation in PageBoxes
     return false;
   };
-  
+
   const handleFinalSubmit = () => {
     // Navigate to loading page after final submission
-    navigate('/loading');
+    navigate("/loading");
   };
 
   return (
@@ -106,7 +107,7 @@ function TestPage() {
         showLeft={false}
         showRight={false}
         showCenter={formStep !== 3}
-        showNextButton={true}
+        showNextButton={formStep < 3 || (formStep === 3 && canProceed)}
         showBackButton={true}
         onNext={handleNextStep}
         onBack={handleBackStep}
@@ -114,10 +115,13 @@ function TestPage() {
         nextButtonLabel={nextButtonLabel}
         backButtonLabel={backButtonLabel}
       />
-      <TestForm 
+      <TestForm
         step={formStep}
         onStepChange={setFormStep}
-        onCanProceedChange={setCanProceed}
+        onCanProceedChange={(value) => {
+          console.log(`canProceed changed to ${value}`);
+          setCanProceed(value);
+        }}
         onFinalSubmit={handleFinalSubmit}
         onSubmitPhaseOne={setSubmitPhaseOneRef}
       />

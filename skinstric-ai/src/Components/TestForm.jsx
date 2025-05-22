@@ -23,7 +23,14 @@ const TestForm = ({
   useEffect(() => {
     if (step === 1) onCanProceedChange?.(!!name);
     else if (step === 2) onCanProceedChange?.(!!location);
-    else if (step === 3) onCanProceedChange?.(!!capturedImageEvent);
+    else if (step === 3) {
+      if (capturedImageEvent) {
+        console.log("Setting canProceed to true because capturedImageEvent exists");
+        onCanProceedChange?.(true);
+      } else {
+        onCanProceedChange?.(false);
+      }
+    }
     setMessage("");
   }, [name, location, step, capturedImageEvent, onCanProceedChange]);
 
@@ -106,8 +113,9 @@ const TestForm = ({
       try {
         const result = await submitBase64Image(base64String);
         setMessage(`Image uploaded: ${result.message || "Done!"}`);
+        console.log("Setting canProceed to true after successful image upload");
         onCanProceedChange?.(true);
-        onFinalSubmit?.();
+        // Don't automatically call onFinalSubmit, let the user click the submit button
         setTimeout(() => setMessage(""), 1800);
       } catch (err) {
         console.error("Image upload error:", err);
