@@ -218,16 +218,16 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scaleX(-1); /* Mirror the video for selfie mode */
-  background-color: #000; /* Ensure black background */
-  z-index: 2; /* Ensure video is above any background elements */
+  transform: scaleX(-1);
+  background-color: #000;
+  z-index: 2;
 }
 
 /* Camera container styles */
 .image-options__camera-container {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -248,7 +248,7 @@
   border-radius: 50%;
   border-top-color: #fff;
   animation: camera-loading 1s ease-in-out infinite;
-  z-index: 1;
+  z-index: 0;
 }
 
 @keyframes camera-loading {
@@ -265,6 +265,7 @@
   overflow: none;
   top: 442px;
   left: 592px;
+  z-index: 10;
 }
 
 .image-options__permission-dialog {
@@ -375,7 +376,6 @@
 
 .image-options__setup-text {
   color: #fff;
-  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 16px;
   font-weight: 600;
   text-align: center;
@@ -404,7 +404,26 @@
   width: 62px;
   height: 62px;
   cursor: pointer;
+  transition: all 300ms ease;
 }
+
+.image-options__camera-button-outer:hover {
+  transform: scale(1.1);
+}
+.image-options__camera-button-outer:active {
+  transform: scale(0.9);
+}
+
+.image-options__camera-button-container:hover
+  .image-options__camera-button-inner {
+  transform: scale(0.9);
+}
+
+.image-options__camera-button-container:active
+  .image-options__camera-button-inner {
+    transform: scale(1.1);
+  }
+
 
 .image-options__camera-button-inner {
   position: absolute;
@@ -414,6 +433,7 @@
   height: 55px;
   background-color: #fcfcfc;
   border-radius: 50%;
+  transition: all 300ms ease-in-out;
 }
 
 .image-options__camera-button-outer {
@@ -424,11 +444,11 @@
   height: 62px;
   border: 2px solid #fcfcfc;
   border-radius: 50%;
+  transition: all 300ms ease-in-out;
 }
 
 .image-options__take-picture-text {
   color: #fcfcfc;
-  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.32px;
@@ -450,7 +470,6 @@
 
 .image-options__instructions-title {
   color: #fcfcfc;
-  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.24px;
@@ -478,7 +497,6 @@
 
 .image-options__instruction-text {
   color: #fcfcfc;
-  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.24px;
@@ -555,19 +573,12 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  opacity: 1; /* Always visible by default */
+  opacity: 1;
   transition: opacity 0.3s ease;
 }
 
-/* No longer needed since overlay is always visible */
-/* .image-options__preview:hover .image-options__preview-overlay,
-.image-options__preview-overlay--visible {
-  opacity: 1;
-} */
-
 .image-options__preview-text {
   color: white;
-  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 1.25rem;
   text-align: center;
   padding: 1rem;
@@ -580,7 +591,6 @@
   color: #fff;
   border: 2px solid #fff;
   padding: 10px 30px;
-  font-family: "RoobertTRIAL-Regular", sans-serif;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 1px;
