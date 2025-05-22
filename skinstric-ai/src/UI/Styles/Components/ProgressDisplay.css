@@ -99,4 +99,34 @@
   .progress-display__percentage-symbol {
     font-size: 20px;
   }
+  
+  .progress-display__age {
+    font-size: 20px;
+    line-height: 28px;
+    margin-bottom: 16px;
+    text-align: center;
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .progress-display__circle-container {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .progress-display__percentage {
+    font-size: 28px;
+  }
+  
+  .progress-display__percentage-symbol {
+    font-size: 18px;
+    margin-top: -8px;
+  }
+  
+  .progress-display__age {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 12px;
+  }
 }

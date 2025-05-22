@@ -25,7 +25,6 @@ function AnalysisPage() {
     gender: ""
   });
   
-  // Add state to track which demographic type is currently active
   const [activeDemographic, setActiveDemographic] = useState("race");
   
   useEffect(() => {
@@ -62,7 +61,9 @@ function AnalysisPage() {
       }
     } else {
       // Generate dummy data if no data is present (e.g., when coming from Dashboard)
-      console.log("No analysis data found, generating dummy data");
+      if (process.env.NODE_ENV === "development") {
+        console.log("No analysis data found, generating dummy data");
+      }
       const dummyData = generateDummyData();
       setAnalysisData(dummyData);
       setSelectedValues({
@@ -179,7 +180,9 @@ function AnalysisPage() {
   };
 
   const handleConfirm = () => {
-    console.log("Confirmed selections:", selectedValues);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Confirmed selections:", selectedValues);
+    }
     // Optionally send to API
     navigate("/");
   };

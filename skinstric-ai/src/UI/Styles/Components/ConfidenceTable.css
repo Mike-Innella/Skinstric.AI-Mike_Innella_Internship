@@ -114,4 +114,33 @@
   .confidence-table__row-content {
     padding: 6px 10px;
   }
+  
+  .confidence-table-header {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .confidence-table__row {
+    height: 32px;
+  }
+  
+  .confidence-table__row-content {
+    padding: 4px 8px;
+  }
+  
+  .confidence-table__range {
+    font-size: 12px;
+    line-height: 14px;
+  }
+  
+  .confidence-table__value {
+    font-size: 12px;
+    line-height: 14px;
+  }
+  
+  .confidence-table__selector {
+    transform: scale(0.9);
+    margin-right: 4px;
+  }
 }

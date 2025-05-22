@@ -158,7 +158,8 @@
   line-height: 16px;
   color: #a0a4ab;
   margin: 0;
-  margin-left: 410.5px;
+  text-align: center;
+  margin-left: 412px;
 }
 
 .action-buttons {
@@ -270,18 +271,84 @@
     padding: 0 16px;
   }
 
-  .demographics-cards {
+  .analysis-main {
     flex-direction: column;
-    align-items: center;
+  }
+
+  .demographics-cards {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    order: 1;
+  }
+
+  .demographics-card-wrapper {
+    width: calc(50% - 8px);
+    max-width: 180px;
+  }
+
+  .progress-display-wrapper {
+    width: 100%;
+    order: 2;
+    margin: 24px 0;
+  }
+
+  .confidence-tables {
+    width: 100%;
+    order: 3;
   }
 
   .analysis-footer {
     flex-direction: column;
     gap: 24px;
+    align-items: center;
+  }
+
+  .instruction-text {
+    margin-left: 0;
+    text-align: center;
+    margin-bottom: 16px;
   }
 
   .action-buttons {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .demographics-title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .demographics-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .demographics-card-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .selected-value-display {
+    font-size: 28px;
+    padding: 16px;
+  }
+
+  .progress-circle-container {
+    padding: 16px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .reset-button, .confirm-button {
+    width: 100%;
+    text-align: center;
   }
 }

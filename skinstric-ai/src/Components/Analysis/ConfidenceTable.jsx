@@ -6,23 +6,24 @@ const ConfidenceTable = ({
   confidenceData, 
   selectedValue,
   onValueSelection,
-  dataType = "age", // "age", "race", or "gender"
+  dataType = "age",
   title = null,
   className = "" 
 }) => {
   // Get the appropriate data based on dataType
   const data = confidenceData && confidenceData[dataType] ? confidenceData[dataType] : {};
   
+  // Extract the first number from an age range (e.g., "20-29" -> 20)
+  const getFirstNumber = (range) => {
+    const match = range.match(/^(\d+)/);
+    return match ? parseInt(match[1], 10) : 999; // Default to high number if no match
+  };
+
   // Sort data based on dataType
   const sortedData = Object.entries(data)
     .sort((a, b) => {
       // For age, sort by age range numerically (youngest first)
       if (dataType === "age") {
-        // Extract the first number from each age range (e.g., "20-29" -> 20)
-        const getFirstNumber = (range) => {
-          const match = range.match(/^(\d+)/);
-          return match ? parseInt(match[1], 10) : 999; // Default to high number if no match
-        };
         return getFirstNumber(a[0]) - getFirstNumber(b[0]);
       } 
       // For other types, sort by confidence (highest first)
@@ -40,7 +41,6 @@ const ConfidenceTable = ({
       
       {sortedData.map(({ key, value }) => {
         const isSelected = selectedValue === key;
-        // Remove the isHighestConfidence logic completely
         const rowClass = isSelected 
           ? "confidence-table__row confidence-table__row--selected" 
           : "confidence-table__row";

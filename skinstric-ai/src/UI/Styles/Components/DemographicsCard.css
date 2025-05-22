@@ -65,4 +65,25 @@
     max-width: 100%;
     width: 100%;
   }
+  
+  .demographics-card__content {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .demographics-card {
+    height: 90px;
+  }
+  
+  .demographics-card__value {
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: 12px;
+  }
+  
+  .demographics-card__title {
+    font-size: 12px;
+    line-height: 14px;
+  }
 }
