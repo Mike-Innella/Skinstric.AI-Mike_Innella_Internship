@@ -1,365 +1,287 @@
 /* === ANALYSIS PAGE STYLES === */
 
-.element {
+/* Main container */
+.analysis-container {
   background-color: #fcfcfc;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-}
-
-.div {
-  background-color: #fcfcfc;
-  height: 960px;
-  position: relative;
-  width: 100%;
-  max-width: 1920px;
-  margin: 0 auto;
-}
-
-/* Header styles */
-.overlap {
-  height: 68px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
-.rectangle {
-  height: 18px;
-  margin-bottom: -0.5px;
-  margin-left: -0.5px;
-  margin-top: -0.5px;
-  position: relative;
-  width: 4.5px;
-}
-
-.rectangle-2711 {
-  height: 18px;
-  margin-bottom: -0.5px;
-  margin-right: -0.5px;
-  margin-top: -0.5px;
-  position: relative;
-  width: 4.5px;
-}
-
-.image {
-  height: 22px;
-  left: 704px;
-  position: absolute;
-  top: 46px;
-  width: 18px;
-}
-
-/* Back button styles */
-.button-icon-text {
+  flex-direction: column;
   align-items: center;
-  display: inline-flex;
-  gap: 16px;
-  left: 32px;
-  position: absolute;
-  top: 880px;
-  cursor: pointer;
-}
-
-.buttin-icon-shrunk {
-  height: 44px;
-  width: 44px;
-  position: relative;
-}
-
-.button {
-  all: unset;
-  box-sizing: border-box;
-  color: var(--color-text-black);
-  font-family: "Roobert Trial", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.32px;
-  line-height: 16px;
-  position: relative;
-  white-space: nowrap;
-  width: fit-content;
-  cursor: pointer;
-}
-
-/* Title and subtitle styles */
-.a-i-analysis {
-  font-size: 16px;
-  font-weight: 600;
-  left: 414px;
-  letter-spacing: -2%;
-  line-height: 24px;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 64px; /* Space for header */
+  padding-bottom: 32px;
   position: fixed;
-  top: 86px;
-  left: 32px;
-  width: 227px;
-}
-
-.a-i-has-estimated {
-  color: var(--color-text-black);
-  font-size: 14px;
-  font-weight: 400;
-  left: 414px;
-  letter-spacing: 0%;
-  line-height: 24px;
-  position: fixed;
-  top: 118px;
-  left: 32px;
-  width: 336px;
-}
-
-/* Navigation styles */
-.nav {
-  height: 44px;
-  left: 542px;
-  position: absolute;
-  top: 92px;
-  width: 96px;
-}
-
-.buttin-icon-shrunk-instance {
-  height: 44px;
+  top: 0;
   left: 0;
-  position: absolute;
-  top: 0;
-  width: 44px;
 }
 
-.icon-instance-node {
-  height: 44px;
-  left: 52px;
-  position: absolute;
-  top: 0;
-  width: 44px;
+.analysis-content {
+  width: 100%;
+  padding-left: 32px;
+  padding-right: 32px;
+  margin-bottom: 64px;
 }
 
-/* Content layout */
-.group {
-  height: 544px;
-  left: 256px;
-  position: absolute;
-  top: 304px;
-  width: 1170px;
+/* Header section */
+.analysis-header {
+  margin-top: 32px;
+  margin-bottom: 24px;
 }
 
-.overlap-wrapper {
-  height: 104px;
-  left: 32px;
-  position: absolute;
-  top: 304px;
-  width: 212px;
-}
-
-.div-wrapper {
-  height: 104px;
-  left: 32px;
-  position: absolute;
-  top: 416px;
-  width: 212px;
-}
-
-.group-3 {
-  height: 104px;
-  left: 32px;
-  position: absolute;
-  top: 528px;
-  width: 212px;
-}
-
-.group-4 {
-  height: 544px;
-  left: 1440px;
-  position: absolute;
-  top: 304px;
-  width: 452px;
-}
-
-/* Instruction text */
-.p {
-  color: #a0a4ab;
+.analysis-title {
   font-family: "Roobert Trial", sans-serif;
   font-size: 16px;
-  font-weight: 400;
-  left: 821px;
+  font-weight: 600;
   letter-spacing: -0.32px;
-  line-height: 16px;
-  position: absolute;
-  top: 893px;
-  white-space: nowrap;
+  line-height: 24px;
+  color: var(--color-text-black);
   margin: 0;
 }
 
-/* Action buttons */
-.button-simple {
-  all: unset;
-  align-items: center;
-  background-color: #1a1b1c;
-  box-sizing: border-box;
-  display: inline-flex;
-  gap: 8px;
-  left: 1793px;
-  padding: 9px 16px 10px;
-  position: absolute;
-  top: 889px;
-  cursor: pointer;
-}
-
-.button-2 {
-  all: unset;
-  box-sizing: border-box;
-  color: #fcfcfc;
+.demographics-title {
   font-family: "Roobert Trial", sans-serif;
-  font-size: 16px;
+  font-size: 40px;
   font-weight: 600;
-  letter-spacing: -0.32px;
-  line-height: 16px;
-  margin-top: -0.5px;
-  position: relative;
-  white-space: nowrap;
-  width: fit-content;
-  cursor: pointer;
-}
-
-.button-wrapper {
-  align-items: center;
-  border: 1px solid;
-  border-color: #1a1b1c;
-  display: inline-flex;
-  gap: 8px;
-  left: 1702px;
-  padding: 9px 16px 10px;
-  position: absolute;
-  top: 888px;
-  cursor: pointer;
-}
-
-.button-3 {
-  all: unset;
-  box-sizing: border-box;
+  letter-spacing: -0.8px;
+  line-height: 48px;
   color: var(--color-text-black);
+  margin: 8px 0;
+}
+
+.demographics-subtitle {
+  font-family: "Roobert Trial", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 20px;
+  color: var(--color-text-black);
+  margin: 0;
+}
+
+/* Main content area */
+.analysis-main {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+  gap: 24px;
+}
+
+/* Left column - Demographics cards */
+.demographics-cards {
+  width: 212px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.demographics-card-wrapper {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.demographics-card-wrapper:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.demographics-card-wrapper.active {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Center column - Progress display */
+.progress-display-wrapper {
+  flex: 1;
+  max-width: 600px;
+  background-color: #f3f3f4;
+  position: relative;
+  border-top: 1px solid var(--color-text-black);
+  transition: all 0.3s ease;
+}
+
+.selected-value-display {
+  font-family: "Roobert Trial", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.64px;
+  line-height: 40px;
+  color: var(--color-text-black);
+  padding: 24px;
+  text-transform: capitalize;
+  transition: all 0.3s ease;
+}
+
+.progress-circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+/* Right column - Confidence tables */
+.confidence-tables {
+  width: 300px;
+  transition: all 0.3s ease;
+}
+
+.confidence-table-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Roobert Trial", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.32px;
+  line-height: 24px;
+  color: var(--color-text-black);
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Footer section */
+.analysis-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 48px;
+}
+
+.instruction-text {
+  font-family: "Roobert Trial", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.32px;
+  line-height: 16px;
+  color: #a0a4ab;
+  margin: 0;
+  margin-left: 410.5px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.reset-button {
+  all: unset;
+  box-sizing: border-box;
   font-family: "Roobert Trial", sans-serif;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.32px;
   line-height: 16px;
-  margin-top: -0.5px;
-  position: relative;
-  white-space: nowrap;
-  width: fit-content;
+  color: var(--color-text-black);
+  border: 1px solid var(--color-text-black);
+  padding: 12px 24px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1600px) {
-  .group {
-    width: calc(100% - 600px);
-  }
-
-  .group-4 {
-    left: auto;
-    right: 32px;
-    width: 400px;
-  }
-
-  .button-simple {
-    left: auto;
-    right: 32px;
-  }
-
-  .button-wrapper {
-    left: auto;
-    right: 123px;
-  }
-
-  .p {
-    left: 50%;
-    transform: translateX(-50%);
-  }
+.reset-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-@media (max-width: 1200px) {
-  .group {
-    width: calc(100% - 500px);
-    left: 200px;
-  }
+.confirm-button {
+  all: unset;
+  box-sizing: border-box;
+  font-family: "Roobert Trial", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.32px;
+  line-height: 16px;
+  color: #fcfcfc;
+  background-color: var(--color-text-black);
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
 
-  .group-4 {
-    width: 300px;
+.confirm-button:hover {
+  background-color: #333;
+}
+
+/* Animation for switching between demographic types */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 768px) {
-  .div {
-    height: auto;
-    padding-bottom: 100px;
-  }
+.confidence-table:not(.hidden) {
+  animation: fadeIn 0.3s ease-in-out;
+}
 
-  .group,
-  .overlap-wrapper,
-  .div-wrapper,
-  .group-3,
-  .group-4 {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 20px;
-    width: 90%;
-  }
+/* Animation for the confidence table header */
+.confidence-table-header {
+  transition: opacity 0.3s ease;
+}
 
-  .overlap-wrapper,
-  .div-wrapper,
-  .group-3 {
-    width: 212px;
-  }
+/* Animation for the selected value display */
+.selected-value-display {
+  transition: all 0.3s ease;
+}
 
-  .group {
-    top: 300px;
-  }
-
-  .overlap-wrapper {
-    top: 20px;
-  }
-
-  .div-wrapper {
-    top: 20px;
-  }
-
-  .group-3 {
-    top: 20px;
-  }
-
-  .group-4 {
-    top: 20px;
-  }
-
-  .p {
-    position: relative;
-    top: auto;
-    margin: 20px 0;
-  }
-
-  .button-icon-text,
-  .button-simple,
-  .button-wrapper {
-    position: relative;
-    left: auto;
-    top: auto;
-    margin-top: 20px;
-  }
-
-  .button-icon-text {
-    margin-left: 32px;
-  }
-
-  .button-simple,
-  .button-wrapper {
-    display: block;
-    margin: 10px auto;
-  }
+/* Animation for the progress circle */
+.progress-circle-container {
+  transition: all 0.3s ease;
 }
 
 .square__page-back.analysis {
   top: 128px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .analysis-main {
+    flex-wrap: wrap;
+  }
+
+  .progress-display-wrapper {
+    order: 1;
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .demographics-cards {
+    order: 2;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .confidence-tables {
+    order: 3;
+    width: 100%;
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .analysis-content {
+    padding: 0 16px;
+  }
+
+  .demographics-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .analysis-footer {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .action-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
 }

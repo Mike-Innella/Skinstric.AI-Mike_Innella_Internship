@@ -28,10 +28,10 @@ function Discover() {
       {/* Animated 3D Dotted Borders - Only right square with next button */}
       <PageBoxes
         showLeft={false}
-        showRight={false}
+        showRight={true}
         showCenter={false}
         showNextButton={true}
-        showBackButton={true}
+        showBackButton={false}
       />
 
       <div className="discover__container">

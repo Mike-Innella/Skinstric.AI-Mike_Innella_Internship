@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { submitPhaseOne, submitBase64Image } from "../Services/api";
+import { submitPhaseOne, submitFinalImage, submitBase64Image } from "../Services/api";
 import ImageOptions from "./ImageOptions";
 import "../UI/Styles/Components/TestForm.css";
 import { useNavigate } from "react-router-dom";
@@ -78,7 +78,7 @@ const TestForm = ({
     setIsSubmitting(true);
     setMessage("");
     try {
-      const result = await submitPhaseOne(name, location);
+      const result = await submitPhaseOne({ name, location });
       setMessage(`Phase 1 Success: ${result.message || "Submitted!"}`);
       setTimeout(() => setMessage(""), 1500);
       handleNextStep();
@@ -115,10 +115,14 @@ const TestForm = ({
       setIsSubmitting(true);
       setMessage("");
       try {
-        const result = await submitBase64Image(base64String);
+        const result = await submitFinalImage({
+          name,
+          location,
+          image: base64String
+        });
 
-        if (result && result.race && result.age && result.confidence) {
-          navigate("/analysis", { state: result });
+        if (result) {
+          navigate("/analysis", { state: { analysisData: result } });
         } else {
           setMessage("Invalid analysis result. Try again.");
           onCanProceedChange?.(false);

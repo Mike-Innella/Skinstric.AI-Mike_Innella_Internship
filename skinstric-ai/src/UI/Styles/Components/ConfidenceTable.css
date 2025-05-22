@@ -1,35 +1,34 @@
 .confidence-table {
   background-color: #f3f3f4;
   width: 100%;
-  max-width: 448px;
-  height: 544px;
+  max-width: 300px;
+  height: auto;
+  min-height: 200px;
   position: relative;
   border-radius: 0;
+  margin-bottom: 16px;
+  border-top: 1px solid var(--color-text-black);
+}
+
+.mt-4 {
+  margin-top: 24px;
 }
 
 .confidence-table__rectangle {
-  background-color: var(--color-text-black);
-  height: 1px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
+  display: none; /* Hide this as we're using border-top instead */
 }
 
 .confidence-table__header {
-  display: flex;
-  justify-content: space-between;
-  padding: 14px 16px;
+  display: none; /* Hide this as we're using a separate header in the parent component */
 }
 
 .confidence-table__title {
   font-family: "Roobert Trial", sans-serif;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 600;
-  letter-spacing: -0.48px;
+  letter-spacing: -0.32px;
   line-height: 24px;
   color: var(--color-text-black);
-  opacity: 0.8;
 }
 
 .confidence-table__title--right {
@@ -37,7 +36,7 @@
 }
 
 .confidence-table__row {
-  height: 48px;
+  height: 40px;
   width: 100%;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -58,32 +57,33 @@
 .confidence-table__row-content {
   display: flex;
   align-items: center;
-  padding: 12px 16px;
+  padding: 8px 12px;
   height: 100%;
   position: relative;
 }
 
 .confidence-table__selector {
-  margin-right: 12px;
+  margin-right: 8px;
   display: flex;
   align-items: center;
 }
 
 .confidence-table__range {
   font-family: "Roobert Trial", sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  letter-spacing: -0.32px;
+  letter-spacing: -0.28px;
   line-height: 16px;
   color: var(--color-text-black);
   flex-grow: 1;
+  text-transform: capitalize;
 }
 
 .confidence-table__value {
   font-family: "Roobert Trial", sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  letter-spacing: -0.32px;
+  letter-spacing: -0.28px;
   line-height: 16px;
   color: var(--color-text-black);
   text-align: right;
@@ -96,9 +96,22 @@
   color: var(--color-text-white);
 }
 
+/* Hide tables that should be hidden */
+.hidden {
+  display: none;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .confidence-table {
     max-width: 100%;
+  }
+  
+  .confidence-table__row {
+    height: 36px;
+  }
+  
+  .confidence-table__row-content {
+    padding: 6px 10px;
   }
 }
