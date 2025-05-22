@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import "../UI/Styles/Pages/DiscoverPage.css";
 import "../UI/Styles/Pages/Pages.css";
 
 import PageBoxes from "../Components/PageBoxes";
-import Header from "../Components/Header";
+import { useHeaderTitle } from "../Context/HeaderContext";
 
 function Discover() {
+  const { setHeaderTitle } = useHeaderTitle();
+  
+  useEffect(() => {
+    setHeaderTitle("INTRO");
+    
+    // Clear header title when component unmounts
+    return () => setHeaderTitle("");
+  }, [setHeaderTitle]);
   return (
     <>
       <Helmet>
@@ -25,8 +33,6 @@ function Discover() {
         showNextButton={true}
         showBackButton={true}
       />
-
-      <Header title="ANALYSIS" />
 
       <div className="discover__container">
         <h1 className="discover__title">Welcome to Skinstric.AI</h1>

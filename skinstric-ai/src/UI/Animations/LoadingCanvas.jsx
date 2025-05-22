@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../Styles/loadingCanvas.css";
 
-const LoadingCanvas = ({ message = "PREPARING YOUR ANALYSIS..." }) => {
+const LoadingCanvas = ({ 
+  message = "PREPARING YOUR ANALYSIS...",
+  textPosition = "center" // "center" or "below"
+}) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -49,7 +52,7 @@ const LoadingCanvas = ({ message = "PREPARING YOUR ANALYSIS..." }) => {
       $.restore();
     };
 
-    // Draw text in the center
+    // Draw text in the center or below center based on textPosition prop
     const drawText = () => {
       $.save();
       $.font = "16px 'Roobert Trial', sans-serif";
@@ -57,7 +60,14 @@ const LoadingCanvas = ({ message = "PREPARING YOUR ANALYSIS..." }) => {
       $.fillStyle = "var(--color-text-black, #1a1b1c)";
       $.textAlign = "center";
       $.textBaseline = "middle";
-      $.fillText(message, c.width / 2, c.height / 2);
+      
+      // Position text based on textPosition prop
+      const xPos = c.width / 2;
+      const yPos = textPosition === "below" 
+        ? (c.height / 2) + 60 // 60px below center
+        : c.height / 2;       // center
+        
+      $.fillText(message, xPos, yPos);
       $.restore();
     };
 
@@ -101,7 +111,7 @@ const LoadingCanvas = ({ message = "PREPARING YOUR ANALYSIS..." }) => {
       window.cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", handleResize);
     };
-  }, [message]);
+  }, [message, textPosition]);
 
   return (
     <div className="loading-container">

@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import PageBoxes from "../Components/PageBoxes";
 import CornerText from "../Components/CornerText";
 import "../UI/Styles/Pages/MainPage.css";
-import Header from "../Components/Header";
+import { useHeaderTitle } from "../Context/HeaderContext";
 
 function MainPage() {
   const [hoverState, setHoverState] = useState("center");
+  const { setHeaderTitle } = useHeaderTitle();
+  
+  useEffect(() => {
+    setHeaderTitle("INTRO");
+    
+    // Clear header title when component unmounts
+    return () => setHeaderTitle("");
+  }, [setHeaderTitle]);
 
   return (
     <>
       <Helmet>
         <title>Main Page | Skinstric.AI</title>
       </Helmet>
-
-      <Header title="intro" />
 
       <PageBoxes
         showLeft={true}

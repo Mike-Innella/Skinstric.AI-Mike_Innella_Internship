@@ -16,6 +16,7 @@ import AnalysisPage from "./Pages/AnalysisPage";
 import DashboardPage from "./Pages/DashboardPage";
 import TestImageOptions from "./TestImageOptions";
 import FadeWrapper, { FadeProvider } from "./UI/Animations/FadeWrapper";
+import { HeaderProvider } from "./Context/HeaderContext";
 import "./UI/Styles/Global.css";
 
 // This component wraps the routes and provides location for transitions
@@ -99,7 +100,9 @@ const AppWithFadeProvider = () => {
 function App() {
   return (
     <Router>
-      <AppWithFadeProvider />
+      <HeaderProvider>
+        <AppWithFadeProvider />
+      </HeaderProvider>
     </Router>
   );
 }

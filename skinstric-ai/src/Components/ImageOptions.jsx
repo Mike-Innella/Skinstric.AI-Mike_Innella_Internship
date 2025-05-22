@@ -236,10 +236,18 @@ const ImageOptions = ({ onImageSelected, onCanProceed, onImageReady }) => {
                 <div className="image-options__setup-screen">
                   <div className="image-options__camera-setup">
                     <div className="image-options__camera-loading">
-                      <LoadingCanvas message="SETTING UP CAMERA..." />
+                      <LoadingCanvas
+                        message="SETTING UP CAMERA..."
+                        textPosition="below"
+                      />
                       <div className="image-options__camera-icon-container">
                         <ShutterIcon className="image-options__camera-icon" />
                       </div>
+                    </div>
+                    <div className="setup__message--wrapper">
+                      <p className="setup__message--text">
+                        SETTING UP CAMERA...
+                      </p>
                     </div>
                     <div className="image-options__camera-instructions">
                       <p className="image-options__instructions-title image-options__instructions-title--setup">

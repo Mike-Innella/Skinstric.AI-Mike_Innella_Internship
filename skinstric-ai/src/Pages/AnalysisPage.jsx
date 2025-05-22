@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useLocation } from "react-router-dom";
-import Header from "../Components/Header";
 import PageBoxes from "../Components/PageBoxes";
 import DemographicsCard from "../Components/Analysis/DemographicsCard";
 import ConfidenceTable from "../Components/Analysis/ConfidenceTable";
 import ProgressDisplay from "../Components/Analysis/ProgressDisplay";
+import { useHeaderTitle } from "../Context/HeaderContext";
 import "../UI/Styles/Pages/Pages.css";
 import "../UI/Styles/Pages/AnalysisPage.css";
 import "../UI/Styles/Components/DemographicsCard.css";
@@ -16,9 +16,17 @@ function AnalysisPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const result = location.state;
+  const { setHeaderTitle } = useHeaderTitle();
 
   const [analysisData, setAnalysisData] = useState(null);
   const [selectedAge, setSelectedAge] = useState("");
+  
+  useEffect(() => {
+    setHeaderTitle("ANALYSIS");
+    
+    // Clear header title when component unmounts
+    return () => setHeaderTitle("");
+  }, [setHeaderTitle]);
 
   useEffect(() => {
     if (result) setAnalysisData(result);
@@ -52,8 +60,6 @@ function AnalysisPage() {
       <Helmet>
         <title>AI Analysis | Skinstric.AI</title>
       </Helmet>
-
-      <Header title="ANALYSIS" />
 
       <PageBoxes
         showLeft={false}

@@ -6,15 +6,24 @@ import PageBoxes from "../Components/PageBoxes";
 import TestForm from "../Components/TestForm";
 import "../UI/Styles/Pages/Pages.css";
 import "../UI/Styles/Pages/TestPage.css";
-import Header from "../Components/Header";
+import { useHeaderTitle } from "../Context/HeaderContext";
 
 function TestPage() {
   const [formStep, setFormStep] = useState(1);
   const [canProceed, setCanProceed] = useState(false);
   const navigate = useNavigate();
+  const { setHeaderTitle } = useHeaderTitle();
   const [submitPhaseOneRef, setSubmitPhaseOneRef] = useState(() => () => {
     console.log("submitPhaseOneRef called before initialization");
   });
+
+  // Set header title when component mounts
+  useEffect(() => {
+    setHeaderTitle("INTRO");
+    
+    // Clear header title when component unmounts
+    return () => setHeaderTitle("");
+  }, [setHeaderTitle]);
 
   // Initialize with valid state for first step if name is entered
   const [initialLoad, setInitialLoad] = useState(true);
@@ -98,8 +107,6 @@ function TestPage() {
         <title>Pretest | Skinstric.AI</title>
         {/* TODO: Add meta tags for pretest page */}
       </Helmet>
-
-      <Header title="intro" />
 
       <PageBoxes
         showLeft={false}

@@ -3,10 +3,15 @@ import BracketLeft from "./SVG/BracketLeft";
 import BracketRight from "./SVG/BracketRight";
 import "../UI/Styles/Components/Header.css";
 import { Link } from "react-router-dom";
+import { useHeaderTitle } from "../Context/HeaderContext";
 
 function Header({ title }) {
+  // Get title from context
+  const { headerTitle } = useHeaderTitle();
+  
+  // Use prop title if provided, otherwise use context title
   // Ensure title text is uppercase
-  const displayTitle = title ? title.toUpperCase() : "";
+  const displayTitle = title ? title.toUpperCase() : headerTitle ? headerTitle.toUpperCase() : "";
 
   return (
     <header className="header">

@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   background: var(--color-bg-white, #fcfcfc);
-  z-index: 10; /* Increased but still below the FloatingHeader */
+  z-index: 1;
 }
 
 /* When used inside the camera setup screen, adjust styles */
@@ -33,5 +33,28 @@
   max-width: 100vw;
   max-height: 100vh;
 }
+.loading__message--wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  margin: 0 auto;
+  position: fixed;
+  z-index: 100;
+}
 
-/* We'll use the global font definitions instead of defining our own */
+.loading__message--text {
+  color: var(--color-text-black, #1a1b1c);
+  font-weight: 600;
+  size: 16px;
+  line-height: 24px;
+  letter-spacing: -2%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 100;
+}
