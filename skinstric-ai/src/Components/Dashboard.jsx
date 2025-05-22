@@ -12,9 +12,9 @@ const Dashboard = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -31,16 +31,12 @@ const Dashboard = () => {
       <section className="container">
         <div className="background-layer">
           <div className="header-section">
-            {/* Temporarily removed image until assets are available */}
-            {/* <img className="rombuses" alt="Decorative rombuses" src={rombuses} /> */}
             <Header title="ANALYSIS" />
             <h2 className="a-i-analysis">A. I. ANALYSIS</h2>
             <p className="a-i-has-estimated">
               A. I. HAS ESTIMATED THE FOLLOWING. <br />
               FIX ESTIMATED INFORMATION IF NEEDED.
             </p>
-            {/* Temporarily removed image until assets are available */}
-            {/* <img className="image" alt="Indicator icon" src={image219} /> */}
           </div>
 
           <div className="diamond-grid">

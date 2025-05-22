@@ -85,16 +85,32 @@ function AnalysisPage() {
         onBack={handleBack}
         backButtonLabel="BACK"
       />
+      <Helmet>
+        <title>AI Analysis | Skinstric.AI</title>
+      </Helmet>
+
+      <Header title="ANALYSIS" />
+
+      <PageBoxes
+        showLeft={false}
+        showRight={false}
+        showCenter={false}
+        showNextButton={false}
+        showBackButton={true} // Use the standard back button
+        onBack={handleBack}
+        backButtonLabel="BACK"
+      />
 
       <div className="element">
         <div className="div">
-          <div className="overlap"></div>
-
-          <div className="a-i-analysis">A. I. ANALYSIS</div>
-          <div className="predicted-race-age">PREDICTED RACE &amp; AGE</div>
-          <div className="demographics">DEMOGRAPHICS</div>
-
-          {/* Navigation buttons removed - using standard back button in PageBoxes */}
+          <div className="overlap" />
+          <div className="header-section">
+            <h2 className="a-i-analysis">A. I. ANALYSIS</h2>
+            <p className="a-i-has-estimated">
+              PREDICTED RACE & AGE <br />
+              DEMOGRAPHICS
+            </p>
+          </div>
 
           <div className="group">
             <ProgressDisplay

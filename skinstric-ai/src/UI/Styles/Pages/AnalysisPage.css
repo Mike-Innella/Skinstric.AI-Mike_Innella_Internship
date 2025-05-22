@@ -28,19 +28,18 @@
 
 .rectangle {
   height: 18px;
-  margin-bottom: -0.50px;
-  margin-left: -0.50px;
-  margin-top: -0.50px;
+  margin-bottom: -0.5px;
+  margin-left: -0.5px;
+  margin-top: -0.5px;
   position: relative;
   width: 4.5px;
 }
 
-
 .rectangle-2711 {
   height: 18px;
-  margin-bottom: -0.50px;
-  margin-right: -0.50px;
-  margin-top: -0.50px;
+  margin-bottom: -0.5px;
+  margin-right: -0.5px;
+  margin-top: -0.5px;
   position: relative;
   width: 4.5px;
 }
@@ -87,43 +86,28 @@
 
 /* Title and subtitle styles */
 .a-i-analysis {
-  color: var(--color-text-black);
-  font-family: "Roobert Trial", sans-serif;
   font-size: 16px;
   font-weight: 600;
+  left: 414px;
+  letter-spacing: -2%;
+  line-height: 24px;
+  position: fixed;
+  top: 86px;
   left: 32px;
-  letter-spacing: -0.32px;
-  line-height: 16px;
-  position: absolute;
-  top: 85px;
   width: 227px;
 }
 
-.predicted-race-age {
+.a-i-has-estimated {
   color: var(--color-text-black);
-  font-family: "Roobert Trial", sans-serif;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 400;
+  left: 414px;
+  letter-spacing: 0%;
+  line-height: 24px;
+  position: fixed;
+  top: 118px;
   left: 32px;
-  letter-spacing: -0.24px;
-  line-height: 12px;
-  position: absolute;
-  top: 189px;
-  width: 227px;
-}
-
-.demographics {
-  color: #1a1b1c;
-  font-family: "Roobert Trial", sans-serif;
-  font-size: 32px;
-  font-weight: 600;
-  left: 29px;
-  letter-spacing: -0.64px;
-  line-height: 32px;
-  position: absolute;
-  top: 114px;
-  white-space: nowrap;
-  margin: 0;
+  width: 336px;
 }
 
 /* Navigation styles */
@@ -231,7 +215,7 @@
   font-weight: 600;
   letter-spacing: -0.32px;
   line-height: 16px;
-  margin-top: -0.50px;
+  margin-top: -0.5px;
   position: relative;
   white-space: nowrap;
   width: fit-content;
@@ -260,7 +244,7 @@
   font-weight: 600;
   letter-spacing: -0.32px;
   line-height: 16px;
-  margin-top: -0.50px;
+  margin-top: -0.5px;
   position: relative;
   white-space: nowrap;
   width: fit-content;
@@ -272,23 +256,23 @@
   .group {
     width: calc(100% - 600px);
   }
-  
+
   .group-4 {
     left: auto;
     right: 32px;
     width: 400px;
   }
-  
+
   .button-simple {
     left: auto;
     right: 32px;
   }
-  
+
   .button-wrapper {
     left: auto;
     right: 123px;
   }
-  
+
   .p {
     left: 50%;
     transform: translateX(-50%);
@@ -300,7 +284,7 @@
     width: calc(100% - 500px);
     left: 200px;
   }
-  
+
   .group-4 {
     width: 300px;
   }
@@ -311,58 +295,71 @@
     height: auto;
     padding-bottom: 100px;
   }
-  
-  .group, .overlap-wrapper, .div-wrapper, .group-3, .group-4 {
+
+  .group,
+  .overlap-wrapper,
+  .div-wrapper,
+  .group-3,
+  .group-4 {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
     margin-top: 20px;
     width: 90%;
   }
-  
-  .overlap-wrapper, .div-wrapper, .group-3 {
+
+  .overlap-wrapper,
+  .div-wrapper,
+  .group-3 {
     width: 212px;
   }
-  
+
   .group {
     top: 300px;
   }
-  
+
   .overlap-wrapper {
     top: 20px;
   }
-  
+
   .div-wrapper {
     top: 20px;
   }
-  
+
   .group-3 {
     top: 20px;
   }
-  
+
   .group-4 {
     top: 20px;
   }
-  
+
   .p {
     position: relative;
     top: auto;
     margin: 20px 0;
   }
-  
-  .button-icon-text, .button-simple, .button-wrapper {
+
+  .button-icon-text,
+  .button-simple,
+  .button-wrapper {
     position: relative;
     left: auto;
     top: auto;
     margin-top: 20px;
   }
-  
+
   .button-icon-text {
     margin-left: 32px;
   }
-  
-  .button-simple, .button-wrapper {
+
+  .button-simple,
+  .button-wrapper {
     display: block;
     margin: 10px auto;
   }
+}
+
+.square__page-back.analysis {
+  top: 128px;
 }

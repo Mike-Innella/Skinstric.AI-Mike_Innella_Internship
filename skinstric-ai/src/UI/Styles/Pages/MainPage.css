@@ -52,14 +52,14 @@
 }
 
 .header-line-2 {
-  top: min(132px, 13.75vh); /* Responsive spacing */
+  top: min(132px, 13.75vh); 
 }
 
 /* === Slide Left on hoverState === */
 .header-left .header-line-1 {
-  transform: translateX(calc(-50% - 528px));
+  transform: translateX(calc(-50% - 448px));
 }
 
 .header-left .header-line-2 {
-  transform: translateX(calc(-50% - 674px));
+  transform: translateX(calc(-50% - 596px));
 }

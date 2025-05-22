@@ -18,12 +18,12 @@ const CaptureImage = ({ onImageCaptured, onError }) => {
       
       console.log('Requesting camera access...');
       
-      // First try with simpler constraints to ensure compatibility
+      // First try with constraints optimized for full-screen display
       const mediaStream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
           facingMode: 'user',
-          width: { ideal: 1280 },
-          height: { ideal: 720 }
+          width: { ideal: window.innerWidth },
+          height: { ideal: window.innerHeight }
         },
         audio: false
       });
@@ -69,28 +69,31 @@ const CaptureImage = ({ onImageCaptured, onError }) => {
       
       setStream(mediaStream);
       
-      if (videoRef.current) {
-        console.log('Setting video source object');
-        videoRef.current.srcObject = mediaStream;
-        
-        // Ensure video is loaded properly
-        videoRef.current.onloadedmetadata = () => {
-          console.log('Video metadata loaded, playing video');
-          videoRef.current.play().catch(err => {
-            console.error('Error playing video:', err);
-            onError?.('Error playing video stream. Please try again.');
-          });
-        };
-        
-        // Add error handler for video element
-        videoRef.current.onerror = (e) => {
-          console.error('Video element error:', e);
-          onError?.('Video element error. Please try again.');
-        };
-      } else {
-        console.error('Video ref is null');
-        onError?.('Video element not found. Please try again.');
-      }
+      // Add a small delay to ensure the video element is properly mounted in the DOM
+      setTimeout(() => {
+        if (videoRef.current) {
+          console.log('Setting video source object');
+          videoRef.current.srcObject = mediaStream;
+          
+          // Ensure video is loaded properly
+          videoRef.current.onloadedmetadata = () => {
+            console.log('Video metadata loaded, playing video');
+            videoRef.current.play().catch(err => {
+              console.error('Error playing video:', err);
+              onError?.('Error playing video stream. Please try again.');
+            });
+          };
+          
+          // Add error handler for video element
+          videoRef.current.onerror = (e) => {
+            console.error('Video element error:', e);
+            onError?.('Video element error. Please try again.');
+          };
+        } else {
+          console.error('Video ref is null');
+          onError?.('Video element not found. Please try again.');
+        }
+      }, 500); // 500ms delay to ensure DOM is ready
     } catch (error) {
       console.error('Error accessing camera:', error);
       
@@ -118,12 +121,34 @@ const CaptureImage = ({ onImageCaptured, onError }) => {
     }
   }, [stream]);
   
-  // Clean up stream on unmount
+  // Handle window resize to adjust video constraints
+  const handleResize = useCallback(() => {
+    if (videoRef.current && stream) {
+      const videoTrack = stream.getVideoTracks()[0];
+      if (videoTrack) {
+        try {
+          videoTrack.applyConstraints({
+            width: { ideal: window.innerWidth },
+            height: { ideal: window.innerHeight }
+          }).catch(err => {
+            console.log('Could not apply resize constraints:', err);
+          });
+        } catch (error) {
+          console.log('Error applying resize constraints:', error);
+        }
+      }
+    }
+  }, [stream]);
+
+  // Set up resize listener and clean up on unmount
   useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    
     return () => {
+      window.removeEventListener('resize', handleResize);
       stopCameraStream();
     };
-  }, [stopCameraStream]);
+  }, [stopCameraStream, handleResize]);
   
   // Capture image from video stream
   const captureImage = () => {
