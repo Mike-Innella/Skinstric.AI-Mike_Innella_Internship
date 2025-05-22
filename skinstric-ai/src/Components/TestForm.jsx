@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { submitPhaseOne, submitBase64Image } from "../Services/api";
 import ImageOptions from "./ImageOptions";
 import "../UI/Styles/Components/TestForm.css";
+import { useNavigate } from "react-router-dom";
 
 const TestForm = ({
   step: externalStep,
@@ -19,13 +20,16 @@ const TestForm = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
   const [capturedImageEvent, setCapturedImageEvent] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (step === 1) onCanProceedChange?.(!!name);
     else if (step === 2) onCanProceedChange?.(!!location);
     else if (step === 3) {
       if (capturedImageEvent) {
-        console.log("Setting canProceed to true because capturedImageEvent exists");
+        console.log(
+          "Setting canProceed to true because capturedImageEvent exists"
+        );
         onCanProceedChange?.(true);
       } else {
         onCanProceedChange?.(false);
@@ -112,9 +116,13 @@ const TestForm = ({
       setMessage("");
       try {
         const result = await submitBase64Image(base64String);
-        setMessage(`Image uploaded: ${result.message || "Done!"}`);
-        console.log("Setting canProceed to true after successful image upload");
-        onCanProceedChange?.(true);
+
+        if (result && result.race && result.age && result.confidence) {
+          navigate("/analysis", { state: result });
+        } else {
+          setMessage("Invalid analysis result. Try again.");
+          onCanProceedChange?.(false);
+        }
         // Don't automatically call onFinalSubmit, let the user click the submit button
         setTimeout(() => setMessage(""), 1800);
       } catch (err) {

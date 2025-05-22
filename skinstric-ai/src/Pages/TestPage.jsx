@@ -52,14 +52,12 @@ function TestPage() {
     if (!canProceed) return;
 
     // If we're on step 2 and can proceed, submit phase one data before advancing
-    if (formStep === 2 && submitPhaseOneRef) {
+    if (formStep === 2 && typeof submitPhaseOneRef === "function") {
       try {
-        submitPhaseOneRef();
-        // The form's handlePhaseOneSubmit will call onStepChange when done
+        submitPhaseOneRef(); 
         return;
       } catch (error) {
         console.error("Error calling submitPhaseOneRef:", error);
-        // Fall through to default behavior if function call fails
       }
     }
 

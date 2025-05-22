@@ -2,7 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import ShutterIcon from "./SVG/ShutterIcon";
 import GalleryIcon from "./SVG/GalleryIcon";
 import CaptureImage from "../Utils/CaptureImage";
+import LoadingCanvas from "../UI/Animations/LoadingCanvas";
 import "../UI/Styles/Components/ImageOptions.css";
+import { ReactComponent as PolygonWhiteIcon } from "../Assets/PolygonWhite.svg";
 
 import * as bodyPix from "@tensorflow-models/body-pix";
 import "@tensorflow/tfjs";
@@ -162,10 +164,21 @@ const ImageOptions = ({ onImageSelected, onCanProceed, onImageReady }) => {
       net = await bodyPix.load();
 
       interval = setInterval(async () => {
+        // 1. Get the canvas context
+        const ctx = canvas.getContext("2d");
+        // 2. Save the context state
+        ctx.save();
+        // 3. Mirror horizontally
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+
+        // 4. Run segmentation
         const segmentation = await net.segmentPerson(video, {
           internalResolution: "high",
           segmentationThreshold: 0.7,
         });
+
+        // 5. Draw the bokeh effect (onto the mirrored context)
         await bodyPix.drawBokehEffect(
           canvas,
           video,
@@ -174,6 +187,9 @@ const ImageOptions = ({ onImageSelected, onCanProceed, onImageReady }) => {
           2,
           false
         );
+
+        // 6. Restore the context state
+        ctx.restore();
       }, 100);
     };
 
@@ -218,9 +234,37 @@ const ImageOptions = ({ onImageSelected, onCanProceed, onImageReady }) => {
             <div className="image-options__camera-container">
               {cameraPermissionState === "setting-up" && (
                 <div className="image-options__setup-screen">
-                  <div className="image-options__setup-content">
-                    <div className="image-options__setup-text">
-                      SETTING UP CAMERA...
+                  <div className="image-options__camera-setup">
+                    <div className="image-options__camera-loading">
+                      <LoadingCanvas message="SETTING UP CAMERA..." />
+                      <div className="image-options__camera-icon-container">
+                        <ShutterIcon className="image-options__camera-icon" />
+                      </div>
+                    </div>
+                    <div className="image-options__camera-instructions">
+                      <p className="image-options__instructions-title image-options__instructions-title--setup">
+                        TO GET BETTER RESULTS MAKE SURE TO HAVE
+                      </p>
+                      <div className="image-options__instructions-items">
+                        <div className="image-options__instruction-item">
+                          <div className="image-options__instruction-checkbox image-options__instruction-checkbox--setup"></div>
+                          <div className="image-options__instruction-text image-options__instruction-text--setup">
+                            NEUTRAL EXPRESSION
+                          </div>
+                        </div>
+                        <div className="image-options__instruction-item">
+                          <div className="image-options__instruction-checkbox image-options__instruction-checkbox--setup"></div>
+                          <div className="image-options__instruction-text image-options__instruction-text--setup">
+                            FRONTAL POSE
+                          </div>
+                        </div>
+                        <div className="image-options__instruction-item">
+                          <div className="image-options__instruction-checkbox image-options__instruction-checkbox--setup"></div>
+                          <div className="image-options__instruction-text image-options__instruction-text--setup">
+                            ADEQUATE LIGHTING
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -237,8 +281,24 @@ const ImageOptions = ({ onImageSelected, onCanProceed, onImageReady }) => {
                   width: "100vw",
                   height: "100vh",
                   objectFit: "cover",
+                  transform: "scaleX(-1)",
                 }}
               />
+              {cameraPermissionState === "ready" && (
+                <div
+                  className="camera-back-button"
+                  onClick={() => {
+                    stopCameraStream();
+                    setShowCamera(false);
+                    setCameraPermissionState("initial");
+                  }}
+                >
+                  <div className="camera-back-border"></div>
+                  <div className="camera-back-icon-container">
+                    <PolygonWhiteIcon className="camera-back-icon" />
+                  </div>
+                </div>
+              )}
               <div className="image-options__camera-controls">
                 <div className="image-options__take-pic">
                   <div

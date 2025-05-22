@@ -15,15 +15,14 @@ export const submitPhaseOne = async (name, location) => {
 };
 
 // Phase 2: Upload Base64 Image
-export const submitBase64Image = async (base64String) => {
+export const submitBase64Image = async (base64Image) => {
   try {
-    const response = await axios.post(
-      "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseTwo",
-      { Image: base64String }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Phase 2 API error:", error);
-    throw error;
+    const response = await axios.post("https://your-backend.com/api/analyze", {
+      image: base64Image,
+    });
+    return response.data; 
+  } catch (err) {
+    console.error("Error submitting image:", err);
+    throw err;
   }
 };

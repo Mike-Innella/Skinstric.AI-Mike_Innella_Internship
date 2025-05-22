@@ -1,72 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../Components/Header";
 import PageBoxes from "../Components/PageBoxes";
-import "../UI/Styles/Pages/Pages.css";
-import "../UI/Styles/Pages/AnalysisPage.css";
-
-// Import custom components
 import DemographicsCard from "../Components/Analysis/DemographicsCard";
 import ConfidenceTable from "../Components/Analysis/ConfidenceTable";
 import ProgressDisplay from "../Components/Analysis/ProgressDisplay";
-
-// Import component styles
+import "../UI/Styles/Pages/Pages.css";
+import "../UI/Styles/Pages/AnalysisPage.css";
 import "../UI/Styles/Components/DemographicsCard.css";
 import "../UI/Styles/Components/ConfidenceTable.css";
 import "../UI/Styles/Components/ProgressDisplay.css";
 
-// Import assets
-
 function AnalysisPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const result = location.state;
 
-  // State for analysis data
-  const [analysisData] = useState({
-    race: "EAST ASIAN",
-    age: "20-29",
-    sex: "FEMALE",
-    confidence: {
-      "0-9": 0,
-      "10-19": 4,
-      "20-29": 96,
-      "30-39": 2,
-      "40-49": 0,
-      "50-59": 0,
-      "60-69": 0,
-      "70+": 0,
-    },
-  });
-
-  // State for user selection
+  const [analysisData, setAnalysisData] = useState(null);
   const [selectedAge, setSelectedAge] = useState("");
 
-  // Handle age selection
+  useEffect(() => {
+    if (result) setAnalysisData(result);
+  }, [result]);
+
   const handleAgeSelection = (ageRange) => {
     setSelectedAge(ageRange);
   };
 
-  // Handle confirm button click
   const handleConfirm = () => {
-    // Submit the corrected data if user made changes
     if (selectedAge && selectedAge !== analysisData.age) {
-      // API call to update the data would go here
       console.log("Updating age to:", selectedAge);
+      // Optionally send to API
     }
-    // Navigate to next step (for now, go back to main page)
     navigate("/");
   };
 
-  // Handle reset button click
   const handleReset = () => {
     setSelectedAge("");
   };
 
-  // Handle back button click
   const handleBack = () => {
     navigate("/dashboard");
-    return false; // Prevent default navigation in PageBoxes
+    return false;
   };
+
+  if (!analysisData) return <div className="loading">Loading analysis...</div>;
 
   return (
     <>
@@ -81,22 +60,7 @@ function AnalysisPage() {
         showRight={false}
         showCenter={false}
         showNextButton={false}
-        showBackButton={true} // Use the standard back button
-        onBack={handleBack}
-        backButtonLabel="BACK"
-      />
-      <Helmet>
-        <title>AI Analysis | Skinstric.AI</title>
-      </Helmet>
-
-      <Header title="ANALYSIS" />
-
-      <PageBoxes
-        showLeft={false}
-        showRight={false}
-        showCenter={false}
-        showNextButton={false}
-        showBackButton={true} // Use the standard back button
+        showBackButton={true}
         onBack={handleBack}
         backButtonLabel="BACK"
       />
@@ -114,7 +78,7 @@ function AnalysisPage() {
 
           <div className="group">
             <ProgressDisplay
-              percentage={analysisData.confidence["20-29"]}
+              percentage={analysisData.confidence[analysisData.age] || 0}
               ageRange={analysisData.age}
             />
           </div>
@@ -124,11 +88,7 @@ function AnalysisPage() {
           </div>
 
           <div className="div-wrapper">
-            <DemographicsCard
-              title="AGE"
-              value={analysisData.age}
-              isActive={true}
-            />
+            <DemographicsCard title="AGE" value={analysisData.age} isActive />
           </div>
 
           <div className="group-3">
