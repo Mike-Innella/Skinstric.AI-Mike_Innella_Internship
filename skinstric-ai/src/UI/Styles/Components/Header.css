@@ -6,7 +6,7 @@
   padding: 23px 32px;
   background-color: transparent;
   width: 100%;
-  z-index: 2;
+  z-index: 3 !important;
   height: 64px;
   left: 0;
   top: 0;

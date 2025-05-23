@@ -16,6 +16,10 @@ function TestPage() {
   const [submitPhaseOneRef, setSubmitPhaseOneRef] = useState(() => () => {
     console.log("submitPhaseOneRef called before initialization");
   });
+  // Add submitPhaseThreeRef for API2 submission
+  const [submitPhaseThreeRef, setSubmitPhaseThreeRef] = useState(() => () => {
+    console.log("submitPhaseThreeRef called before initialization");
+  });
 
   // Set header title when component mounts
   useEffect(() => {
@@ -74,8 +78,14 @@ function TestPage() {
     if (formStep < 3) {
       setFormStep((prev) => prev + 1);
     } else if (formStep === 3 && canProceed) {
-      // If on step 3 and can proceed, navigate to analysis page
-      handleFinalSubmit();
+      // If on step 3 and can proceed, trigger API2 submission via TestForm
+      if (typeof submitPhaseThreeRef === "function") {
+        try {
+          submitPhaseThreeRef();
+        } catch (error) {
+          console.error("Error calling submitPhaseThreeRef:", error);
+        }
+      }
     }
   };
 
@@ -129,6 +139,7 @@ function TestPage() {
         }}
         onFinalSubmit={handleFinalSubmit}
         onSubmitPhaseOne={setSubmitPhaseOneRef}
+        onSubmitPhaseThree={setSubmitPhaseThreeRef}
       />
     </>
   );

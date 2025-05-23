@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { submitPhaseOne, submitFinalImage, submitBase64Image } from "../Services/api";
 import ImageOptions from "./ImageOptions";
 import "../UI/Styles/Components/TestForm.css";
 import { useNavigate } from "react-router-dom";
+import { useAnalysis } from "../Context/AnalysisContext";
 
 const TestForm = ({
   step: externalStep,
@@ -21,22 +22,33 @@ const TestForm = ({
   const [message, setMessage] = useState("");
   const [capturedImageEvent, setCapturedImageEvent] = useState(null);
   const navigate = useNavigate();
+  const { setAnalysisData } = useAnalysis();
+  
+  // Use ref to prevent infinite loops
+  const canProceedRef = useRef(false);
+
+  // Only call onCanProceedChange when the value actually changes
+  const updateCanProceed = useCallback((newValue) => {
+    if (canProceedRef.current !== newValue) {
+      canProceedRef.current = newValue;
+      onCanProceedChange?.(newValue);
+    }
+  }, [onCanProceedChange]);
 
   useEffect(() => {
-    if (step === 1) onCanProceedChange?.(!!name);
-    else if (step === 2) onCanProceedChange?.(!!location);
-    else if (step === 3) {
-      if (capturedImageEvent) {
-        console.log(
-          "Setting canProceed to true because capturedImageEvent exists"
-        );
-        onCanProceedChange?.(true);
-      } else {
-        onCanProceedChange?.(false);
-      }
+    let canProceed = false;
+    
+    if (step === 1) {
+      canProceed = !!name;
+    } else if (step === 2) {
+      canProceed = !!location;
+    } else if (step === 3) {
+      canProceed = !!capturedImageEvent;
     }
+    
+    updateCanProceed(canProceed);
     setMessage("");
-  }, [name, location, step, capturedImageEvent, onCanProceedChange]);
+  }, [name, location, step, capturedImageEvent, updateCanProceed]);
 
   useEffect(() => {
     if (step === 2 && !visibleSteps.includes(2)) setLocation("");
@@ -79,10 +91,13 @@ const TestForm = ({
     setMessage("");
     try {
       const result = await submitPhaseOne({ name, location });
+      console.log("🔍 TestForm received API 1 result:", result);
+      console.log("🔍 TestForm extracting result.data:", result.data);
       setMessage(`Phase 1 Success: ${result.message || "Submitted!"}`);
       setTimeout(() => setMessage(""), 1500);
       handleNextStep();
     } catch (err) {
+      console.error("❌ API 1 failed:", err);
       setMessage("Phase 1 Error. Try again.");
       setTimeout(() => setMessage(""), 3000);
     } finally {
@@ -90,56 +105,86 @@ const TestForm = ({
     }
   }, [name, location, handleNextStep]);
 
+  const handleFinalImageSubmit = useCallback(async () => {
+    if (!capturedImageEvent || isSubmitting) return;
+    
+    setIsSubmitting(true);
+    setMessage("");
+    
+    try {
+      // Show loading page first
+      navigate("/loading");
+      
+      // Convert captured image event to base64
+      const file = capturedImageEvent.target.files[0];
+      const reader = new FileReader();
+      
+      reader.onloadend = async () => {
+        try {
+          const base64String = reader.result.split(",")[1];
+          
+          // Create promises for API call and minimum loading time
+          const apiPromise = submitFinalImage({
+            name,
+            location,
+            image: base64String,
+          });
+          
+          const delayPromise = new Promise(resolve => setTimeout(resolve, 2800));
+          
+          // Wait for both API response and minimum loading time
+          const [result] = await Promise.all([apiPromise, delayPromise]);
+          
+          const timestamp = new Date().toISOString();
+          console.log(`[${timestamp}] [TestForm] Raw API2 response:`, result);
+          
+          if (result && result.data) {
+            setAnalysisData(result.data);
+            console.log(`[${timestamp}] [TestForm] analysisData set in context, navigating to /dashboard`);
+            navigate("/dashboard");
+          } else {
+            console.error("Invalid analysis result:", result);
+            setMessage("Invalid analysis result. Try again.");
+            navigate("/test"); // Go back to test page on error
+          }
+        } catch (err) {
+          const timestamp = new Date().toISOString();
+          console.error(`[${timestamp}] [TestForm] API2 failed:`, err);
+          setMessage("Image upload failed. Please try again.");
+          navigate("/test"); // Go back to test page on error
+        } finally {
+          setIsSubmitting(false);
+        }
+      };
+      
+      reader.onerror = () => {
+        console.error("Error reading file");
+        setMessage("Error reading file. Please try again.");
+        navigate("/test"); // Go back to test page on error
+        setIsSubmitting(false);
+      };
+      
+      reader.readAsDataURL(file);
+    } catch (err) {
+      const timestamp = new Date().toISOString();
+      console.error(`[${timestamp}] [TestForm] File processing failed:`, err);
+      setMessage("Image processing failed. Please try again.");
+      navigate("/test"); // Go back to test page on error
+      setIsSubmitting(false);
+    }
+  }, [capturedImageEvent, name, location, navigate, setAnalysisData, isSubmitting]);
+
   useEffect(() => {
     if (typeof onSubmitPhaseOne === "function") {
-      onSubmitPhaseOne(() => handlePhaseOneSubmit());
+      onSubmitPhaseOne(() => handlePhaseOneSubmit);
     }
-  }, []);
+  }, [handlePhaseOneSubmit, onSubmitPhaseOne]);
 
   useEffect(() => {
     if (typeof onSubmitPhaseThree === "function") {
-      onSubmitPhaseThree(() => {
-        if (capturedImageEvent) {
-          handleImageUpload(capturedImageEvent);
-        }
-      });
+      onSubmitPhaseThree(() => handleFinalImageSubmit);
     }
-  }, [capturedImageEvent, onSubmitPhaseThree]);
-
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-      const base64String = reader.result.split(",")[1];
-      setIsSubmitting(true);
-      setMessage("");
-      try {
-        const result = await submitFinalImage({
-          name,
-          location,
-          image: base64String
-        });
-
-        if (result) {
-          navigate("/analysis", { state: { analysisData: result } });
-        } else {
-          setMessage("Invalid analysis result. Try again.");
-          onCanProceedChange?.(false);
-        }
-        // Don't automatically call onFinalSubmit, let the user click the submit button
-        setTimeout(() => setMessage(""), 1800);
-      } catch (err) {
-        console.error("Image upload error:", err);
-        setMessage("Image upload failed. Please try again.");
-        onCanProceedChange?.(false);
-        setTimeout(() => setMessage(""), 2800);
-      } finally {
-        setIsSubmitting(false);
-      }
-    };
-    reader.readAsDataURL(file);
-  };
+  }, [handleFinalImageSubmit, onSubmitPhaseThree]);
 
   return (
     <div className="test-form__container">
@@ -160,7 +205,6 @@ const TestForm = ({
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
-                  onCanProceedChange?.(!!e.target.value);
                 }}
                 placeholder="Introduce yourself"
               />
@@ -181,7 +225,6 @@ const TestForm = ({
                 value={location}
                 onChange={(e) => {
                   setLocation(e.target.value);
-                  onCanProceedChange?.(!!e.target.value);
                 }}
                 placeholder="Where are you from?"
               />
@@ -197,9 +240,9 @@ const TestForm = ({
               }`}
             >
               <ImageOptions
-                onImageSelected={handleImageUpload}
-                onCanProceed={(canProceed) => onCanProceedChange?.(canProceed)}
-                onImageReady={(event) => setCapturedImageEvent(event)}
+                onImageReady={(event) => {
+                  setCapturedImageEvent(event);
+                }}
               />
             </div>
           )}

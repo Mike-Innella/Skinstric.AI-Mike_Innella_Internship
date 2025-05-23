@@ -17,7 +17,9 @@ import DashboardPage from "./Pages/DashboardPage";
 import TestImageOptions from "./TestImageOptions";
 import FadeWrapper, { FadeProvider } from "./UI/Animations/FadeWrapper";
 import { HeaderProvider } from "./Context/HeaderContext";
+import { AnalysisProvider } from "./Context/AnalysisContext";
 import "./UI/Styles/Global.css";
+import "./UI/Styles/GlobalResponsiveness.css";
 
 // This component wraps the routes and provides location for transitions
 const AnimatedRoutes = () => {
@@ -101,7 +103,9 @@ function App() {
   return (
     <Router>
       <HeaderProvider>
-        <AppWithFadeProvider />
+        <AnalysisProvider>
+          <AppWithFadeProvider />
+        </AnalysisProvider>
       </HeaderProvider>
     </Router>
   );

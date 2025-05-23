@@ -62,8 +62,7 @@ const ImageOptions = ({ onImageSelected, onCanProceed, onImageReady }) => {
 
       const syntheticEvent = { target: { files: [file] } };
       setCapturedImageEvent(syntheticEvent);
-      console.log("Setting canProceed to true after camera image capture");
-      onCanProceed?.(true);
+      console.log("Camera image captured and processed");
       onImageReady?.(syntheticEvent);
     } catch (error) {
       console.error("Error processing camera image:", error);
@@ -90,8 +89,7 @@ const ImageOptions = ({ onImageSelected, onCanProceed, onImageReady }) => {
       try {
         setSelectedImage(reader.result);
         setCapturedImageEvent(event);
-        console.log("Setting canProceed to true after gallery image selection");
-        onCanProceed?.(true);
+        console.log("Gallery image selected and processed");
         onImageReady?.(event);
         setIsProcessing(false);
       } catch (error) {

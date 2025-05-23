@@ -1,10 +1,17 @@
 import axios from "axios";
 
+/**
+ * API Service - Skinstric.AI
+ * All logs here are for verification and debugging only.
+ */
+
 // Phase 1: Submit Name and Location
 export const submitPhaseOne = async (data) => {
   try {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] 🔵 [API1] Submitting registration:`, data);
     const response = await fetch(
-      "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseOne",
+      "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseOne",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -12,136 +19,50 @@ export const submitPhaseOne = async (data) => {
       }
     );
     const result = await response.json();
-    
-    if (result && result.message) {
-      return result;
-    } else {
-      console.warn("API did not return expected format. Using dummy response.");
-      return {
-        message: "SUCCESS: Information submitted successfully.",
-        status: "success"
-      };
-    }
+    console.log(`[${timestamp}] ✅ [API1] Success:`, result);
+    return result;
   } catch (error) {
-    console.error("Phase 1 API error:", error);
-    console.warn("Using dummy response due to API error.");
-    return {
-      message: "SUCCESS: Information submitted successfully.",
-      status: "success"
-    };
+    const timestamp = new Date().toISOString();
+    console.error(`[${timestamp}] ❌ [API1] Failed:`, error);
+    throw error;
   }
 };
 
-// Phase 2/3: Submit Final Image with User Data
+// Phase 2: Upload Image and Get Demographic Predictions
 export const submitFinalImage = async (payload) => {
   try {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] 🟢 [API2] Submitting image payload:`, { image: payload.image ? "base64 present" : "no image" });
     const response = await fetch(
-      "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseTwo",
+      "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          Image: payload.image
+          image: payload.image,
         }),
       }
     );
-    
+
     const result = await response.json();
-    
-    // Check if we have valid data from the API
-    if (result && result.data && result.data.race && result.data.age && result.data.gender) {
-      // Combine user data with API response
-      return {
-        demographics: {
-          name: payload.name,
-          location: payload.location,
-          race: getHighestValue(result.data.race),
-          age: getHighestValue(result.data.age),
-          sex: getHighestValue(result.data.gender)
-        },
-        confidence: {
-          race: formatConfidenceData(result.data.race),
-          age: formatConfidenceData(result.data.age),
-          gender: formatConfidenceData(result.data.gender)
-        },
-        rawData: result.data
-      };
+    console.log(`[${timestamp}] ✅ [API2] Raw response:`, result);
+    if (result && result.race && result.age && result.gender) {
+      console.log(`[${timestamp}] 🟢 [API2] Demographic breakdown:`, {
+        race: result.race,
+        age: result.age,
+        gender: result.gender
+      });
     } else {
-      // Generate dummy data if API doesn't return expected format
-      console.warn("API did not return expected data format. Using dummy data.");
-      return generateDummyData(payload);
+      console.warn(`[${timestamp}] 🟢 [API2] No demographic data in response:`, result);
     }
+    return result;
   } catch (err) {
-    console.error("Error submitting image:", err);
-    console.warn("Using dummy data due to API error.");
-    return generateDummyData(payload);
+    const timestamp = new Date().toISOString();
+    console.error(`[${timestamp}] ❌ [API2] Failed:`, err);
+    throw err;
   }
 };
 
-// Generate dummy data for testing or when API fails
-const generateDummyData = (payload) => {
-  const dummyRaceData = {
-    "white": 0.65,
-    "black": 0.15,
-    "east asian": 0.08,
-    "southeast asian": 0.05,
-    "south asian": 0.03,
-    "middle eastern": 0.02,
-    "latino hispanic": 0.02
-  };
-  
-  const dummyAgeData = {
-    "20-29": 0.45,
-    "30-39": 0.25,
-    "10-19": 0.15,
-    "40-49": 0.08,
-    "0-9": 0.03,
-    "50-59": 0.02,
-    "60-69": 0.01,
-    "70+": 0.01
-  };
-  
-  const dummyGenderData = {
-    "male": 0.52,
-    "female": 0.48
-  };
-  
-  return {
-    demographics: {
-      name: payload.name,
-      location: payload.location,
-      race: getHighestValue(dummyRaceData),
-      age: getHighestValue(dummyAgeData),
-      sex: getHighestValue(dummyGenderData)
-    },
-    confidence: {
-      race: formatConfidenceData(dummyRaceData),
-      age: formatConfidenceData(dummyAgeData),
-      gender: formatConfidenceData(dummyGenderData)
-    },
-    rawData: {
-      race: dummyRaceData,
-      age: dummyAgeData,
-      gender: dummyGenderData
-    }
-  };
-};
-
-// Helper function to get highest value from object
-const getHighestValue = (obj) => {
-  return Object.entries(obj)
-    .sort((a, b) => b[1] - a[1])[0][0];
-};
-
-// Helper function to format confidence data
-const formatConfidenceData = (obj) => {
-  return Object.entries(obj)
-    .sort((a, b) => b[1] - a[1])
-    .reduce((acc, [key, value]) => {
-      acc[key] = (value * 100).toFixed(2);
-      return acc;
-    }, {});
-};
 
 // Legacy function for backward compatibility
 export const submitBase64Image = async (base64Image) => {
