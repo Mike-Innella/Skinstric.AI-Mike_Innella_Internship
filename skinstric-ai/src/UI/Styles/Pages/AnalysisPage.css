@@ -142,6 +142,36 @@
   display: none;
 }
 
+/* Mobile dropdowns section */
+.mobile-dropdowns {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.mobile-dropdown-section {
+  margin-bottom: 24px;
+}
+
+.mobile-dropdown-title {
+  font-family: "Roobert Trial", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.32px;
+  line-height: 24px;
+  color: var(--color-text-black);
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+}
+
+/* Desktop/Mobile visibility classes */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
 /* Footer section */
 .analysis-footer {
   display: flex;
@@ -266,7 +296,56 @@
   }
 }
 
+@media (max-width: 1024px) {
+  /* Enable scrolling for tablets and mobile */
+  .analysis-container {
+    position: relative !important;
+    overflow-y: auto !important;
+    height: 100vh !important;
+    min-height: 0 !important;
+  }
+
+  /* Switch to mobile-only UI */
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .analysis-main {
+    flex-direction: column;
+  }
+
+  .demographics-cards {
+    order: 1;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .progress-display-wrapper {
+    order: 2;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .mobile-dropdowns {
+    order: 3;
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
+  .analysis-container {
+    position: relative !important;
+    overflow-y: auto !important;
+    height: 100vh !important;
+    min-height: 0 !important;
+  }
+
   .analysis-content {
     padding: 0 16px;
   }
@@ -294,7 +373,7 @@
     margin: 24px 0;
   }
 
-  .confidence-tables {
+  .mobile-dropdowns {
     width: 100%;
     order: 3;
   }
@@ -319,6 +398,10 @@
   .demographics-title {
     font-size: 32px;
     line-height: 40px;
+  }
+
+  .mobile-dropdown-title {
+    font-size: 14px;
   }
 }
 
@@ -350,5 +433,14 @@
   .reset-button, .confirm-button {
     width: 100%;
     text-align: center;
+  }
+
+  .mobile-dropdown-section {
+    margin-bottom: 20px;
+  }
+
+  .mobile-dropdown-title {
+    font-size: 13px;
+    margin-bottom: 6px;
   }
 }

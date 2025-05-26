@@ -52,7 +52,7 @@
 }
 
 .header-line-2 {
-  top: min(132px, 13.75vh); 
+  top: min(132px, 13.75vh);
 }
 
 /* === Slide Left on hoverState === */
@@ -62,4 +62,18 @@
 
 .header-left .header-line-2 {
   transform: translateX(calc(-50% - 596px));
+}
+
+@media (max-width: 768px) {
+  .square__page-back.main {
+    top: 128px;
+  }
+
+  .square__page-next.main {
+    top: 128px;
+  }
+
+  .main__page--header-wrapper {
+    top: -136px;
+  }
 }

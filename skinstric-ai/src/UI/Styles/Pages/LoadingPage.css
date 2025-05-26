@@ -27,3 +27,10 @@
   letter-spacing: -2%;
   line-height: 24px;
 }
+
+/* Enable scrolling on mobile devices */
+@media screen and (max-width: 768px) {
+  .loading-page {
+    overflow-y: auto !important;
+  }
+}

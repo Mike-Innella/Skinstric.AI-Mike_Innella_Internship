@@ -144,3 +144,12 @@ img, video {
   }
 }
 
+/* ========== UNIVERSAL SCROLL ENABLER ========== */
+
+/* Enable Y-axis scrolling universally on screens 768px or under */
+@media screen and (max-width: 768px) {
+  html, body {
+    overflow-y: auto !important;
+    height: 100vh !important;
+  }
+}

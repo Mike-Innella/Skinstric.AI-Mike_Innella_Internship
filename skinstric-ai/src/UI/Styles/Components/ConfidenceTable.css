@@ -101,46 +101,72 @@
   display: none;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
+/* Responsive styles - Mobile improvements for better touch interaction */
+@media (max-width: 1024px) {
   .confidence-table {
     max-width: 100%;
+    overflow-x: auto;
   }
   
   .confidence-table__row {
-    height: 36px;
+    min-height: 48px; /* Ensure minimum tap target size */
+    height: auto;
+    margin-bottom: 8px; /* Add spacing between rows to prevent accidental taps */
+    border-radius: 8px; /* Softer appearance for mobile */
+    transition: background-color 0.2s ease, transform 0.1s ease;
+  }
+  
+  .confidence-table__row:active {
+    transform: scale(0.98); /* Subtle feedback on tap */
+    background-color: #d1d1d2;
+  }
+  
+  .confidence-table__row--selected:active {
+    background-color: rgba(0, 0, 0, 0.8);
   }
   
   .confidence-table__row-content {
-    padding: 6px 10px;
+    padding: 12px 16px; /* Larger padding for easier tapping */
+    gap: 12px; /* Consistent spacing between elements */
+    min-height: 48px;
+    box-sizing: border-box;
   }
   
-  .confidence-table-header {
-    margin-top: 16px;
+  .confidence-table__selector {
+    flex-shrink: 0; /* Prevent radio button from shrinking */
+    margin-right: 0; /* Remove margin since we're using gap */
+  }
+  
+  .confidence-table__range {
+    font-size: 14px; /* Keep readable font size */
+    line-height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 1;
+  }
+  
+  .confidence-table__value {
+    font-size: 14px; /* Keep readable font size */
+    line-height: 18px;
+    flex-shrink: 0; /* Prevent percentage from wrapping */
+    min-width: 40px; /* Ensure consistent width for percentages */
   }
 }
 
 @media (max-width: 480px) {
   .confidence-table__row {
-    height: 32px;
+    min-height: 52px; /* Slightly larger for very small screens */
+    margin-bottom: 10px; /* More spacing on small screens */
   }
   
   .confidence-table__row-content {
-    padding: 4px 8px;
+    padding: 14px 12px; /* Adjust padding for small screens */
   }
   
-  .confidence-table__range {
-    font-size: 12px;
-    line-height: 14px;
-  }
-  
+  .confidence-table__range,
   .confidence-table__value {
-    font-size: 12px;
-    line-height: 14px;
-  }
-  
-  .confidence-table__selector {
-    transform: scale(0.9);
-    margin-right: 4px;
+    font-size: 13px; /* Slightly smaller but still readable */
+    line-height: 16px;
   }
 }

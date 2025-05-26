@@ -53,33 +53,62 @@
   color: var(--color-text-white);
 }
 
-/* Responsive styles */
+/* Responsive styles - Improved mobile functionality */
 @media (max-width: 1200px) {
   .demographics-card {
     max-width: 180px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .demographics-card {
     max-width: 100%;
     width: 100%;
+    margin-bottom: 12px; /* Add spacing between cards */
+    border-radius: 8px; /* Softer appearance for mobile */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); /* Subtle elevation */
   }
   
   .demographics-card__content {
-    padding: 12px;
+    padding: 14px 16px;
+    min-height: 88px; /* Ensure consistent height */
+  }
+  
+  .demographics-card__title,
+  .demographics-card__value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .demographics-card {
+    margin-bottom: 16px; /* More spacing on smaller screens */
+  }
+  
+  .demographics-card__content {
+    padding: 12px 14px;
   }
 }
 
 @media (max-width: 480px) {
   .demographics-card {
-    height: 90px;
+    height: auto;
+    min-height: 90px; /* Flexible height with minimum */
+    margin-bottom: 16px;
+    border-radius: 12px; /* More rounded for very small screens */
+  }
+  
+  .demographics-card__content {
+    padding: 12px;
+    min-height: 78px;
   }
   
   .demographics-card__value {
     font-size: 18px;
     line-height: 22px;
-    margin-top: 12px;
+    margin-top: 8px; /* Reduced margin for better spacing */
   }
   
   .demographics-card__title {

@@ -5,6 +5,7 @@ import Header from "../Components/Header";
 import PageBoxes from "../Components/PageBoxes";
 import DemographicsCard from "../Components/Analysis/DemographicsCard";
 import ConfidenceTable from "../Components/Analysis/ConfidenceTable";
+import MobileDropdown from "../Components/Analysis/MobileDropdown";
 import ProgressDisplay from "../Components/Analysis/ProgressDisplay";
 import { useHeaderTitle } from "../Context/HeaderContext";
 import { useAnalysis } from "../Context/AnalysisContext";
@@ -12,6 +13,7 @@ import "../UI/Styles/Pages/Pages.css";
 import "../UI/Styles/Pages/AnalysisPage.css";
 import "../UI/Styles/Components/DemographicsCard.css";
 import "../UI/Styles/Components/ConfidenceTable.css";
+import "../UI/Styles/Components/MobileDropdown.css";
 import "../UI/Styles/Components/ProgressDisplay.css";
 
 function AnalysisPage() {
@@ -79,6 +81,30 @@ function AnalysisPage() {
   // Handle clicking on a demographic card
   const handleDemographicCardClick = (type) => {
     setActiveDemographic(type);
+  };
+
+  // Helper function to prepare dropdown data
+  const getDropdownOptions = (dataType) => {
+    if (!analysisData) return [];
+    
+    const data = analysisData[dataType] || {};
+    return Object.entries(data)
+      .sort((a, b) => {
+        // For age, sort by age range numerically (youngest first)
+        if (dataType === "age") {
+          const getFirstNumber = (range) => {
+            const match = range.match(/^(\d+)/);
+            return match ? parseInt(match[1], 10) : 999;
+          };
+          return getFirstNumber(a[0]) - getFirstNumber(b[0]);
+        }
+        // For other types, sort by confidence (highest first)
+        return parseFloat(b[1]) - parseFloat(a[1]);
+      })
+      .map(([key, value]) => ({ 
+        key, 
+        value: Math.round(parseFloat(value)) 
+      }));
   };
 
   const handleConfirm = () => {
@@ -238,8 +264,8 @@ function AnalysisPage() {
               </div>
             </div>
 
-            {/* Right Column - Confidence Tables */}
-            <div className="confidence-tables">
+            {/* Right Column - Confidence Tables (Desktop Only) */}
+            <div className="confidence-tables desktop-only">
               <div className="confidence-table-header">
                 <span>{activeDemographic.toUpperCase()}</span>
                 <span>A. I. CONFIDENCE</span>
@@ -271,6 +297,42 @@ function AnalysisPage() {
                 title=""
                 className={activeDemographic !== 'gender' ? 'hidden' : ''}
               />
+            </div>
+
+            {/* Mobile Dropdowns (Mobile Only) */}
+            <div className="mobile-dropdowns mobile-only">
+              <div className="mobile-dropdown-section">
+                <h3 className="mobile-dropdown-title">Select Race:</h3>
+                <MobileDropdown
+                  options={getDropdownOptions('race')}
+                  selectedValue={selectedValues.race}
+                  onValueChange={handleValueSelection}
+                  dataType="race"
+                  placeholder="Choose race..."
+                />
+              </div>
+
+              <div className="mobile-dropdown-section">
+                <h3 className="mobile-dropdown-title">Select Age:</h3>
+                <MobileDropdown
+                  options={getDropdownOptions('age')}
+                  selectedValue={selectedValues.age}
+                  onValueChange={handleValueSelection}
+                  dataType="age"
+                  placeholder="Choose age range..."
+                />
+              </div>
+
+              <div className="mobile-dropdown-section">
+                <h3 className="mobile-dropdown-title">Select Gender:</h3>
+                <MobileDropdown
+                  options={getDropdownOptions('gender')}
+                  selectedValue={selectedValues.gender}
+                  onValueChange={handleValueSelection}
+                  dataType="gender"
+                  placeholder="Choose gender..."
+                />
+              </div>
             </div>
           </div>
 
