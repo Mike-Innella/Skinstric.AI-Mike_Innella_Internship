@@ -35,7 +35,11 @@ function MainPage() {
       <div className="main__page--container">
         <div
           className={`main__page--header-wrapper ${
-            hoverState === "left" ? "header-left" : "header-center"
+            hoverState === "left"
+              ? "header-left"
+              : hoverState === "right"
+              ? "header-right"
+              : "header-center"
           }`}
         >
           <h1 className="main__page--header">

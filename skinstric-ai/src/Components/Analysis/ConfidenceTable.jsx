@@ -56,7 +56,7 @@ const ConfidenceTable = ({
                 {isSelected ? <RadioSelectorActive /> : <RadioSelector />}
               </div>
               <div className="confidence-table__range">{key}</div>
-              <div className="confidence-table__value">{value} %</div>
+              <div className="confidence-table__value">{Math.floor(value * 100)} %</div>
             </div>
           </div>
         );

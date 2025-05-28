@@ -119,8 +119,8 @@ function TestPage() {
       </Helmet>
 
       <PageBoxes
-        showLeft={false}
-        showRight={false}
+        showLeft={formStep !== 3 && false}
+        showRight={formStep !== 3 && false}
         showCenter={formStep !== 3}
         showNextButton={formStep < 3 || (formStep === 3 && canProceed)}
         showBackButton={true}
@@ -129,6 +129,7 @@ function TestPage() {
         nextButtonFadeOut={!canProceed}
         nextButtonLabel={nextButtonLabel}
         backButtonLabel={backButtonLabel}
+        step={formStep}
       />
       <TestForm
         step={formStep}

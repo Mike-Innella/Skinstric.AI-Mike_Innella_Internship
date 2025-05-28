@@ -90,14 +90,14 @@
 
 /* Common label styles */
 .square__hover-label {
-  font-size: 14px !important;
+  font-size: 7px !important;
   color: var(--color-text-primary);
   background: transparent;
   padding: 4px 8px;
   border-radius: 8px;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(0.6);
   white-space: nowrap;
   pointer-events: none;
   z-index: 1;
@@ -112,13 +112,13 @@
 /* For the left/back button: label appears to the right, inside the button */
 .square__page-back .square__hover-label {
   left: 100%;
-  margin-left: 8px;
+  margin-left: 0;
 }
 
 /* For the right/next button: label appears to the left, inside the button */
 .square__page-next .square__hover-label {
   right: 100%;
-  margin-right: 8px;
+  margin-right: 0;
   left: auto;
   text-align: right;
 }

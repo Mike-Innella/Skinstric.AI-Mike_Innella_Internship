@@ -1,3 +1,7 @@
+:root {
+  --square-size: 220px;
+}
+
 .image-options {
   display: flex;
   justify-content: center;
@@ -36,17 +40,70 @@
   }
 }
 
+@keyframes rotateClockwise {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+@keyframes rotateCounterClockwise {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(-315deg);
+  }
+}
+
+.image-options__double-square-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.image-options__outer-square,
+.image-options__inner-square {
+  position: absolute;
+  transform-origin: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.image-options__outer-square {
+  width: 200px;
+  height: 200px;
+  animation: rotateClockwise 80s linear infinite;
+}
+
+.image-options__inner-square {
+  width: 180px;
+  height: 10px;
+  animation: rotateCounterClockwise 120s linear infinite;
+}
+
+
 .image-options__diamond {
   width: 405.18px;
   height: 405.18px;
   background: none;
-  border: 2px dotted #ccc;
+  border: none;
   transform: rotate(45deg);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  animation: rotateSquare 120s linear infinite;
+  z-index: 2;
 }
 
 .image-options__option--right .image-options__diamond {
@@ -76,7 +133,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  animation: counterRotateSquare 120s linear infinite;
+  z-index: 3;
 }
 
 .image-options__option--right .image-options__icon-container {
@@ -87,7 +144,7 @@
   font-size: 64px;
   color: black;
   flex-shrink: 0;
-  z-index: 2;
+  z-index: 3;
 }
 
 .image-options__label-container {

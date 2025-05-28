@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import ShutterIcon from "./SVG/ShutterIcon";
 import GalleryIcon from "./SVG/GalleryIcon";
+import "../UI/Styles/PageBoxes.css";
 import CaptureImage from "../Utils/CaptureImage";
 import LoadingCanvas from "../UI/Animations/LoadingCanvas";
 import "../UI/Styles/Components/ImageOptions.css";
@@ -354,9 +355,31 @@ const ImageOptions = ({ onImageSelected, onCanProceed, onImageReady }) => {
             className="image-options__option image-options__option--left"
             onClick={handleCameraClick}
           >
+            {/* Double rotating squares for camera icon */}
             <div className="image-options__diamond">
               <div className="image-options__icon-container">
                 <ShutterIcon className="image-options__icon" />
+                <div className="image-options__double-square-container">
+                  <div
+                    className="image-options__outer-square square"
+                    style={{
+                      animation: "rotateCounterClockwise 120s linear infinite",
+                      width: "calc(var(--square-size) * 1.7)",
+                      height: "calc(var(--square-size) * 1.7)",
+                      opacity: 0.7,
+                      border: "2px dotted var(--color-text-secondary)",
+                    }}
+                  ></div>
+                  <div
+                    className="image-options__inner-square square"
+                    style={{
+                      animation: "rotateClockwise 120s linear infinite",
+                      width: "var(--square-size)",
+                      height: "var(--square-size)",
+                      border: "2px dotted var(--color-text-secondary)",
+                    }}
+                  ></div>
+                </div>
                 <div className="image-options__label-container image-options__label-container--left">
                   <div className="image-options__callout">
                     <div className="image-options__callout-line" />
@@ -376,9 +399,31 @@ const ImageOptions = ({ onImageSelected, onCanProceed, onImageReady }) => {
             className="image-options__option image-options__option--right"
             onClick={handleGalleryClick}
           >
+            {/* Double rotating squares for gallery icon */}
             <div className="image-options__diamond">
               <div className="image-options__icon-container">
                 <GalleryIcon className="image-options__icon" />
+                <div className="image-options__double-square-container">
+                  <div
+                    className="image-options__outer-square square"
+                    style={{
+                      animation: "rotateClockwise 120s linear infinite",
+                      width: "calc(var(--square-size) * 1.7)",
+                      height: "calc(var(--square-size) * 1.7)",
+                      opacity: 0.7,
+                      border: "2px dotted var(--color-text-secondary)",
+                    }}
+                  ></div>
+                  <div
+                    className="image-options__inner-square square"
+                    style={{
+                      animation: "rotateCounterClockwise 120s linear infinite",
+                      width: "var(--square-size)",
+                      height: "var(--square-size)",
+                      border: "2px dotted var(--color-text-secondary)",
+                    }}
+                  ></div>
+                </div>
                 <div className="image-options__label-container image-options__label-container--right">
                   <div className="image-options__callout">
                     <div className="image-options__callout-text">

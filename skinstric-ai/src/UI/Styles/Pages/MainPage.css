@@ -64,6 +64,15 @@
   transform: translateX(calc(-50% - 596px));
 }
 
+/* === Slide Right on hoverState === */
+.header-right .header-line-1 {
+  transform: translateX(calc(-50% + 448px));
+}
+
+.header-right .header-line-2 {
+  transform: translateX(calc(-50% + 596px));
+}
+
 @media (max-width: 768px) {
   .square__page-back.main {
     top: 128px;

@@ -17,6 +17,7 @@ const PositionedSquares = ({
   nextButtonFadeOut,
   nextButtonLabel,
   backButtonLabel,
+  step, // Receive step prop
 }) => {
   const { viewport } = useThree();
   const location = useLocation();
@@ -49,12 +50,51 @@ const PositionedSquares = ({
   return (
     <>
       {showLeft && (
-        <RotatingSquare
-          position={positions.left}
-          fadeOut={hoverState === "left" && location.pathname === "/"}
-        />
+        location.pathname === "/test" && step === 3 ? (
+          <>
+            <RotatingSquare
+              position={positions.left}
+              scale={1.4}
+              opacity={0.7}
+              zIndex={4}
+              reverse={true}
+            />
+            <RotatingSquare
+              position={positions.left}
+              zIndex={5}
+            />
+          </>
+        ) : (
+          <RotatingSquare
+            position={positions.left}
+            fadeOut={hoverState === "left" && location.pathname === "/"}
+          />
+        )
       )}
-      {showRight && <RotatingSquare position={positions.right} reverse />}
+      {showRight && (
+        location.pathname === "/test" && step === 3 ? (
+          <>
+            <RotatingSquare
+              position={positions.right}
+              scale={1.4}
+              opacity={0.7}
+              zIndex={4}
+              reverse={false}
+            />
+            <RotatingSquare
+              position={positions.right}
+              reverse
+              zIndex={5}
+            />
+          </>
+        ) : (
+          <RotatingSquare
+            position={positions.right}
+            reverse
+            fadeOut={hoverState === "right" && location.pathname === "/"}
+          />
+        )
+      )}
       {showCenter && (
         <>
           {/* Larger square with half opacity behind */}
@@ -89,7 +129,7 @@ const PositionedSquares = ({
           buttonType="next"
           onButtonClick={onNext}
           onHoverDirectionChange={onHoverDirectionChange}
-          fadeOut={nextButtonFadeOut}
+          fadeOut={nextButtonFadeOut || (hoverState === "right" && location.pathname === "/")}
           customLabel={nextButtonLabel}
         />
       )}

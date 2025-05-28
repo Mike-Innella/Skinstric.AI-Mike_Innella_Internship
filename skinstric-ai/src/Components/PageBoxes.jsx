@@ -17,6 +17,7 @@ const PageBoxes = ({
   nextButtonFadeOut = false,
   nextButtonLabel,
   backButtonLabel,
+  step, // Pass step prop down
 }) => {
   const location = useLocation();
   const { navigateWithFade } = useFade();
@@ -65,6 +66,7 @@ const PageBoxes = ({
         nextButtonFadeOut={nextButtonFadeOut}
         nextButtonLabel={nextButtonLabel}
         backButtonLabel={backButtonLabel}
+        step={step}
       />
     </Canvas>
   );

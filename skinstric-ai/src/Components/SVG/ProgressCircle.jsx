@@ -5,9 +5,9 @@ const ProgressCircle = ({ className, percentage = 0 }) => {
   const radius = 192; // Half of the viewBox width/height (384/2)
   const circumference = 2 * Math.PI * radius;
   
-  // Calculate the stroke-dasharray and stroke-dashoffset
+  // Convert decimal percentage (0-1) to percentage value (0-100) and calculate stroke properties
   const strokeDasharray = circumference;
-  const strokeDashoffset = circumference - (percentage / 100) * circumference;
+  const strokeDashoffset = circumference - percentage * circumference;
 
   return (
     <svg

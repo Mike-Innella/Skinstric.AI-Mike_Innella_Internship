@@ -63,7 +63,9 @@ const NavigationButton = ({
           onClick={onButtonClick}
           onMouseEnter={() => {
             setIsHovered(true);
-            onHoverDirectionChange?.(buttonType === "next" ? "left" : "center");
+            onHoverDirectionChange?.(
+              buttonType === "next" ? "left" : "right"
+            );
           }}
           onMouseLeave={() => {
             setIsHovered(false);
