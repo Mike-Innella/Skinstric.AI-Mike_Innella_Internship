@@ -109,14 +109,17 @@
   padding: 24px;
   text-transform: capitalize;
   transition: all 0.3s ease;
+  border-bottom: none;
 }
 
 .progress-circle-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   padding: 24px;
   transition: all 0.3s ease;
+  border: none !important;
+  outline: none !important;
 }
 
 /* Right column - Confidence tables */
@@ -430,7 +433,8 @@
     gap: 16px;
   }
 
-  .reset-button, .confirm-button {
+  .reset-button,
+  .confirm-button {
     width: 100%;
     text-align: center;
   }

@@ -150,17 +150,21 @@ function AnalysisPage() {
 
   if (!analysisData) return <div className="loading">Loading analysis...</div>;
 
-  // Get the total confidence value combining race, age, and gender
+  // Get the confidence value for the currently selected demographic
   const getConfidenceValue = () => {
-    if (!analysisData) return 0;
+    if (!analysisData || !activeDemographic) return 0;
     
-    // Get confidence values for each selected demographic
-    const raceVal = Number(analysisData.race?.[selectedValues.race] || 0);
-    const ageVal = Number(analysisData.age?.[selectedValues.age] || 0);
-    const genderVal = Number(analysisData.gender?.[selectedValues.gender] || 0);
-    
-    // Return the sum of all three values
-    return (raceVal + ageVal + genderVal) / 3; // Using average to keep values in 0-1 range
+    // Get the confidence value for the selected value of the active demographic
+    switch (activeDemographic) {
+      case 'race':
+        return Number(analysisData.race?.[selectedValues.race] || 0);
+      case 'age':
+        return Number(analysisData.age?.[selectedValues.age] || 0);
+      case 'gender':
+        return Number(analysisData.gender?.[selectedValues.gender] || 0);
+      default:
+        return 0;
+    }
   };
   
   // Get the display value for the center area
