@@ -198,7 +198,7 @@
 .action-buttons {
   display: flex;
   gap: 16px;
-  transform: translateY(-32px);
+  transform: translateY(96px);
 }
 
 .reset-button {
@@ -271,7 +271,7 @@
 }
 
 .square__page-back.analysis {
-  top: 106px;
+  top: 128px;
 }
 
 /* Responsive adjustments */
