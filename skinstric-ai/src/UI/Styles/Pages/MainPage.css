@@ -57,20 +57,20 @@
 
 /* === Slide Left on hoverState === */
 .header-left .header-line-1 {
-  transform: translateX(calc(-50% - 352px));
+  transform: translateX(calc(-50% - 448px));
 }
 
 .header-left .header-line-2 {
-  transform: translateX(calc(-50% - 500px));
+  transform: translateX(calc(-50% - 596px));
 }
 
 /* === Slide Right on hoverState === */
 .header-right .header-line-1 {
-  transform: translateX(calc(-50% + 352px));
+  transform: translateX(calc(-50% + 448px));
 }
 
 .header-right .header-line-2 {
-  transform: translateX(calc(-50% + 500px));
+  transform: translateX(calc(-50% + 596px));
 }
 
 @media (max-width: 768px) {
