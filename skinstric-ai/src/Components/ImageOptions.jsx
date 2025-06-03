@@ -374,8 +374,8 @@ const ImageOptions = ({ onImageSelected, onCanProceed, onImageReady }) => {
                     className="image-options__inner-square square"
                     style={{
                       animation: "rotateClockwise 120s linear infinite",
-                      width: "var(--square-size)",
-                      height: "var(--square-size)",
+                      width: "calc(var(--square-size) * 1.2)",
+                      height: "calc(var(--square-size) * 1.2)",
                       border: "2px dotted var(--color-text-secondary)",
                     }}
                   ></div>
@@ -418,8 +418,8 @@ const ImageOptions = ({ onImageSelected, onCanProceed, onImageReady }) => {
                     className="image-options__inner-square square"
                     style={{
                       animation: "rotateCounterClockwise 120s linear infinite",
-                      width: "var(--square-size)",
-                      height: "var(--square-size)",
+                      width: "calc(var(--square-size) * 1.2)",
+                      height: "calc(var(--square-size) * 1.2)",
                       border: "2px dotted var(--color-text-secondary)",
                     }}
                   ></div>

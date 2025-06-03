@@ -8,20 +8,14 @@ const RotatingSquare = ({
   reverse = false,
   hoverLabel = "",
   fadeOut = false,
-  scale = 1,
+  scale = 0.85,
   opacity = 1,
   zIndex = 5,
 }) => {
   const ref = useRef();
   const [isHovered, setIsHovered] = useState(false);
 
-  useFrame(() => {
-    if (ref.current) {
-      const t = performance.now() * 0.0001;
-      const direction = reverse ? -1 : 1;
-      ref.current.rotation.z = direction * t * 0.15;
-    }
-  });
+  // Rotation removed as requested
 
   return (
     <group ref={ref} position={position}>

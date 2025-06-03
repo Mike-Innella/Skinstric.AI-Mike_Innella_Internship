@@ -100,7 +100,7 @@ const PositionedSquares = ({
           {/* Larger square with half opacity behind */}
           <RotatingSquare
             position={positions.center}
-            scale={1.2}
+            scale={0.92}
             opacity={0.5}
             zIndex={4}
             reverse={true}

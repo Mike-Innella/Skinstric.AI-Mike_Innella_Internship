@@ -90,10 +90,11 @@
   width: 156px;
   transition: all 0.3s ease-in-out;
   z-index: inherit;
+  background-color: #e0e0e2;
 }
 
 .diamond-item:nth-child(1):hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   cursor: pointer;
 }
 
@@ -141,14 +142,6 @@
 .diamond-item.bottom-right {
   top: 160px;
   left: 160px;
-}
-
-.diamond-content.light {
-  background-color: #e0e0e2;
-}
-
-.diamond-content.dark {
-  background-color: var(--f-3f-3f-4);
 }
 
 .button-group {

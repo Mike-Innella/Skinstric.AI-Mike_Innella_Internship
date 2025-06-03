@@ -22,42 +22,6 @@
   position: relative;
 }
 
-@keyframes rotateSquare {
-  from {
-    transform: rotate(45deg);
-  }
-  to {
-    transform: rotate(405deg);
-  }
-}
-
-@keyframes rotateSquareReverse {
-  from {
-    transform: rotate(45deg);
-  }
-  to {
-    transform: rotate(-315deg);
-  }
-}
-
-@keyframes rotateClockwise {
-  from {
-    transform: rotate(45deg);
-  }
-  to {
-    transform: rotate(405deg);
-  }
-}
-
-@keyframes rotateCounterClockwise {
-  from {
-    transform: rotate(45deg);
-  }
-  to {
-    transform: rotate(-315deg);
-  }
-}
-
 .image-options__double-square-container {
   position: absolute;
   top: 50%;
@@ -92,7 +56,6 @@
   animation: rotateCounterClockwise 120s linear infinite;
 }
 
-
 .image-options__diamond {
   width: 405.18px;
   height: 405.18px;
@@ -110,23 +73,6 @@
   animation: rotateSquareReverse 120s linear infinite;
 }
 
-@keyframes counterRotateSquare {
-  from {
-    transform: rotate(-45deg);
-  }
-  to {
-    transform: rotate(-405deg);
-  }
-}
-
-@keyframes counterRotateSquareReverse {
-  from {
-    transform: rotate(-45deg);
-  }
-  to {
-    transform: rotate(315deg);
-  }
-}
 
 .image-options__icon-container {
   transform: rotate(-45deg);
@@ -778,7 +724,7 @@
 }
 
 @media (max-width: 1024px) {
-   .image-options {
+  .image-options {
     flex-direction: column;
     gap: 100px;
   }
