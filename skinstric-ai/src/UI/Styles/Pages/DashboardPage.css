@@ -12,6 +12,11 @@
 
 .square__page-back.dashboard {
   top: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+
 }
 
 .square__page-next.dashboard {

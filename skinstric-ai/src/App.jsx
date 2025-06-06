@@ -20,6 +20,7 @@ import { HeaderProvider } from "./Context/HeaderContext";
 import { AnalysisProvider } from "./Context/AnalysisContext";
 import "./UI/Styles/Global.css";
 import "./UI/Styles/GlobalResponsiveness.css";
+import "./UI/MobileOverrides.css";
 
 // This component wraps the routes and provides location for transitions
 const AnimatedRoutes = () => {

@@ -1,0 +1,114 @@
+@media (max-width: 1024px) {
+  .square {
+    transform-origin: will-change;
+    transform: scale(0.5) rotate(45deg);
+  }
+
+  .main__page--header-wrapper {
+    transform: scale(0.75);
+  }
+
+  .main__page--header {
+    gap: 1rem !important;
+  }
+
+  .square__page-back,
+  .square__page-next {
+    transform-origin: will-change;
+    top: 50%;
+    transform: scale(0.7) translateY(-50%);
+  }
+
+  .square__page-back.test,
+  .square__page-next.test {
+    top: 114px;
+  }
+
+  .image-options {
+    display: flex;
+    flex-direction: row;
+  }
+  .image-options__option {
+    transform: scale(0.75);
+  }
+
+  .image-options__permission-wrapper {
+    transform: translateX(-75%);
+  }
+
+  .action-buttons {
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .image-options__permission-wrapper {
+    transform: translateX(35%);
+  }
+
+  .diamond-grid {
+    top: 212px;
+  }
+
+  .square__page-back.analysis {
+    display: none;
+  }
+
+  .test-form {
+    transform: scale(0.75);
+  }
+
+  .test-form_-steps-wrapper {
+    transform: scale(0.75);
+  }
+
+  .test-form__input {
+    font-size: 28px;
+    margin-bottom: 0;
+  }
+
+  .image-options {
+    gap: 0.5rem;
+  }
+
+  .image-options__permission-wrapper {
+    left: -112px;
+    top: 128px;
+  }
+
+  .test-form__step-3 {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .image-options__camera-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    background-color: #000;
+  }
+  
+  .image-options__camera-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .image-options__camera-container video,
+  .image-options__camera-container canvas,
+  .image-options__video-element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
