@@ -12,8 +12,10 @@ const LoadingCanvas = ({
     if (!c) return;
 
     const $ = c.getContext("2d");
-    let w = (c.width = window.innerWidth / 1.2);
-    let h = (c.height = window.innerHeight / 1.2);
+    // Use full viewport on mobile, scaled down on larger screens
+    const isMobile = window.innerWidth <= 768;
+    let w = (c.width = isMobile ? window.innerWidth : window.innerWidth / 1.2);
+    let h = (c.height = isMobile ? window.innerHeight : window.innerHeight / 1.2);
     let cnt = 10;
     let animationFrameId;
 
@@ -100,8 +102,9 @@ const LoadingCanvas = ({
     draw();
 
     const handleResize = () => {
-      c.width = w = window.innerWidth / 1.2;
-      c.height = h = window.innerHeight / 1.2;
+      const isMobile = window.innerWidth <= 768;
+      c.width = w = isMobile ? window.innerWidth : window.innerWidth / 1.2;
+      c.height = h = isMobile ? window.innerHeight : window.innerHeight / 1.2;
     };
 
     window.addEventListener("resize", handleResize);

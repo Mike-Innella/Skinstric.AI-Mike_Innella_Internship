@@ -1,7 +1,7 @@
 @media (max-width: 1024px) {
   .square {
     transform-origin: will-change;
-    transform: scale(0.5) rotate(45deg);
+    transform: scale(0.70) rotate(45deg);
   }
 
   .main__page--header-wrapper {
@@ -22,6 +22,7 @@
   .square__page-back.test,
   .square__page-next.test {
     top: 114px;
+    z-index: 9999;
   }
 
   .image-options {
@@ -69,6 +70,72 @@
 
   .image-options {
     gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .image-options__camera-container {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .image-options__camera-container canvas,
+  .image-options__camera-container video {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: cover !important;
+    transform: scaleX(-1) !important;
+  }
+  
+  .image-options__setup-screen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 1001 !important;
+  }
+  
+  .image-options__camera-setup {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .image-options__camera-loading {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .loading-container canvas {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain !important;
   }
 
   .image-options__permission-wrapper {
@@ -76,39 +143,56 @@
     top: 128px;
   }
 
-  .test-form__step-3 {
-    height: 100vh;
-    width: 100vw;
+  .image-options__camera-screen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 100 !important;
+    background-color: #000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+  }
+  
+  /* Fix canvas size in setup mode */
+  .setup__message--wrapper {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 100 !important;
+  }
+  
+  /* Make sure canvas fills entire screen */
+  canvas {
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .square__page-back.test,
+  .square__page-next.test {
+    top: 96px;
   }
 
-  .image-options__camera-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    background-color: #000;
+  .diamond-grid {
+    top: 212px;
   }
-  
-  .image-options__camera-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+
+  .image-options__permission-wrapper {
+    left: -112px;
+    top: 128px;
   }
-  
-  .image-options__camera-container video,
-  .image-options__camera-container canvas,
-  .image-options__video-element {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+
+  .test-form__input {
+    font-size: 20px;
+    margin-bottom: 0;
   }
 }

@@ -18,12 +18,16 @@ const CaptureImage = ({ onImageCaptured, onError }) => {
       
       console.log('Requesting camera access...');
       
+      // Check if we're on a mobile device
+      const isMobile = window.innerWidth <= 768;
+      
       // First try with constraints optimized for full-screen display
       const mediaStream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
           facingMode: 'user',
-          width: { ideal: window.innerWidth },
-          height: { ideal: window.innerHeight }
+          width: { ideal: isMobile ? window.innerWidth * 2 : window.innerWidth }, // Higher resolution for mobile
+          height: { ideal: isMobile ? window.innerHeight * 2 : window.innerHeight }, // Higher resolution for mobile
+          aspectRatio: { ideal: window.innerWidth / window.innerHeight }
         },
         audio: false
       });
@@ -127,9 +131,13 @@ const CaptureImage = ({ onImageCaptured, onError }) => {
       const videoTrack = stream.getVideoTracks()[0];
       if (videoTrack) {
         try {
+          // Check if we're on a mobile device
+          const isMobile = window.innerWidth <= 768;
+          
           videoTrack.applyConstraints({
-            width: { ideal: window.innerWidth },
-            height: { ideal: window.innerHeight }
+            width: { ideal: isMobile ? window.innerWidth * 2 : window.innerWidth }, // Higher resolution for mobile
+            height: { ideal: isMobile ? window.innerHeight * 2 : window.innerHeight }, // Higher resolution for mobile
+            aspectRatio: { ideal: window.innerWidth / window.innerHeight }
           }).catch(err => {
             console.log('Could not apply resize constraints:', err);
           });
